@@ -1,1 +1,1 @@
-# IOSTemplate
+# HiTemplate
