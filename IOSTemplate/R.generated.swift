@@ -130,8 +130,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.entitlements` struct is generated, and contains static references to 1 properties.
+  /// This `R.entitlements` struct is generated, and contains static references to 3 properties.
   struct entitlements {
+    struct comAppleDeveloperAssociatedDomains {
+      static let applinksTosperyCom = infoPlistString(path: ["com.apple.developer.associated-domains"], key: "applinks:tospery.com") ?? "applinks:tospery.com"
+
+      fileprivate init() {}
+    }
+
+    struct comAppleSecurityApplicationGroups {
+      static let groupComTosperyShared = infoPlistString(path: ["com.apple.security.application-groups"], key: "group.com.tospery.shared") ?? "group.com.tospery.shared"
+
+      fileprivate init() {}
+    }
+
     struct keychainAccessGroups {
       static let appIdentifierPrefixComTosperyIostemplate = infoPlistString(path: ["keychain-access-groups"], key: "$(AppIdentifierPrefix)com.tospery.iostemplate") ?? "$(AppIdentifierPrefix)com.tospery.iostemplate"
       static let appIdentifierPrefixShared = infoPlistString(path: ["keychain-access-groups"], key: "$(AppIdentifierPrefix)shared") ?? "$(AppIdentifierPrefix)shared"
@@ -144,12 +156,12 @@ struct R: Rswift.Validatable {
 
   /// This `R.file` struct is generated, and contains static references to 1 files.
   struct file {
-    /// Resource file `Preference.json`.
-    static let preferenceJson = Rswift.FileResource(bundle: R.hostingBundle, name: "Preference", pathExtension: "json")
+    /// Resource file `Configuration.json`.
+    static let configurationJson = Rswift.FileResource(bundle: R.hostingBundle, name: "Configuration", pathExtension: "json")
 
-    /// `bundle.url(forResource: "Preference", withExtension: "json")`
-    static func preferenceJson(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.preferenceJson
+    /// `bundle.url(forResource: "Configuration", withExtension: "json")`
+    static func configurationJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.configurationJson
       return fileResource.bundle.url(forResource: fileResource)
     }
 

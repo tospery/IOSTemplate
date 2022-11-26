@@ -12,11 +12,17 @@ import URLNavigator
 extension Router {
     
     public func page(_ provider: HiIOS.ProviderType, _ navigator: NavigatorProtocol) {
-        let normalFactory: ViewControllerFactory = { url, values, context in
-            guard let parameters = self.parameters(url, values, context) else { return nil }
-            return ListViewController(navigator, ListViewReactor.init(provider, parameters))
+//        let normalFactory: ViewControllerFactory = { url, values, context in
+//            guard let parameters = self.parameters(url, values, context) else { return nil }
+//            return NormalViewController(navigator, NormalViewReactor.init(provider, parameters))
+//        }
+//        navigator.register(self.urlPattern(host: .about), normalFactory)
+        navigator.register(self.urlPattern(host: .dashboard)) { url, values, context in
+            DashboardViewController(navigator, DashboardViewReactor(provider, self.parameters(url, values, context)))
         }
-        navigator.register(self.urlPattern(host: .about), normalFactory)
+        navigator.register(self.urlPattern(host: .personal)) { url, values, context in
+            PersonalViewController(navigator, PersonalViewReactor(provider, self.parameters(url, values, context)))
+        }
     }
     
 }
