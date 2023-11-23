@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '11.0'
+platform :ios, '13.0'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -11,7 +11,7 @@ target 'IOSTemplate' do
 
   # Base
   pod 'RxOptional', '5.0.2'
-  pod 'RxSwiftExt', '6.0.1'
+  pod 'RxSwiftExt', '6.2.1'
   pod 'RxGesture', '4.0.4'
   pod 'RxViewController', '2.0.0'
   pod 'IQKeyboardManagerSwift', '6.5.10'
