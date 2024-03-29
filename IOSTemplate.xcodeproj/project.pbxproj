@@ -124,6 +124,8 @@
 		912443612BB63CEE00F77CD0 /* SimpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912442C32BB63CED00F77CD0 /* SimpleCell.swift */; };
 		912443632BB63CEE00F77CD0 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912442C52BB63CED00F77CD0 /* TextFieldCell.swift */; };
 		912443642BB63CEE00F77CD0 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912442C62BB63CED00F77CD0 /* TextViewCell.swift */; };
+		914E24F42BB65361000D5B6D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914E24F32BB65361000D5B6D /* R.generated.swift */; };
+		918BEEB02BB651F700FC4174 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 918BEEAF2BB651F700FC4174 /* .swiftlint.yml */; };
 		9194DF9F2BB6304D0077D1A7 /* Appearance+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9194DF9E2BB6304D0077D1A7 /* Appearance+Ex.swift */; };
 		9194DFB12BB630B30077D1A7 /* BaseResponse+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9194DFA02BB630B30077D1A7 /* BaseResponse+Ex.swift */; };
 		9194DFB32BB630B30077D1A7 /* ScrollViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9194DFA22BB630B30077D1A7 /* ScrollViewController+Ex.swift */; };
@@ -263,6 +265,9 @@
 		912442C32BB63CED00F77CD0 /* SimpleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCell.swift; sourceTree = "<group>"; };
 		912442C52BB63CED00F77CD0 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		912442C62BB63CED00F77CD0 /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
+		914E24F32BB65361000D5B6D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		918BEEAF2BB651F700FC4174 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		918C14842BB650AE009380EB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		9194DF9C2BB62F3D0077D1A7 /* OC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OC-Bridging-Header.h"; sourceTree = "<group>"; };
 		9194DF9E2BB6304D0077D1A7 /* Appearance+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Appearance+Ex.swift"; sourceTree = "<group>"; };
 		9194DFA02BB630B30077D1A7 /* BaseResponse+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseResponse+Ex.swift"; sourceTree = "<group>"; };
@@ -277,8 +282,6 @@
 		9194DFAB2BB630B30077D1A7 /* Parameter+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Parameter+Ex.swift"; sourceTree = "<group>"; };
 		9194DFAE2BB630B30077D1A7 /* UIApplication+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Ex.swift"; sourceTree = "<group>"; };
 		9194DFC22BB631FA0077D1A7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		9194DFC42BB632490077D1A7 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
-		9194DFC52BB632880077D1A7 /* readme */ = {isa = PBXFileReference; lastKnownFileType = text; path = readme; sourceTree = "<group>"; };
 		9194DFC72BB632D20077D1A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9194DFC92BB632E90077D1A7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		91DEAEE82BB64A6C0077101E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -312,15 +315,16 @@
 		910483972BB6206E007BB26A /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				91DEAEEA2BB64C890077101E /* Info.plist */,
-				9194DFC42BB632490077D1A7 /* .swiftlint.yml */,
-				9194DFC22BB631FA0077D1A7 /* PrivacyInfo.xcprivacy */,
+				914E24F32BB65361000D5B6D /* R.generated.swift */,
+				918BEEAF2BB651F700FC4174 /* .swiftlint.yml */,
 				91FB8A162BB61E07001FB743 /* Assets.xcassets */,
+				91DEAEEA2BB64C890077101E /* Info.plist */,
 				91FB8A182BB61E07001FB743 /* IOSTemplate.entitlements */,
-				9194DF9C2BB62F3D0077D1A7 /* OC-Bridging-Header.h */,
-				9194DFC52BB632880077D1A7 /* readme */,
-				9194DFC62BB632D20077D1A7 /* Localizable.strings */,
 				91DEAEE82BB64A6C0077101E /* LaunchScreen.storyboard */,
+				9194DFC62BB632D20077D1A7 /* Localizable.strings */,
+				9194DF9C2BB62F3D0077D1A7 /* OC-Bridging-Header.h */,
+				9194DFC22BB631FA0077D1A7 /* PrivacyInfo.xcprivacy */,
+				918C14842BB650AE009380EB /* README.md */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -758,6 +762,7 @@
 				912442132BB63CAA00F77CD0 /* ic_refresh_loading8@2x.png in Resources */,
 				9124420E2BB63CAA00F77CD0 /* ic_refresh_loading3@2x.png in Resources */,
 				912441FF2BB63CAA00F77CD0 /* ic_refresh_idle8@2x.png in Resources */,
+				918BEEB02BB651F700FC4174 /* .swiftlint.yml in Resources */,
 				912441FA2BB63CAA00F77CD0 /* ic_refresh_idle3@2x.png in Resources */,
 				912442032BB63CAA00F77CD0 /* ic_refresh_idle12@2x.png in Resources */,
 				912442102BB63CAA00F77CD0 /* ic_refresh_loading5@2x.png in Resources */,
@@ -949,6 +954,7 @@
 				912443612BB63CEE00F77CD0 /* SimpleCell.swift in Sources */,
 				9124431E2BB63CEE00F77CD0 /* TabBarReactor.swift in Sources */,
 				9124434E2BB63CEE00F77CD0 /* ButtonCell.swift in Sources */,
+				914E24F42BB65361000D5B6D /* R.generated.swift in Sources */,
 				912441BE2BB63B9D00F77CD0 /* Router+Sheet.swift in Sources */,
 				912443272BB63CEE00F77CD0 /* PersonalParallaxView.swift in Sources */,
 				912441932BB634AB00F77CD0 /* ListViewReactor.swift in Sources */,
@@ -1109,6 +1115,7 @@
 				DEVELOPMENT_TEAM = WDE622528T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IOSTemplate/Info.plist;
@@ -1160,6 +1167,7 @@
 				DEVELOPMENT_TEAM = WDE622528T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IOSTemplate/Info.plist;

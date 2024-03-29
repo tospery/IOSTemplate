@@ -11,7 +11,6 @@ import RxCocoa
 import ReactorKit
 import URLNavigator_Hi
 import Rswift
-import Highlightr
 import HiIOS
 
 class ImageViewCell: BaseCollectionCell, ReactorKit.View {

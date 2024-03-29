@@ -24,6 +24,7 @@ target 'IOSTemplate' do
   pod 'FLEX', '5.22.10', :configurations => ['Debug']
   
   # Advanced
+  pod 'MXParallaxHeader', '1.1.0'
   pod 'TTTAttributedLabel', '2.0.0'
   pod 'Toast-Swift-Hi', '5.0.1-v3'
   pod 'SwiftEntryKit', '2.0.0'
