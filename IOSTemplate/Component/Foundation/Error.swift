@@ -1,6 +1,6 @@
 //
 //  Error.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -17,21 +17,25 @@ import RxViewController
 import RxTheme
 
 enum APPError: Error {
+    case oauth
     case login(String?)
 }
 
 extension APPError: CustomNSError {
     var errorCode: Int {
         switch self {
-        case .login: return 1
+        case .oauth: return 1
+        case .login: return 2
         }
     }
 }
 
+
 extension APPError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case let .login(message): return message ?? R.string.localizable.errorLogin()
+        case .oauth: return HiError.app(self.errorCode, nil, nil).errorDescription
+        case let .login(message): return HiError.app(self.errorCode, message, nil).errorDescription
         }
     }
 }
@@ -39,14 +43,5 @@ extension APPError: LocalizedError {
 extension APPError: HiErrorCompatible {
     public var hiError: HiError {
         .app(self.errorCode, self.errorDescription, nil)
-    }
-}
-
-extension RxOptionalError: HiErrorCompatible {
-    public var hiError: HiError {
-        switch self {
-        case .emptyOccupiable: return .dataIsEmpty
-        case .foundNilWhileUnwrappingOptional: return .dataInvalid
-        }
     }
 }

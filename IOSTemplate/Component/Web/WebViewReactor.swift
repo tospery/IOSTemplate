@@ -1,6 +1,6 @@
 //
 //  WebViewReactor.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by liaoya on 2021/6/28.
 //
@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
-import URLNavigator
+import URLNavigator_Hi
 import Rswift
 import HiIOS
 

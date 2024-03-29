@@ -4,15 +4,20 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:tospery.com</string>
+		<string>webcredentials:iostemplate.com</string>
+		<string>applinks:iostemplate.com</string>
 	</array>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.tospery.shared</string>
+		<string>group.com.jianxiang.shared</string>
 	</array>
+	<key>com.apple.security.files.user-selected.read-only</key>
+	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.tospery.iostemplate</string>
+		<string>$(AppIdentifierPrefix)com.jianxiang.iostemplate</string>
 		<string>$(AppIdentifierPrefix)shared</string>
 	</array>
 </dict>

@@ -1,6 +1,6 @@
 //
 //  TabBarReactor.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
-import URLNavigator
+import URLNavigator_Hi
 import Rswift
 import HiIOS
 
@@ -19,7 +19,7 @@ class TabBarReactor: HiIOS.TabBarReactor, ReactorKit.Reactor {
 
     struct State {
         let keys: [TabBarKey] = [
-            .dashboard, .personal
+            .trending, .event, .favorite, .personal
         ]
     }
 

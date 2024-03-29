@@ -1,6 +1,6 @@
 //
 //  PersonalViewReactor.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -9,62 +9,102 @@ import Foundation
 import RxSwift
 import RxCocoa
 import ReactorKit
-import URLNavigator
+import URLNavigator_Hi
 import Rswift
 import HiIOS
 
-class PersonalViewReactor: NormalViewReactor {
+class PersonalViewReactor: ListViewReactor {
     
     required init(_ provider: HiIOS.ProviderType, _ parameters: [String: Any]?) {
         super.init(provider, parameters)
-        self.initialState = State(
-            title: self.title ?? R.string.localizable.mine()
-        )
+        self.initialState.title = self.title ?? R.string.localizable.personal(preferredLanguages: myLangs)
     }
     
-//    override func loadData(_ page: Int) -> Observable<[SectionData]> {
-//        .create { [weak self] observer -> Disposable in
-//            guard let `self` = self else { fatalError() }
-//            var models = [ModelType].init()
-//            if let user = self.currentState.user, user.isValid {
-//                models.append(Simple.init(height: 5))
-//                models.append(BaseModel.init(SectionItemValue.milestone))
-//                models.append(Simple.init(height: 10))
-//                models.append(contentsOf: [
-//                    Simple.init(
-//                        id: SimpleId.company.rawValue,
-//                        icon: "ic_company",
-//                        title: user.company ?? R.string.localizable.noDescription(),
-//                        indicated: false
-//                    ),
-//                    Simple.init(
-//                        id: SimpleId.location.rawValue,
-//                        icon: "ic_location",
-//                        title: user.location ?? R.string.localizable.noDescription(),
-//                        indicated: false
-//                    ),
-//                    Simple.init(
-//                        id: SimpleId.email.rawValue,
-//                        icon: "ic_email",
-//                        title: user.email ?? R.string.localizable.noDescription(),
-//                        indicated: false
-//                    ),
-//                    Simple.init(
-//                        id: SimpleId.blog.rawValue,
-//                        icon: "ic_blog",
-//                        title: user.blog ?? R.string.localizable.noDescription(),
-//                        divided: false
-//                    )
-//                ])
-//                models.append(Simple.init(height: 15))
-//            }
-//            if let simples = Simple.cachedArray(page: self.host) {
-//                models.append(contentsOf: simples)
-//            }
-//            observer.onNext([(header: nil, models: models)])
-//            observer.onCompleted()
-//            return Disposables.create { }
-//        }
-//    }
+    override func reduce(state: ListViewReactor.State, mutation: ListViewReactor.Mutation) -> ListViewReactor.State {
+        var newState = state
+        switch mutation {
+        case let .setConfiguration(configuration):
+            newState.title = self.title ?? R.string.localizable.personal(
+                preferredLanguages: configuration?.localization.preferredLanguages
+            )
+        default:
+            break
+        }
+        return super.reduce(state: newState, mutation: mutation)
+    }
+    
+    override func update() -> Observable<Mutation> {
+        .create { [weak self] observer -> Disposable in
+            guard let `self` = self else { fatalError() }
+            guard let username = self.currentState.user?.username, username.isNotEmpty else {
+                return Disposables.create { }
+            }
+            return self.provider.user(username: username)
+                .asObservable()
+                .map(Mutation.setUser)
+                .subscribe(observer)
+        }.catch {
+            .just(.setError($0))
+        }
+    }
+    
+    override func fetchLocal() -> Observable<Mutation> {
+        .create { [weak self] observer -> Disposable in
+            guard let `self` = self else { fatalError() }
+            observer.onNext(.initial(self.section(self.currentState.user as? User)))
+            observer.onCompleted()
+            return Disposables.create { }
+        }
+    }
+    
+    override func requestRemote(_ mode: HiRequestMode, _ page: Int) -> Observable<Mutation> {
+        .create { [weak self] observer -> Disposable in
+            guard let `self` = self else { fatalError() }
+            observer.onNext(.initial(self.section(self.currentState.user as? User)))
+            observer.onCompleted()
+            return Disposables.create { }
+        }
+    }
+    
+    func section(_ user: User?) -> [HiContent] {
+        var models = [ModelType].init()
+        if user?.isValid ?? false {
+            if let company = user?.companyModel {
+                models.append(company)
+            }
+            models.append(contentsOf: [CellId.location, CellId.email].map {
+                Simple.init(id: $0.rawValue, icon: $0.icon, indicated: false, divided: true)
+            })
+            models.append(Simple.init(
+                id: CellId.blog.rawValue,
+                icon: CellId.blog.icon,
+                title: user?.blog,
+                indicated: true,
+                divided: true,
+                target: user?.blog
+            ))
+        }
+        models.append(Simple.init(height: 10))
+        models.append(Simple.init(
+            id: CellId.localfocus.rawValue,
+            icon: CellId.localfocus.icon,
+            title: CellId.localfocus.title,
+            indicated: true,
+            divided: false,
+            target: CellId.localfocus.target
+        ))
+        models.append(Simple.init(height: 10))
+        models.append(contentsOf: [CellId.settings, CellId.about, CellId.feedback].map {
+            Simple.init(
+                id: $0.rawValue,
+                icon: $0.icon,
+                title: $0.title,
+                indicated: true,
+                divided: $0 != .feedback,
+                target: $0.target
+            )
+        })
+        return [.init(header: nil, models: models)]
+    }
 
 }

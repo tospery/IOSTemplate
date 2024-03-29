@@ -1,6 +1,6 @@
 //
 //  TabBarController.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
-import URLNavigator
+import URLNavigator_Hi
 import Rswift
 import HiIOS
 
@@ -28,6 +28,7 @@ class TabBarController: HiIOS.TabBarController, ReactorKit.View {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         self.tabBar.theme.barTintColor = themeService.attribute { $0.lightColor }
         self.tabBar.theme.tintColor = themeService.attribute { $0.primaryColor }
         self.tabBar.theme.unselectedItemTintColor = themeService.attribute { $0.titleColor }
@@ -49,23 +50,56 @@ class TabBarController: HiIOS.TabBarController, ReactorKit.View {
     func viewController(with key: TabBarKey) -> UIViewController {
         var viewController: UIViewController!
         switch key {
-        case .dashboard:
+        case .trending:
             viewController = self.navigator.viewController(
-                for: Router.shared.urlString(host: .dashboard, parameters: [
-                    Parameter.hidesNavigationBar: true.string
-                ])
+                for: Router.shared.urlString(host: .trending, parameters: [:])
             )
-            viewController.tabBarItem.image = R.image.tabbar_dashboard_normal()?.original
-            viewController.tabBarItem.selectedImage = R.image.tabbar_dashboard_selected()?.original
+            viewController.tabBarItem.image = R.image.tabbar_trending_normal()?.original
+            viewController.tabBarItem.selectedImage = R.image.tabbar_trending_selected()?.template
+        case .event:
+            viewController = self.navigator.viewController(
+                for: Router.shared.urlString(host: .event)
+            )
+            viewController.tabBarItem.image = R.image.tabbar_event_normal()?.original
+            viewController.tabBarItem.selectedImage = R.image.tabbar_event_selected()?.template
+        case .favorite:
+            viewController = self.navigator.viewController(
+                for: Router.shared.urlString(host: .favorite)
+            )
+            viewController.tabBarItem.image = R.image.tabbar_favorite_normal()?.original
+            viewController.tabBarItem.selectedImage = R.image.tabbar_favorite_selected()?.template
         case .personal:
             viewController = self.navigator.viewController(
-                for: Router.shared.urlString(host: .personal)
+                for: Router.shared.urlString(host: .personal, parameters: [
+                    Parameter.transparetNavBar: true.string
+                ])
             )
             viewController.tabBarItem.image = R.image.tabbar_personal_normal()?.original
-            viewController.tabBarItem.selectedImage = R.image.tabbar_personal_selected()?.original
+            viewController.tabBarItem.selectedImage = R.image.tabbar_personal_selected()?.template
         }
         viewController.hidesBottomBarWhenPushed = false
         return viewController!
+    }
+
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController
+    ) -> Bool {
+        guard let index = tabBarController.viewControllers?.firstIndex(of: viewController) else { return true }
+        if index == 1 || index == 2 {
+            if User.current?.isValid ?? false {
+                return true
+            }
+            self.navigator.rxLogin().subscribe(onNext: { _ in
+                tabBarController.selectedIndex = index
+            }).disposed(by: self.disposeBag)
+            return false
+        }
+        return true
     }
 
 }

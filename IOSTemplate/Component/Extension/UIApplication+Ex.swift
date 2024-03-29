@@ -1,12 +1,13 @@
 //
 //  UIApplication+Ex.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
 
 import Foundation
 import HiIOS
+import SwifterSwift
 
 extension UIApplication {
 
@@ -18,13 +19,12 @@ extension UIApplication {
         }
     }
     
-    @objc var myBaseApiUrl: String {
-        return "https://api.iostemplate.com"
-    }
-
-    @objc var myBaseWebUrl: String {
-        return "https://m.iostemplate.com"
-    }
+    var baseTrendingUrl: String { "https://gtrend.yapie.me" }
+    var baseGithubUrl: String { "https://github.com" }
+    @objc var myBaseApiUrl: String { "https://api.github.com" }
+    @objc var myBaseWebUrl: String { "https://github.com" }
+    
+    @objc var myPageSize: Int { 30 }
 
 }
 

@@ -1,0 +1,38 @@
+/* 不翻译 */
+"Chinese" = "中文";
+"English" = "English";
+/* 单词 */
+"Yes" = "Yes";
+"No" = "No";
+"OK" = "OK";
+"Sure" = "Sure";
+"Cancel" = "Cancel";
+"Unknown" = "Unknown";
+"Login" = "Login";
+/* 词语 */
+"Follow System" = "Follow system";
+/* 句子 - Alert */
+"Alert.Logout.Message" = "Confirm logout?";
+/* 句子 - Error */
+"Error.None.Title" = "Placeholder Error";
+"Error.None.Message" = "Placeholder Error";
+"Error.Unknown.Title" = "Unknown error";
+"Error.Unknown.Message" = "Unknown error";
+"Error.Timeout.Title" = "Timeout error";
+"Error.Timeout.Message" = "Timeout error";
+"Error.Navigation.Title" = "Navigation error";
+"Error.Navigation.Message" = "Navigation error";
+"Error.DataInvalid.Title" = "Data exception";
+"Error.DataInvalid.Message" = "Data exception";
+"Error.ListIsEmpty.Title" = "List is empty";
+"Error.ListIsEmpty.Message" = "The current list doesn't have any data yet";
+"Error.Network.NotConnected.Title" = "Network is not connected";
+"Error.Network.NotConnected.Message" = "Please check your network link";
+"Error.Network.NotReachable.Title" = "Network anomaly";
+"Error.Network.NotReachable.Message" = "The current network access is inaccessible";
+"Error.User.NotLoginedIn.Title" = "User not logged in";
+"Error.User.NotLoginedIn.Message" = "Dear, you haven't logged in yet";
+"Error.User.LoginExpired.Title" = "Login expired";
+"Error.User.LoginExpired.Message" = "Dear, the current login has expired";
+"Error.App.Message1" = "Authorization failed";
+"Error.App.Message2" = "Login failed, please try again later";

@@ -1,6 +1,6 @@
 //
 //  Router+Ex.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by liaoya on 2022/2/16.
 //
@@ -10,15 +10,24 @@ import UIKit
 import RxSwift
 import RxCocoa
 import ReactorKit
-import URLNavigator
+import URLNavigator_Hi
 import Rswift
 import HiIOS
 
+extension Router.Host {
+    static var trending: Router.Host { "trending" }
+    static var event: Router.Host { "event" }
+    static var favorite: Router.Host { "favorite" }
+    static var about: Router.Host { "about" }
+    static var test: Router.Host { "test" }
+}
+
+extension Router.Path {
+    static var options: Router.Path { "options" }
+    static var branches: Router.Path { "branches" }
+}
+
 extension Router: RouterCompatible {
-    
-    public func isLogined() -> Bool {
-        User.current?.isValid ?? false
-    }
     
     public func isLegalHost(host: Host) -> Bool {
         true
@@ -26,61 +35,72 @@ extension Router: RouterCompatible {
     
     public func allowedPaths(host: Host) -> [Path] {
         switch host {
-        case .popup: return [
-            .inviteNew
-        ]
+        case .popup: return [.branches]
         default: return []
         }
     }
-    
-    public func hasType(host: Router.Host) -> Bool {
-        switch host {
-        case .popup: return true
-        default: return false
-        }
-    }
-    
-    public func forDetail(host: Router.Host) -> Bool {
-        switch host {
-        case .user: return true
-        default: return false
-        }
-    }
-    
-    public func needLogin(host: Router.Host, path: Router.Path?) -> Bool {
-        switch host {
-        case .user: return path == nil
-        default: return false
-        }
-    }
-    
-    public func customLogin(
-        _ provider: HiIOS.ProviderType,
-        _ navigator: NavigatorProtocol,
-        _ url: URLConvertible,
-        _ values: [String: Any],
-        _ context: Any?
-    ) -> Bool {
-        guard let top = UIViewController.topMost else { return false }
-        if top.className.contains("LoginViewController") ||
-            top.className.contains("TXSSOLoginViewController") {
-            return false
-        }
-        var parameters = self.parameters(url, values, context) ?? [:]
-        parameters[Parameter.transparetNavBar] = true
-        let reactor = LoginViewReactor(provider, parameters)
-        let controller = LoginViewController(navigator, reactor)
-        let navigation = NavigationController(rootViewController: controller)
-        top.present(navigation, animated: true)
-        return false
-    }
-    
-    public func shouldRefresh(host: Host, path: Router.Path? = nil) -> Bool {
-        false
-    }
-    
-    public func shouldLoadMore(host: Host, path: Router.Path? = nil) -> Bool {
-        false
-    }
 
+    public func open(_ provider: HiIOS.ProviderType, _ navigator: NavigatorProtocol) {
+        self.toast(provider, navigator)
+        self.alert(provider, navigator)
+        self.sheet(provider, navigator)
+        self.popup(provider, navigator)
+    }
+    
+    // swiftlint:disable function_body_length
+    func attributes(_ name: String?) -> EKAttributes {
+        var attributes = EKAttributes.centerFloat
+        attributes.windowLevel = .normal
+        attributes.statusBar = .ignored
+        attributes.displayDuration = .infinity
+        attributes.screenInteraction = .absorbTouches
+        attributes.entryInteraction = .absorbTouches
+        attributes.scroll = .disabled
+        attributes.screenBackground = .color(color: .init(
+            light: .foreground.withAlphaComponent(0.4),
+            dark: .background.withAlphaComponent(0.4)
+        ))
+        attributes.entryBackground = .color(color: .white)
+        attributes.entranceAnimation = .init(
+            scale: .init(
+                from: 0.8,
+                to: 1.0,
+                duration: 0.5,
+                spring: .init(
+                    damping: 0.3,
+                    initialVelocity: 10
+                )
+            )
+        )
+        attributes.exitAnimation = .init(
+            scale: .init(
+                from: 1,
+                to: 0.8,
+                duration: 0.3
+            ),
+            fade: .init(
+                from: 1,
+                to: 0,
+                duration: 0.3
+            )
+        )
+        attributes.popBehavior = .animated(
+            animation: .init(
+                scale: .init(
+                    from: 1,
+                    to: 0.8,
+                    duration: 0.3
+                ),
+                fade: .init(
+                    from: 1,
+                    to: 0,
+                    duration: 0.3
+                )
+            )
+        )
+        attributes.name = name
+        return attributes
+    }
+    // swiftlint:enable function_body_length
+    
 }

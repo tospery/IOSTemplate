@@ -1,6 +1,6 @@
 //
 //  Type.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -25,3 +25,6 @@ var userParameters: [String: Any] {
         Parameter.username: User.current?.username ?? ""
     ]
 }
+
+
+var myLangs: [String]? { Configuration.current?.localization.preferredLanguages }

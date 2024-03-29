@@ -2,7 +2,7 @@
 //  Appearance+Ex.swift
 //  IOSTemplate
 //
-//  Created by liaoya on 2022/2/15.
+//  Created by 杨建祥 on 2024/3/29.
 //
 
 import Foundation
@@ -11,6 +11,7 @@ import HiIOS
 extension Appearance: AppearanceCompatible {
     
     public func myConfig() {
+        self.basic()
         // 导航栏
 //        let navBar = NavigationBar.appearance()
 //        themeService.rx

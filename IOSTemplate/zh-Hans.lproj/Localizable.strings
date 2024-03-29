@@ -1,0 +1,38 @@
+/* 不翻译 */
+"Chinese" = "中文";
+"English" = "English";
+/* 单词 */
+"Yes" = "是";
+"No" = "否";
+"OK" = "确定";
+"Sure" = "确定";
+"Cancel" = "取消";
+"Unknown" = "未知";
+"Login" = "登录";
+/* 词语 */
+"Follow System" = "跟随系统";
+/* 句子 - Alert */
+"Alert.Logout.Message" = "确定退出登录？";
+/* 句子 - Error */
+"Error.None.Title" = "占位错误";
+"Error.None.Message" = "占位错误";
+"Error.Unknown.Title" = "未知错误";
+"Error.Unknown.Message" = "未知错误";
+"Error.Timeout.Title" = "超时错误";
+"Error.Timeout.Message" = "超时错误";
+"Error.Navigation.Title" = "导航错误";
+"Error.Navigation.Message" = "导航错误";
+"Error.DataInvalid.Title" = "数据异常";
+"Error.DataInvalid.Message" = "数据异常";
+"Error.ListIsEmpty.Title" = "列表为空";
+"Error.ListIsEmpty.Message" = "列表为空";
+"Error.Network.NotConnected.Title" = "网络异常";
+"Error.Network.NotConnected.Message" = "请检查您的网络链接";
+"Error.Network.NotReachable.Title" = "网络异常";
+"Error.Network.NotReachable.Message" = "当前网络访问不可达";
+"Error.User.NotLoginedIn.Title" = "用户未登录";
+"Error.User.NotLoginedIn.Message" = "亲，您还没有登录呢";
+"Error.User.LoginExpired.Title" = "登录已过期";
+"Error.User.LoginExpired.Message" = "亲，当前登录已过期";
+"Error.App.Message1" = "授权失败";
+"Error.App.Message2" = "登录失败，请稍后重试";

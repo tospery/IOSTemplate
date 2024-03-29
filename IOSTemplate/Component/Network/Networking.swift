@@ -1,12 +1,15 @@
 //
 //  Networking.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 import Moya
+import Alamofire
 import HiIOS
 
 let networking = Networking(
@@ -26,24 +29,24 @@ struct Networking: NetworkingType {
     typealias Target = MultiTarget
     let provider: MoyaProvider<MultiTarget>
     
-//    static var stubClosure: MoyaProvider<Target>.StubClosure {
-//        return { target in
-//            if let tg2 = target.target as? ChargeAPI {
-//                switch tg2 {
-//                case .accelerate:
-//                    return .delayed(seconds: 2)
-//                default:
-//                    return .never
-//                }
-//            }
-//            return .never
-//        }
-//    }
+    static var session: Alamofire.Session {
+        let manager = ServerTrustManager.init(
+            allHostsMustBeEvaluated: false,
+            evaluators: [
+                "gtrend.yapie.me": DisabledTrustEvaluator.init()
+            ]
+        )
+        return Alamofire.Session(serverTrustManager: manager)
+    }
     
     static var plugins: [PluginType] {
         var plugins: [PluginType] = []
-        let logger = NetworkLoggerPlugin.init()
+        let logger = HiLoggerPlugin.init()
+#if DEBUG
         logger.configuration.logOptions = [.requestBody, .successResponseBody, .errorResponseBody]
+#else
+        logger.configuration.logOptions = [.requestBody]
+#endif
         logger.configuration.output = output
         plugins.append(logger)
         return plugins
@@ -53,6 +56,12 @@ struct Networking: NetworkingType {
         for item in items {
             log(item, module: .restful)
         }
+    }
+    
+    func request(_ target: Target) -> Single<Moya.Response> {
+        self.provider.rx.request(target)
+            .filterSuccessfulStatusCodes()
+            .catch { Single<Moya.Response>.error($0.asHiError) }
     }
     
 }

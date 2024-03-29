@@ -16,9 +16,8 @@
 				<string>iostemplate</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>
@@ -173,8 +172,15 @@
 	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

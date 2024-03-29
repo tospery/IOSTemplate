@@ -1,6 +1,6 @@
 //
 //  Function.swift
-//  IOSTemplate
+//  SWHub
 //
 //  Created by 杨建祥 on 2020/11/28.
 //
@@ -19,4 +19,19 @@ func log(
     context: Any? = nil
 ) {
     logger.print(message(), module: module, level: level, file: file, line: line, context: context)
+#if DEBUG
+#else
+//    guard let message = message() as? String else { return }
+//    let aliyun = TLogFactory.createTLog(forModuleName: module)
+//    switch level {
+//    case .debug, .verbose:
+//        aliyun?.debug(message)
+//    case .info:
+//        aliyun?.info(message)
+//    case .warning:
+//        aliyun?.warn(message)
+//    case .error:
+//        aliyun?.error(message)
+//    }
+#endif
 }
