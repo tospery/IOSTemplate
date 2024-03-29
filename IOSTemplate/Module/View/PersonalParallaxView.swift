@@ -84,16 +84,16 @@ class PersonalParallaxView: UIImageView {
     lazy var repositoriesButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.titleLabel?.numberOfLines = 2
-        button.setAttributedTitle(
-            .composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.repositories(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center)),
-            for: .normal
-        )
+//        button.setAttributedTitle(
+//            .composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.repositories(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center)),
+//            for: .normal
+//        )
         button.sizeToFit()
         return button
     }()
@@ -101,16 +101,16 @@ class PersonalParallaxView: UIImageView {
     lazy var followerButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.titleLabel?.numberOfLines = 2
-        button.setAttributedTitle(
-            .composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.followers(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center)),
-            for: .normal
-        )
+//        button.setAttributedTitle(
+//            .composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.followers(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center)),
+//            for: .normal
+//        )
         button.sizeToFit()
         return button
     }()
@@ -118,16 +118,16 @@ class PersonalParallaxView: UIImageView {
     lazy var followingButton: UIButton = {
         let button = UIButton.init(type: .custom)
         button.titleLabel?.numberOfLines = 2
-        button.setAttributedTitle(
-            .composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.following(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center)),
-            for: .normal
-        )
+//        button.setAttributedTitle(
+//            .composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.following(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center)),
+//            for: .normal
+//        )
         button.sizeToFit()
         return button
     }()
@@ -225,100 +225,100 @@ class PersonalParallaxView: UIImageView {
     
     // swiftlint:disable function_body_length
     func bind(reactor: PersonalViewReactor) {
-        let unknown = R.string.localizable.unknown(preferredLanguages: myLangs)
-        reactor.state.map { $0.isRefreshing }
-            .distinctUntilChanged()
-            .bind(to: self.rx.refreshing)
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map { ($0.user as? User)?.avatar?.imageSource }
-            .distinctUntilChanged { HiIOS.compareImage($0, $1) }
-            .bind(to: self.iconImageView.rx.imageResource(placeholder: R.image.ic_user_placeholder()))
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map { state -> NSAttributedString in
-            if state.user?.isValid ?? false {
-                return .composed(of: [
-                    (state.user?.username ?? R.string.localizable.noneNickname(
-                        preferredLanguages: myLangs
-                    ))
-                        .styled(with: .color(.primary)),
-                    " (\(state.user?.username ?? unknown))"
-                        .styled(with: .color(.title))
-                ]).styled(with: .font(.bold(18)))
-            }
-            return R.string.localizable.clickToLogin(
-                preferredLanguages: myLangs
-            )
-                .styled(with: .font(.bold(19)), .color(.foreground))
-        }
-            .distinctUntilChanged()
-            .bind(to: self.nameLabel.rx.attributedText)
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map {
-            ($0.user as? User)?.joinedOn
-        }
-            .distinctUntilChanged()
-            .bind(to: self.joinLabel.rx.text)
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map { (($0.user as? User)?.isValid ?? false, ($0.user as? User)?.bio ?? "") }
-            .map { isLogined, bio -> NSAttributedString in
-                if !isLogined {
-                    return R.string.localizable.appSlogan(
-                        preferredLanguages: myLangs
-                    )
-                        .styled(with: .font(.normal(14)), .color(.title))
-                }
-                return (bio.isNotEmpty ? bio : R.string.localizable.noneBio(
-                    preferredLanguages: myLangs
-                ))
-                    .styled(with: .font(.normal(14)), .color(.title))
-            }
-            .distinctUntilChanged()
-            .bind(to: self.bioLabel.rx.attributedText)
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map {
-            ($0.user as? User)?.attrRepositories ??
-            NSAttributedString.composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.repositories(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center))
-        }
-            .distinctUntilChanged()
-            .bind(to: self.repositoriesButton.rx.attributedTitle(for: .normal))
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map {
-            ($0.user as? User)?.attrFollowers ??
-            NSAttributedString.composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.followers(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center))
-        }
-            .distinctUntilChanged()
-            .bind(to: self.followerButton.rx.attributedTitle(for: .normal))
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map {
-            ($0.user as? User)?.attrfollowing ??
-            NSAttributedString.composed(of: [
-                "0".styled(with: .color(.foreground), .font(.bold(22))),
-                Special.nextLine,
-                R.string.localizable.following(
-                    preferredLanguages: myLangs
-                ).styled(with: .color(.body), .font(.normal(13)))
-            ]).styled(with: .lineSpacing(4), .alignment(.center))
-        }
-            .distinctUntilChanged()
-            .bind(to: self.followingButton.rx.attributedTitle(for: .normal))
-            .disposed(by: self.rx.disposeBag)
-        reactor.state.map { $0.user as? User }
-            .distinctUntilChanged()
-            .map { _ in }
-            .bind(to: self.rx.setNeedsLayout)
-            .disposed(by: self.rx.disposeBag)
+//        let unknown = R.string.localizable.unknown(preferredLanguages: myLangs)
+//        reactor.state.map { $0.isRefreshing }
+//            .distinctUntilChanged()
+//            .bind(to: self.rx.refreshing)
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map { ($0.user as? User)?.avatar?.imageSource }
+//            .distinctUntilChanged { HiIOS.compareImage($0, $1) }
+//            .bind(to: self.iconImageView.rx.imageResource(placeholder: R.image.ic_user_placeholder()))
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map { state -> NSAttributedString in
+//            if state.user?.isValid ?? false {
+//                return .composed(of: [
+//                    (state.user?.username ?? R.string.localizable.noneNickname(
+//                        preferredLanguages: myLangs
+//                    ))
+//                        .styled(with: .color(.primary)),
+//                    " (\(state.user?.username ?? unknown))"
+//                        .styled(with: .color(.title))
+//                ]).styled(with: .font(.bold(18)))
+//            }
+//            return R.string.localizable.clickToLogin(
+//                preferredLanguages: myLangs
+//            )
+//                .styled(with: .font(.bold(19)), .color(.foreground))
+//        }
+//            .distinctUntilChanged()
+//            .bind(to: self.nameLabel.rx.attributedText)
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map {
+//            ($0.user as? User)?.joinedOn
+//        }
+//            .distinctUntilChanged()
+//            .bind(to: self.joinLabel.rx.text)
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map { (($0.user as? User)?.isValid ?? false, ($0.user as? User)?.bio ?? "") }
+//            .map { isLogined, bio -> NSAttributedString in
+//                if !isLogined {
+//                    return R.string.localizable.appSlogan(
+//                        preferredLanguages: myLangs
+//                    )
+//                        .styled(with: .font(.normal(14)), .color(.title))
+//                }
+//                return (bio.isNotEmpty ? bio : R.string.localizable.noneBio(
+//                    preferredLanguages: myLangs
+//                ))
+//                    .styled(with: .font(.normal(14)), .color(.title))
+//            }
+//            .distinctUntilChanged()
+//            .bind(to: self.bioLabel.rx.attributedText)
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map {
+//            ($0.user as? User)?.attrRepositories ??
+//            NSAttributedString.composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.repositories(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center))
+//        }
+//            .distinctUntilChanged()
+//            .bind(to: self.repositoriesButton.rx.attributedTitle(for: .normal))
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map {
+//            ($0.user as? User)?.attrFollowers ??
+//            NSAttributedString.composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.followers(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center))
+//        }
+//            .distinctUntilChanged()
+//            .bind(to: self.followerButton.rx.attributedTitle(for: .normal))
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map {
+//            ($0.user as? User)?.attrfollowing ??
+//            NSAttributedString.composed(of: [
+//                "0".styled(with: .color(.foreground), .font(.bold(22))),
+//                Special.nextLine,
+//                R.string.localizable.following(
+//                    preferredLanguages: myLangs
+//                ).styled(with: .color(.body), .font(.normal(13)))
+//            ]).styled(with: .lineSpacing(4), .alignment(.center))
+//        }
+//            .distinctUntilChanged()
+//            .bind(to: self.followingButton.rx.attributedTitle(for: .normal))
+//            .disposed(by: self.rx.disposeBag)
+//        reactor.state.map { $0.user as? User }
+//            .distinctUntilChanged()
+//            .map { _ in }
+//            .bind(to: self.rx.setNeedsLayout)
+//            .disposed(by: self.rx.disposeBag)
     }
     // swiftlint:enable function_body_length
     

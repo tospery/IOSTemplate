@@ -40,7 +40,6 @@ struct User: UserType, Subjective, Eventable {
     // trending
     var sponsorUrl: String?
     var url: String?
-    var repo: BaseRepo?
     // other
     var siteAdmin: Bool?
     var twoFactorAuthentication: Bool?
@@ -76,7 +75,6 @@ struct User: UserType, Subjective, Eventable {
     var hireable: String?
     var password: String?
     var twitterUsername: String?
-    var plan: Plan?
     // 合并字段
     var ranking = 0
     var username: String?       // username|login
@@ -99,7 +97,6 @@ struct User: UserType, Subjective, Eventable {
         href                    <- map["href"]
         nickname                <- map["name"]
         ranking                 <- map["ranking"]
-        repo                    <- map["repo"]
         sponsorUrl              <- map["sponsorUrl"]
         url                     <- map["url"]
         bio                     <- map["bio"]
@@ -122,7 +119,6 @@ struct User: UserType, Subjective, Eventable {
         nodeId                  <- map["node_id"]
         organizationsUrl        <- map["organizations_url"]
         ownedPrivateRepos       <- map["owned_private_repos"]
-        plan                    <- map["plan"]
         privateGists            <- map["private_gists"]
         publicGists             <- map["public_gists"]
         publicRepos             <- map["public_repos"]

@@ -19,9 +19,9 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
     lazy var sloganLabel: UILabel = {
         let label = UILabel.init()
         label.font = .normal(18)
-        label.text = R.string.localizable.loginSlogan(
-            preferredLanguages: myLangs
-        )
+//        label.text = R.string.localizable.loginSlogan(
+//            preferredLanguages: myLangs
+//        )
         label.theme.textColor = themeService.attribute { $0.titleColor }
         label.sizeToFit()
         return label
@@ -31,9 +31,9 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
         let label = UILabel.init()
         label.numberOfLines = 0
         label.font = .normal(12)
-        label.text = R.string.localizable.loginPrivacy(
-            UIApplication.shared.name, preferredLanguages: myLangs
-        )
+//        label.text = R.string.localizable.loginPrivacy(
+//            UIApplication.shared.name, preferredLanguages: myLangs
+//        )
         label.theme.textColor = themeService.attribute { $0.footerColor }
         label.qmui_lineHeight = (label.qmui_lineHeight + 2).flat
         label.size = label.sizeThatFits(
@@ -48,9 +48,9 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
     lazy var oauthLabel: UILabel = {
         let label = UILabel.init()
         label.font = .normal(12)
-        label.text = R.string.localizable.loginAuth(
-            preferredLanguages: myLangs
-        )
+//        label.text = R.string.localizable.loginAuth(
+//            preferredLanguages: myLangs
+//        )
         label.theme.textColor = themeService.attribute { $0.footerColor }
         label.sizeToFit()
         return label
@@ -78,9 +78,9 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
         let textField = UITextField.init()
         textField.borderStyle = .roundedRect
         textField.font = .normal(15)
-        textField.placeholder = R.string.localizable.loginPlaceholderToken(
-            preferredLanguages: myLangs
-        )
+//        textField.placeholder = R.string.localizable.loginPlaceholderToken(
+//            preferredLanguages: myLangs
+//        )
         textField.theme.textColor = themeService.attribute { $0.titleColor }
         textField.sizeToFit()
         return textField
@@ -121,7 +121,7 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
     
     lazy var oauthButton: UIButton = {
         let button = UIButton.init(type: .custom)
-        button.setImage(R.image.ic_github(), for: .normal)
+        // button.setImage(R.image.ic_github(), for: .normal)
         button.sizeToFit()
         return button
     }()
@@ -204,10 +204,10 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
             .filterNil()
             .subscribeNext(weak: self, type(of: self).handleUser)
             .disposed(by: self.disposeBag)
-        reactor.state.map { $0.configuration.privateKey }
-            .distinctUntilChanged()
-            .bind(to: self.tokenTextField.rx.text)
-            .disposed(by: self.disposeBag)
+//        reactor.state.map { $0.configuration.privateKey }
+//            .distinctUntilChanged()
+//            .bind(to: self.tokenTextField.rx.text)
+//            .disposed(by: self.disposeBag)
         reactor.state.map { [weak self] state -> Bool in
             guard let `self` = self else { return false }
             let token = state.accessToken?.accessToken?.isNotEmpty ?? false
@@ -221,24 +221,24 @@ class LoginViewController: ScrollViewController, ReactorKit.View {
     }
 
     func handleUser(user: User) {
-        if let username = user.username, username.isNotEmpty {
-            ALBBMANAnalytics.getInstance().updateUserAccount(Parameter.username, userid: username)
-        }
-        Subjection.update(AccessToken.self, self.reactor?.currentState.accessToken)
-        if let privateKey = self.tokenTextField.text, privateKey.isNotEmpty,
-            privateKey == self.reactor?.currentState.accessToken?.accessToken {
-            var configuration = self.reactor?.currentState.configuration
-            configuration?.privateKey = privateKey
-            Subjection.update(Configuration.self, configuration, false)
-        }
-        MainScheduler.asyncInstance.schedule(()) { [weak self] _ -> Disposable in
-            guard let `self` = self else { fatalError() }
-            User.update(user, reactive: true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.back(result: user)
-            }
-            return Disposables.create {}
-        }.disposed(by: self.disposeBag)
+//        if let username = user.username, username.isNotEmpty {
+//            ALBBMANAnalytics.getInstance().updateUserAccount(Parameter.username, userid: username)
+//        }
+//        Subjection.update(AccessToken.self, self.reactor?.currentState.accessToken)
+//        if let privateKey = self.tokenTextField.text, privateKey.isNotEmpty,
+//            privateKey == self.reactor?.currentState.accessToken?.accessToken {
+//            var configuration = self.reactor?.currentState.configuration
+//            configuration?.privateKey = privateKey
+//            Subjection.update(Configuration.self, configuration, false)
+//        }
+//        MainScheduler.asyncInstance.schedule(()) { [weak self] _ -> Disposable in
+//            guard let `self` = self else { fatalError() }
+//            User.update(user, reactive: true)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                self.back(result: user)
+//            }
+//            return Disposables.create {}
+//        }.disposed(by: self.disposeBag)
     }
     
 }
@@ -257,18 +257,18 @@ extension Reactive where Base: LoginViewController {
         self.base.oauthButton.rx.tap
     }
     
-    var error: Binder<Error?> {
-        return Binder(self.base) { viewController, error in
-             viewController.error = error
-             guard viewController.isViewLoaded else { return }
-            var message = error?.asHiError.localizedDescription
-            if let hi = error?.asHiError, hi == .none {
-                message = R.string.localizable.userCancelAuthorization(
-                    preferredLanguages: myLangs
-                )
-            }
-            viewController.errorLabel.text = message
-        }
-    }
+//    var error: Binder<Error?> {
+//        return Binder(self.base) { viewController, error in
+//             viewController.error = error
+//             guard viewController.isViewLoaded else { return }
+//            var message = error?.asHiError.localizedDescription
+//            if let hi = error?.asHiError, hi == .none {
+//                message = R.string.localizable.userCancelAuthorization(
+//                    preferredLanguages: myLangs
+//                )
+//            }
+//            viewController.errorLabel.text = message
+//        }
+//    }
     
 }

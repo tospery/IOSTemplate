@@ -8,6 +8,15 @@
 import Foundation
 import HiIOS
 
+struct Metric {
+    static let menuHeight   = 44.f
+    
+    struct Personal {
+        static let parallaxTopHeight    = 244.0
+        static let parallaxAllHeight    = 290.0
+    }
+}
+
 enum TabBarKey {
     case trending
     case event
@@ -16,11 +25,13 @@ enum TabBarKey {
 }
 
 enum Platform {
+    case github
     case umeng
     case weixin
     
     var appId: String {
         switch self {
+        case .github: return "your github appid"
         case .umeng: return "your umeng appid"
         case .weixin: return UIApplication.shared.urlScheme(name: "weixin") ?? ""
         }
@@ -28,6 +39,7 @@ enum Platform {
     
     var appKey: String {
         switch self {
+        case .github: return "your github appkey"
         case .umeng: return "your umeng appkey"
         case .weixin: return "your weixin appkey"
         }
@@ -124,11 +136,23 @@ enum ITAlertAction: AlertActionType, Equatable {
     }
 }
 
-struct Metric {
-    static let menuHeight   = 44.f
+enum Since: String, Codable {
+    case daily
+    case weekly
+    case montly
+
+    static let allValues = [daily, weekly, montly]
+}
+
+enum Page: String, Codable {
+    case none
+    // 趋势的
+    case trendingRepos
+    case trendingUsers
+    // 问题的/合并请求的
+    case open
+    case closed
     
-    struct Personal {
-        static let parallaxTopHeight    = 244.0
-        static let parallaxAllHeight    = 290.0
-    }
+    static let trendingValues = [trendingRepos, trendingUsers]
+    static let stateValues = [open, closed]
 }

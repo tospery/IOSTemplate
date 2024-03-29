@@ -47,23 +47,23 @@ class SettingViewReactor: ListViewReactor {
         }
     }
     
-    override func active(_ value: Any?) -> Observable<Mutation> {
-        .create { [weak self] observer -> Disposable in
-            guard let `self` = self else { fatalError() }
-            return self.clearDiskCache().map { _ -> [HiContent] in
-                return self.genContents("0")
-            }
-            .flatMap { contents -> Observable<Mutation> in
-                .concat([
-                    .just(.initial(contents)),
-                    .just(.setTarget(Router.shared.urlString(host: .toast, parameters: [
-                        Parameter.message: R.string.localizable.toastCacheMessage(preferredLanguages: myLangs)
-                    ])))
-                ])
-            }
-            .subscribe(observer)
-        }
-    }
+//    override func active(_ value: Any?) -> Observable<Mutation> {
+//        .create { [weak self] observer -> Disposable in
+//            guard let `self` = self else { fatalError() }
+//            return self.clearDiskCache().map { _ -> [HiContent] in
+//                return self.genContents("0")
+//            }
+//            .flatMap { contents -> Observable<Mutation> in
+//                .concat([
+//                    .just(.initial(contents)),
+//                    .just(.setTarget(Router.shared.urlString(host: .toast, parameters: [
+//                        Parameter.message: R.string.localizable.toastCacheMessage(preferredLanguages: myLangs)
+//                    ])))
+//                ])
+//            }
+//            .subscribe(observer)
+//        }
+//    }
 
     func calculateDiskStorageSize() -> Observable<String> {
         .create { observer -> Disposable in
@@ -92,27 +92,28 @@ class SettingViewReactor: ListViewReactor {
     }
     
     func genContents(_ size: String) -> [HiContent] {
-        var models = [ModelType].init()
-        models.append(Simple.init(height: 15))
-        models.append(Simple.init(
-            id: CellId.theme.rawValue,
-            title: CellId.theme.title,
-            target: "swhub://theme"
-        ))
-        models.append(Simple.init(
-            id: CellId.localization.rawValue,
-            title: CellId.localization.title,
-            divided: false,
-            target: "swhub://localization"
-        ))
-        models.append(Simple.init(height: 15))
-        models.append(Simple.init(
-            id: CellId.cache.rawValue,
-            title: CellId.cache.title,
-            detail: size,
-            divided: false
-        ))
-        return [.init(header: nil, models: models)]
+        .init()
+//        var models = [ModelType].init()
+//        models.append(Simple.init(height: 15))
+//        models.append(Simple.init(
+//            id: CellId.theme.rawValue,
+//            title: CellId.theme.title,
+//            target: "swhub://theme"
+//        ))
+//        models.append(Simple.init(
+//            id: CellId.localization.rawValue,
+//            title: CellId.localization.title,
+//            divided: false,
+//            target: "swhub://localization"
+//        ))
+//        models.append(Simple.init(height: 15))
+//        models.append(Simple.init(
+//            id: CellId.cache.rawValue,
+//            title: CellId.cache.title,
+//            detail: size,
+//            divided: false
+//        ))
+//        return [.init(header: nil, models: models)]
     }
     
 }

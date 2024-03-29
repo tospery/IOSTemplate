@@ -37,7 +37,7 @@ extension Router {
                     let json = try? data?.jsonObject()
                     let array = json as? [String] ?? []
                     for string in array {
-                        if let action = SHAlertAction.init(string: string) {
+                        if let action = ITAlertAction.init(string: string) {
                             actions.append(action)
                         }
                     }

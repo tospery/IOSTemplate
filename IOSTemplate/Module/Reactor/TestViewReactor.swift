@@ -17,7 +17,7 @@ class TestViewReactor: ListViewReactor {
     
     required init(_ provider: HiIOS.ProviderType, _ parameters: [String: Any]?) {
         super.init(provider, parameters)
-        self.initialState.title = self.title ?? R.string.localizable.test(preferredLanguages: myLangs)
+        // self.initialState.title = self.title ?? R.string.localizable.test(preferredLanguages: myLangs)
         self.initialState.data = "https://raw.githubusercontent.com/Urinx/WeixinBot/master/README.md"
     }
     

@@ -87,34 +87,34 @@ class PersonalViewController: ListViewController {
     }
     
     func tapRepositories(_: Void? = nil) {
-        // YJX_TODO
-        if !(self.reactor?.currentState.user?.isValid ?? false) {
-            self.navigator.login()
-            return
-        }
-        guard let username = self.reactor?.currentState.user?.username else { return }
-        self.navigator.jump(
-            Router.shared.urlString(host: .page, parameters: [
-                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
-                Parameter.index: Page.userValues.firstIndex(of: .repositories)?.string ?? "",
-                Parameter.username: username
-            ])
-        )
+//        // YJX_TODO
+//        if !(self.reactor?.currentState.user?.isValid ?? false) {
+//            self.navigator.login()
+//            return
+//        }
+//        guard let username = self.reactor?.currentState.user?.username else { return }
+//        self.navigator.jump(
+//            Router.shared.urlString(host: .page, parameters: [
+//                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
+//                Parameter.index: Page.userValues.firstIndex(of: .repositories)?.string ?? "",
+//                Parameter.username: username
+//            ])
+//        )
     }
     
     func tapFollower(_: Void? = nil) {
-        if !(self.reactor?.currentState.user?.isValid ?? false) {
-            self.navigator.login()
-            return
-        }
-        guard let username = self.reactor?.currentState.user?.username else { return }
-        self.navigator.jump(
-            Router.shared.urlString(host: .page, parameters: [
-                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
-                Parameter.index: Page.userValues.firstIndex(of: .followers)?.string ?? "",
-                Parameter.username: username
-            ])
-        )
+//        if !(self.reactor?.currentState.user?.isValid ?? false) {
+//            self.navigator.login()
+//            return
+//        }
+//        guard let username = self.reactor?.currentState.user?.username else { return }
+//        self.navigator.jump(
+//            Router.shared.urlString(host: .page, parameters: [
+//                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
+//                Parameter.index: Page.userValues.firstIndex(of: .followers)?.string ?? "",
+//                Parameter.username: username
+//            ])
+//        )
 //        self.navigator.rxJump(Router.shared.urlString(host: .test))
 //            .subscribe(onNext: { result in
 //                log("test->next: \(result)")
@@ -125,18 +125,18 @@ class PersonalViewController: ListViewController {
     }
     
     func tapFollowing(_: Void? = nil) {
-        if !(self.reactor?.currentState.user?.isValid ?? false) {
-            self.navigator.login()
-            return
-        }
-        guard let username = self.reactor?.currentState.user?.username else { return }
-        self.navigator.jump(
-            Router.shared.urlString(host: .page, parameters: [
-                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
-                Parameter.index: Page.userValues.firstIndex(of: .following)?.string ?? "",
-                Parameter.username: username
-            ])
-        )
+//        if !(self.reactor?.currentState.user?.isValid ?? false) {
+//            self.navigator.login()
+//            return
+//        }
+//        guard let username = self.reactor?.currentState.user?.username else { return }
+//        self.navigator.jump(
+//            Router.shared.urlString(host: .page, parameters: [
+//                Parameter.pages: Page.userValues.map { $0.rawValue }.jsonString() ?? "",
+//                Parameter.index: Page.userValues.firstIndex(of: .following)?.string ?? "",
+//                Parameter.username: username
+//            ])
+//        )
     }
     
     func didEndDragging(isEnd: Bool) {

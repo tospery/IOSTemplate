@@ -62,32 +62,32 @@ class LocalizationViewController: ListViewController {
     }
     
     func change(_ localization: Localization) {
-        guard self.reactor?.currentState.data as? Localization != localization else { return }
-        self.navigator.rxAlert(
-            R.string.localizable.prompt(
-                preferredLanguages: myLangs
-            ),
-            R.string.localizable.alertLocalizationMessage(
-                localization.description, preferredLanguages: myLangs
-            ),
-            [
-                SHAlertAction.cancel,
-                SHAlertAction.destructive
-            ]
-        )
-        .subscribe(onNext: { [weak self] action in
-            guard let `self` = self else { return }
-            guard let action = action as? SHAlertAction, action == .destructive else { return }
-            var configuration = self.reactor?.currentState.configuration as? Configuration
-            configuration?.localization = localization
-            Subjection.update(Configuration.self, configuration, true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.back(message: R.string.localizable.toastLocalizationMessage(
-                    preferredLanguages: myLangs
-                ))
-            }
-        })
-        .disposed(by: self.rx.disposeBag)
+//        guard self.reactor?.currentState.data as? Localization != localization else { return }
+//        self.navigator.rxAlert(
+//            R.string.localizable.prompt(
+//                preferredLanguages: myLangs
+//            ),
+//            R.string.localizable.alertLocalizationMessage(
+//                localization.description, preferredLanguages: myLangs
+//            ),
+//            [
+//                ITAlertAction.cancel,
+//                ITAlertAction.destructive
+//            ]
+//        )
+//        .subscribe(onNext: { [weak self] action in
+//            guard let `self` = self else { return }
+//            guard let action = action as? ITAlertAction, action == .destructive else { return }
+//            var configuration = self.reactor?.currentState.configuration as? Configuration
+//            configuration?.localization = localization
+//            Subjection.update(Configuration.self, configuration, true)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                self.back(message: R.string.localizable.toastLocalizationMessage(
+//                    preferredLanguages: myLangs
+//                ))
+//            }
+//        })
+//        .disposed(by: self.rx.disposeBag)
     }
     
 }

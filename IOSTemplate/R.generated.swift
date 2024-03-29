@@ -158,12 +158,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 43 files.
+  /// This `R.file` struct is generated, and contains static references to 44 files.
   struct file {
     /// Resource file `.swiftlint.yml`.
     static let swiftlintYml = Rswift.FileResource(bundle: R.hostingBundle, name: ".swiftlint", pathExtension: "yml")
     /// Resource file `Configuration.json`.
     static let configurationJson = Rswift.FileResource(bundle: R.hostingBundle, name: "Configuration", pathExtension: "json")
+    /// Resource file `LanguageList.json`.
+    static let languageListJson = Rswift.FileResource(bundle: R.hostingBundle, name: "LanguageList", pathExtension: "json")
     /// Resource file `PrivacyInfo.xcprivacy`.
     static let privacyInfoXcprivacy = Rswift.FileResource(bundle: R.hostingBundle, name: "PrivacyInfo", pathExtension: "xcprivacy")
     /// Resource file `ic_refresh_idle10@2x.png`.
@@ -256,6 +258,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "Configuration", withExtension: "json")`
     static func configurationJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.configurationJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "LanguageList", withExtension: "json")`
+    static func languageListJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.languageListJson
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -508,12 +516,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 54 images.
+  /// This `R.image` struct is generated, and contains static references to 56 images.
   struct image {
     /// Image `AppLogo`.
     static let appLogo = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppLogo")
     /// Image `ic_about`.
     static let ic_about = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_about")
+    /// Image `ic_checked`.
+    static let ic_checked = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_checked")
     /// Image `ic_feedback`.
     static let ic_feedback = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_feedback")
     /// Image `ic_refresh_idle10`.
@@ -602,6 +612,8 @@ struct R: Rswift.Validatable {
     static let ic_user_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_user_default")
     /// Image `ic_user_placeholder`.
     static let ic_user_placeholder = Rswift.ImageResource(bundle: R.hostingBundle, name: "ic_user_placeholder")
+    /// Image `personal_parallax_bg`.
+    static let personal_parallax_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "personal_parallax_bg")
     /// Image `tabbar_event_normal`.
     static let tabbar_event_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_event_normal")
     /// Image `tabbar_event_selected`.
@@ -630,6 +642,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ic_about", bundle: ..., traitCollection: ...)`
     static func ic_about(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ic_about, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ic_checked", bundle: ..., traitCollection: ...)`
+    static func ic_checked(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ic_checked, compatibleWith: traitCollection)
     }
     #endif
 
@@ -942,6 +961,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "personal_parallax_bg", bundle: ..., traitCollection: ...)`
+    static func personal_parallax_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.personal_parallax_bg, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "tabbar_event_normal", bundle: ..., traitCollection: ...)`
     static func tabbar_event_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.tabbar_event_normal, compatibleWith: traitCollection)
@@ -1020,8 +1046,12 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 33 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 42 localization keys.
     struct localizable {
+      /// en translation: About
+      ///
+      /// Locales: en, zh-Hans
+      static let about = Rswift.StringResource(key: "About", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: Authorization failed
       ///
       /// Locales: en, zh-Hans
@@ -1054,6 +1084,22 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh-Hans
       static let english = Rswift.StringResource(key: "English", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Event
+      ///
+      /// Locales: en, zh-Hans
+      static let event = Rswift.StringResource(key: "Event", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Exit
+      ///
+      /// Locales: en, zh-Hans
+      static let exit = Rswift.StringResource(key: "Exit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Favorite
+      ///
+      /// Locales: en, zh-Hans
+      static let favorite = Rswift.StringResource(key: "Favorite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Feedback
+      ///
+      /// Locales: en, zh-Hans
+      static let feedback = Rswift.StringResource(key: "Feedback", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: Follow system
       ///
       /// Locales: en, zh-Hans
@@ -1098,6 +1144,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh-Hans
       static let oK = Rswift.StringResource(key: "OK", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Personal
+      ///
+      /// Locales: en, zh-Hans
+      static let personal = Rswift.StringResource(key: "Personal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: Placeholder Error
       ///
       /// Locales: en, zh-Hans
@@ -1110,6 +1160,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh-Hans
       static let errorNetworkNotConnectedMessage = Rswift.StringResource(key: "Error.Network.NotConnected.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Settings
+      ///
+      /// Locales: en, zh-Hans
+      static let settings = Rswift.StringResource(key: "Settings", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: Sure
       ///
       /// Locales: en, zh-Hans
@@ -1130,6 +1184,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh-Hans
       static let errorTimeoutTitle = Rswift.StringResource(key: "Error.Timeout.Title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: Trending
+      ///
+      /// Locales: en, zh-Hans
+      static let trending = Rswift.StringResource(key: "Trending", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: Unknown
       ///
       /// Locales: en, zh-Hans
@@ -1150,10 +1208,29 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: en, zh-Hans
       static let yes = Rswift.StringResource(key: "Yes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+      /// en translation: submit successfully
+      ///
+      /// Locales: en, zh-Hans
+      static let toastSubmitMessage = Rswift.StringResource(key: "Toast.Submit.Message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
       /// en translation: 中文
       ///
       /// Locales: en, zh-Hans
       static let chinese = Rswift.StringResource(key: "Chinese", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "zh-Hans"], comment: nil)
+
+      /// en translation: About
+      ///
+      /// Locales: en, zh-Hans
+      static func about(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("About", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "About"
+        }
+
+        return NSLocalizedString("About", bundle: bundle, comment: "")
+      }
 
       /// en translation: Authorization failed
       ///
@@ -1273,6 +1350,66 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("English", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Event
+      ///
+      /// Locales: en, zh-Hans
+      static func event(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Event", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Event"
+        }
+
+        return NSLocalizedString("Event", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Exit
+      ///
+      /// Locales: en, zh-Hans
+      static func exit(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Exit", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Exit"
+        }
+
+        return NSLocalizedString("Exit", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Favorite
+      ///
+      /// Locales: en, zh-Hans
+      static func favorite(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Favorite", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Favorite"
+        }
+
+        return NSLocalizedString("Favorite", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Feedback
+      ///
+      /// Locales: en, zh-Hans
+      static func feedback(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Feedback", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Feedback"
+        }
+
+        return NSLocalizedString("Feedback", bundle: bundle, comment: "")
       }
 
       /// en translation: Follow system
@@ -1440,6 +1577,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("OK", bundle: bundle, comment: "")
       }
 
+      /// en translation: Personal
+      ///
+      /// Locales: en, zh-Hans
+      static func personal(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Personal", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Personal"
+        }
+
+        return NSLocalizedString("Personal", bundle: bundle, comment: "")
+      }
+
       /// en translation: Placeholder Error
       ///
       /// Locales: en, zh-Hans
@@ -1483,6 +1635,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Error.Network.NotConnected.Message", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Settings
+      ///
+      /// Locales: en, zh-Hans
+      static func settings(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Settings", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Settings"
+        }
+
+        return NSLocalizedString("Settings", bundle: bundle, comment: "")
       }
 
       /// en translation: Sure
@@ -1560,6 +1727,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("Error.Timeout.Title", bundle: bundle, comment: "")
       }
 
+      /// en translation: Trending
+      ///
+      /// Locales: en, zh-Hans
+      static func trending(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Trending", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Trending"
+        }
+
+        return NSLocalizedString("Trending", bundle: bundle, comment: "")
+      }
+
       /// en translation: Unknown
       ///
       /// Locales: en, zh-Hans
@@ -1633,6 +1815,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("Yes", bundle: bundle, comment: "")
+      }
+
+      /// en translation: submit successfully
+      ///
+      /// Locales: en, zh-Hans
+      static func toastSubmitMessage(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("Toast.Submit.Message", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "Toast.Submit.Message"
+        }
+
+        return NSLocalizedString("Toast.Submit.Message", bundle: bundle, comment: "")
       }
 
       /// en translation: 中文

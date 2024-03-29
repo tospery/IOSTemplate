@@ -53,46 +53,46 @@ class ListViewReactor: GeneralViewReactor {
                 if let value = ($0 as? BaseModel)?.data as? SectionItemElement {
                     return value.sectionItem($0)
                 }
-                if let user = $0 as? User {
-                    switch user.style {
-                    case .plain: return .userPlain(.init($0))
-                    case .basic: return .userBasic(.init($0))
-                    case .detail: return .userDetail(.init($0))
-                    }
-                }
-                if let repo = $0 as? Repo {
-                    switch repo.style {
-                    case .plain, .basic: return .repoBasic(.init($0))
-                    case .detail: return .repoDetail(.init($0))
-                    }
-                }
-                if let content = $0 as? Content {
-                    if content.isReadme {
-                        return .readmeContent(.init($0))
-                    }
-                    return content.children.count == 0 ? .dirSingle(.init($0)) : .dirMultiple(.init($0))
-                }
-                if $0 is URLScheme {
-                    return .urlScheme(.init($0))
-                }
-                if $0 is Event {
-                    return .event(.init($0))
-                }
-                if $0 is Issue {
-                    return .issue(.init($0))
-                }
-                if $0 is Language {
-                    return .language(.init($0))
-                }
-                if $0 is Degree {
-                    return .degree(.init($0))
-                }
-                if $0 is Branch {
-                    return .branch(.init($0))
-                }
-                if $0 is Pull {
-                    return .pull(.init($0))
-                }
+//                if let user = $0 as? User {
+//                    switch user.style {
+//                    case .plain: return .userPlain(.init($0))
+//                    case .basic: return .userBasic(.init($0))
+//                    case .detail: return .userDetail(.init($0))
+//                    }
+//                }
+//                if let repo = $0 as? Repo {
+//                    switch repo.style {
+//                    case .plain, .basic: return .repoBasic(.init($0))
+//                    case .detail: return .repoDetail(.init($0))
+//                    }
+//                }
+//                if let content = $0 as? Content {
+//                    if content.isReadme {
+//                        return .readmeContent(.init($0))
+//                    }
+//                    return content.children.count == 0 ? .dirSingle(.init($0)) : .dirMultiple(.init($0))
+//                }
+//                if $0 is URLScheme {
+//                    return .urlScheme(.init($0))
+//                }
+//                if $0 is Event {
+//                    return .event(.init($0))
+//                }
+//                if $0 is Issue {
+//                    return .issue(.init($0))
+//                }
+//                if $0 is Language {
+//                    return .language(.init($0))
+//                }
+//                if $0 is Degree {
+//                    return .degree(.init($0))
+//                }
+//                if $0 is Branch {
+//                    return .branch(.init($0))
+//                }
+//                if $0 is Pull {
+//                    return .pull(.init($0))
+//                }
                 return .simple(.init($0))
             })
         })

@@ -16,4 +16,11 @@ extension Parameter {
     static var appId: String { "app_id" }
     static var appVersion: String { "app_version" }
     static var appChannel: String { "app_channel" }
+    static var authorization: String { "Authorization" }
+    static var clientId: String { "client_id" }
+    static var clientSecret: String { "client_secret" }
+    static var language: String { "language" }
+    static var since: String { "since" }
+    static var login: String { "login" }
+    static var reponame: String { "reponame" }
 }

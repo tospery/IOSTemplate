@@ -30,34 +30,34 @@ class AboutViewController: ListViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func tapLogo(_: Void? = nil) {
-        self.count += 1
-        if self.count == 10 {
-            self.count = 0
-            UIPasteboard.general.string = UIDevice.current.uuid
-            self.navigator.toastMessage(R.string.localizable.toastUUIDMessage(
-                preferredLanguages: myLangs
-            ))
-        }
-    }
+//    override func tapLogo(_: Void? = nil) {
+//        self.count += 1
+//        if self.count == 10 {
+//            self.count = 0
+//            UIPasteboard.general.string = UIDevice.current.uuid
+////            self.navigator.toastMessage(R.string.localizable.toastUUIDMessage(
+////                preferredLanguages: myLangs
+////            ))
+//        }
+//    }
     
-    override func tapItem(sectionItem: SectionItem) {
-        super.tapItem(sectionItem: sectionItem)
-        switch sectionItem {
-        case let .simple(item):
-            guard let simple = item.model as? Simple else { return }
-            guard let cellId = CellId.init(rawValue: simple.id) else { return }
-            if cellId == .qqgroup {
-                self.qqgroup()
-            } else if cellId == .score {
-                self.score()
-            } else if cellId == .share {
-                self.share()
-            }
-        default:
-            break
-        }
-    }
+//    override func tapItem(sectionItem: SectionItem) {
+//        super.tapItem(sectionItem: sectionItem)
+//        switch sectionItem {
+//        case let .simple(item):
+//            guard let simple = item.model as? Simple else { return }
+//            guard let cellId = CellId.init(rawValue: simple.id) else { return }
+//            if cellId == .qqgroup {
+//                self.qqgroup()
+//            } else if cellId == .score {
+//                self.score()
+//            } else if cellId == .share {
+//                self.share()
+//            }
+//        default:
+//            break
+//        }
+//    }
     
     func qqgroup() {
         var string = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin="

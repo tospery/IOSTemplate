@@ -49,21 +49,21 @@ extension Router {
             maxSize: .init(width: .ratio(value: 0.74), height: .ratio(value: 0.36))
         )
         
-        let observer = parameters?[Parameter.routerObserver] as? AnyObserver<Any>
-        guard let vc = navigator.viewController(
-            for: Router.shared.urlString(host: .branch, path: .list),
-            context: parameters
-        ) as? BranchListViewController else { return false }
-        vc.closeBlock = { value in
-            SwiftEntryKit.dismiss(.specific(entryName: name)) {
-                if value != nil {
-                    observer?.onNext(value!)
-                }
-                observer?.onCompleted()
-            }
-        }
-        let nc = NavigationController.init(rootViewController: vc)
-        SwiftEntryKit.display(entry: nc, using: attributes)
+//        let observer = parameters?[Parameter.routerObserver] as? AnyObserver<Any>
+//        guard let vc = navigator.viewController(
+//            for: Router.shared.urlString(host: .branch, path: .list),
+//            context: parameters
+//        ) as? BranchListViewController else { return false }
+//        vc.closeBlock = { value in
+//            SwiftEntryKit.dismiss(.specific(entryName: name)) {
+//                if value != nil {
+//                    observer?.onNext(value!)
+//                }
+//                observer?.onCompleted()
+//            }
+//        }
+//        let nc = NavigationController.init(rootViewController: vc)
+//        SwiftEntryKit.display(entry: nc, using: attributes)
         
         return true
     }

@@ -12,7 +12,7 @@ import HiIOS
 class AliyunProvider: Umbrella.ProviderType {
     
     func log(_ eventName: String, parameters: [String: Any]?) {
-        SWHub.log("\(eventName): \(parameters ?? [:])", module: .aliyun)
+        IOSTemplate.log("\(eventName): \(parameters ?? [:])", module: .aliyun)
 #if DEBUG
 #else
 //        let builder = ALBBMANCustomHitBuilder.init()

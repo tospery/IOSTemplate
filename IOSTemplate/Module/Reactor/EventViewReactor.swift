@@ -1,8 +1,8 @@
 //
-//  FavoriteViewReactor.swift
-//  SWHub
+//  EventViewReactor.swift
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2022/11/29.
+//  Created by 杨建祥 on 2024/3/29.
 //
 
 import Foundation
@@ -13,18 +13,18 @@ import URLNavigator_Hi
 import Rswift
 import HiIOS
 
-class FavoriteViewReactor: ListViewReactor {
+class EventViewReactor: ListViewReactor {
     
     required init(_ provider: HiIOS.ProviderType, _ parameters: [String: Any]?) {
         super.init(provider, parameters)
-        self.initialState.title = self.title ?? R.string.localizable.favorite(preferredLanguages: myLangs)
+        self.initialState.title = self.title ?? R.string.localizable.event(preferredLanguages: myLangs)
     }
     
     override func reduce(state: ListViewReactor.State, mutation: ListViewReactor.Mutation) -> ListViewReactor.State {
         var newState = state
         switch mutation {
         case let .setConfiguration(configuration):
-            newState.title = self.title ?? R.string.localizable.favorite(
+            newState.title = self.title ?? R.string.localizable.event(
                 preferredLanguages: configuration?.localization.preferredLanguages
             )
         default:
@@ -33,21 +33,21 @@ class FavoriteViewReactor: ListViewReactor {
         return super.reduce(state: newState, mutation: mutation)
     }
     
-    override func fetchLocal() -> Observable<Mutation> {
-        let models = Repo.cachedArray(page: self.host) ?? []
-        let original: [HiContent] = models.isNotEmpty ? [.init(header: nil, models: models)] : []
-        return .just(.initial(original))
-    }
-    
+//    override func fetchLocal() -> Observable<Mutation> {
+//          let models = Event.cachedArray(page: self.host) ?? []
+//          let original: [HiContent] = models.isNotEmpty ? [.init(header: nil, models: models)] : []
+//        return .just(.initial(original))
+//      }
+//    
 //    override func requestRemote(_ mode: HiRequestMode, _ page: Int) -> Observable<Mutation> {
 //        .create { [weak self] observer -> Disposable in
 //            guard let `self` = self else { fatalError() }
-//            guard let username = self.currentState.user?.username else {
+//            guard let username = self.currentState.user?.username, username.isNotEmpty else {
 //                observer.onNext(.initial([]))
 //                observer.onCompleted()
 //                return Disposables.create { }
 //            }
-//            return self.provider.userStarred(username: username, page: page)
+//            return self.provider.userEvents(username: username, page: page)
 //                .asObservable()
 //                .map {
 //                    mode != .loadMore ?

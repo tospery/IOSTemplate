@@ -40,7 +40,7 @@ extension Router {
                     let json = try? data?.jsonObject()
                     let array = json as? [String] ?? []
                     for string in array {
-                        if let action = SHAlertAction.init(string: string) {
+                        if let action = ITAlertAction.init(string: string) {
                             actions?.append(action)
                         }
                     }
@@ -49,7 +49,7 @@ extension Router {
             
             var isInput = false
             for action in actions! {
-                if let action = action as? SHAlertAction, action == .input {
+                if let action = action as? ITAlertAction, action == .input {
                     isInput = true
                     break
                 }
@@ -120,7 +120,7 @@ extension Router {
             textField.placeholder = title
         }
         for action in actions {
-            if action as? SHAlertAction == .input {
+            if action as? ITAlertAction == .input {
                 continue
             }
             alertController.addAction(.init(title: action.title, style: action.style, handler: { _ in

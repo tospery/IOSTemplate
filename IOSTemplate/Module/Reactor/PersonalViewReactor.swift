@@ -33,20 +33,20 @@ class PersonalViewReactor: ListViewReactor {
         return super.reduce(state: newState, mutation: mutation)
     }
     
-    override func update() -> Observable<Mutation> {
-        .create { [weak self] observer -> Disposable in
-            guard let `self` = self else { fatalError() }
-            guard let username = self.currentState.user?.username, username.isNotEmpty else {
-                return Disposables.create { }
-            }
-            return self.provider.user(username: username)
-                .asObservable()
-                .map(Mutation.setUser)
-                .subscribe(observer)
-        }.catch {
-            .just(.setError($0))
-        }
-    }
+//    override func update() -> Observable<Mutation> {
+//        .create { [weak self] observer -> Disposable in
+//            guard let `self` = self else { fatalError() }
+//            guard let username = self.currentState.user?.username, username.isNotEmpty else {
+//                return Disposables.create { }
+//            }
+//            return self.provider.user(username: username)
+//                .asObservable()
+//                .map(Mutation.setUser)
+//                .subscribe(observer)
+//        }.catch {
+//            .just(.setError($0))
+//        }
+//    }
     
     override func fetchLocal() -> Observable<Mutation> {
         .create { [weak self] observer -> Disposable in
@@ -67,44 +67,45 @@ class PersonalViewReactor: ListViewReactor {
     }
     
     func section(_ user: User?) -> [HiContent] {
-        var models = [ModelType].init()
-        if user?.isValid ?? false {
-            if let company = user?.companyModel {
-                models.append(company)
-            }
-            models.append(contentsOf: [CellId.location, CellId.email].map {
-                Simple.init(id: $0.rawValue, icon: $0.icon, indicated: false, divided: true)
-            })
-            models.append(Simple.init(
-                id: CellId.blog.rawValue,
-                icon: CellId.blog.icon,
-                title: user?.blog,
-                indicated: true,
-                divided: true,
-                target: user?.blog
-            ))
-        }
-        models.append(Simple.init(height: 10))
-        models.append(Simple.init(
-            id: CellId.localfocus.rawValue,
-            icon: CellId.localfocus.icon,
-            title: CellId.localfocus.title,
-            indicated: true,
-            divided: false,
-            target: CellId.localfocus.target
-        ))
-        models.append(Simple.init(height: 10))
-        models.append(contentsOf: [CellId.settings, CellId.about, CellId.feedback].map {
-            Simple.init(
-                id: $0.rawValue,
-                icon: $0.icon,
-                title: $0.title,
-                indicated: true,
-                divided: $0 != .feedback,
-                target: $0.target
-            )
-        })
-        return [.init(header: nil, models: models)]
+        .init()
+//        var models = [ModelType].init()
+//        if user?.isValid ?? false {
+//            if let company = user?.companyModel {
+//                models.append(company)
+//            }
+//            models.append(contentsOf: [CellId.location, CellId.email].map {
+//                Simple.init(id: $0.rawValue, icon: $0.icon, indicated: false, divided: true)
+//            })
+//            models.append(Simple.init(
+//                id: CellId.blog.rawValue,
+//                icon: CellId.blog.icon,
+//                title: user?.blog,
+//                indicated: true,
+//                divided: true,
+//                target: user?.blog
+//            ))
+//        }
+//        models.append(Simple.init(height: 10))
+//        models.append(Simple.init(
+//            id: CellId.localfocus.rawValue,
+//            icon: CellId.localfocus.icon,
+//            title: CellId.localfocus.title,
+//            indicated: true,
+//            divided: false,
+//            target: CellId.localfocus.target
+//        ))
+//        models.append(Simple.init(height: 10))
+//        models.append(contentsOf: [CellId.settings, CellId.about, CellId.feedback].map {
+//            Simple.init(
+//                id: $0.rawValue,
+//                icon: $0.icon,
+//                title: $0.title,
+//                indicated: true,
+//                divided: $0 != .feedback,
+//                target: $0.target
+//            )
+//        })
+//        return [.init(header: nil, models: models)]
     }
 
 }

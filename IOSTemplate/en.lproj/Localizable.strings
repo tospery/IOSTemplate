@@ -9,8 +9,18 @@
 "Cancel" = "Cancel";
 "Unknown" = "Unknown";
 "Login" = "Login";
+"Exit" = "Exit";
+"About" = "About";
+"Settings" = "Settings";
+"Feedback" = "Feedback";
+"Trending" = "Trending";
+"Event" = "Event";
+"Favorite" = "Favorite";
+"Personal" = "Personal";
 /* 词语 */
 "Follow System" = "Follow system";
+/* 句子 - Toast */
+"Toast.Submit.Message" = "submit successfully";
 /* 句子 - Alert */
 "Alert.Logout.Message" = "Confirm logout?";
 /* 句子 - Error */
