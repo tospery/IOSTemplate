@@ -48,23 +48,23 @@ class PersonalViewReactor: ListViewReactor {
 //        }
 //    }
     
-    override func fetchLocal() -> Observable<Mutation> {
-        .create { [weak self] observer -> Disposable in
-            guard let `self` = self else { fatalError() }
-            observer.onNext(.initial(self.section(self.currentState.user as? User)))
-            observer.onCompleted()
-            return Disposables.create { }
-        }
-    }
-    
-    override func requestRemote(_ mode: HiRequestMode, _ page: Int) -> Observable<Mutation> {
-        .create { [weak self] observer -> Disposable in
-            guard let `self` = self else { fatalError() }
-            observer.onNext(.initial(self.section(self.currentState.user as? User)))
-            observer.onCompleted()
-            return Disposables.create { }
-        }
-    }
+//    override func fetchLocal() -> Observable<Mutation> {
+//        .create { [weak self] observer -> Disposable in
+//            guard let `self` = self else { fatalError() }
+//            observer.onNext(.initial(self.section(self.currentState.user as? User)))
+//            observer.onCompleted()
+//            return Disposables.create { }
+//        }
+//    }
+//    
+//    override func requestRemote(_ mode: HiRequestMode, _ page: Int) -> Observable<Mutation> {
+//        .create { [weak self] observer -> Disposable in
+//            guard let `self` = self else { fatalError() }
+//            observer.onNext(.initial(self.section(self.currentState.user as? User)))
+//            observer.onCompleted()
+//            return Disposables.create { }
+//        }
+//    }
     
     func section(_ user: User?) -> [HiContent] {
         .init()

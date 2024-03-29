@@ -43,17 +43,6 @@ final class AppDependency: HiIOS.AppDependency {
     // MARK: - Test
     override func test(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         log("环境参数: \(envParameters)", module: .common)
-        log("accessToken = \(AccessToken.current?.accessToken ?? "")")
-//        let string = "abcd1234"
-//        let aaa = string.startIndex..<string.endIndex
-//        let bbb = string[aaa]
-//        let ccc = string[string.startIndex..<string.index(string.startIndex, offsetBy: 3)]
-//        log("测试一下: \(bbb), \(ccc)")
-//        let string = "@commaai @tinygrad "
-//        let aaa = string.substrings(pattern: "@([^@\\s]+)")
-//        let aaa = 123456789
-//        let bbb = aaa.double.moneyStyleText
-//        log("测试一下: \(bbb)")
         log("用户参数: \(userParameters)", module: .common)
     }
 

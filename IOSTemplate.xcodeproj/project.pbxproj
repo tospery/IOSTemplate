@@ -1160,10 +1160,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IOSTemplate/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "iOS Template";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SWHub需要您的同意，才能在使用期间始终访问位置";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "SWHub需要您的同意，才能始终访问位置";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能在使用期间始终访问位置";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能始终访问位置";
 				INFOPLIST_KEY_NSLocationUsageDescription = "SWHub需要您的同意，才能访问位置";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SWHub需要您的同意，才能在使用期间访问位置";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能在使用期间访问位置";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1212,10 +1212,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IOSTemplate/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "iOS Template";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SWHub需要您的同意，才能在使用期间始终访问位置";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "SWHub需要您的同意，才能始终访问位置";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能在使用期间始终访问位置";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能始终访问位置";
 				INFOPLIST_KEY_NSLocationUsageDescription = "SWHub需要您的同意，才能访问位置";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SWHub需要您的同意，才能在使用期间访问位置";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(PRODUCT_NAME)需要您的同意，才能在使用期间访问位置";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -18,6 +18,8 @@
 		</dict>
 		<dict/>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>
@@ -170,10 +172,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -181,6 +179,8 @@
 		<key>UISceneConfigurations</key>
 		<dict/>
 	</dict>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

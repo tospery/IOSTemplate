@@ -29,13 +29,13 @@ class FavoriteViewController: ListViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func handleContents(contents: [HiContent]) {
-        guard let host = self.reactor?.host, host.isNotEmpty else { return }
-        guard let index = self.reactor?.pageIndex, index == self.reactor?.pageStart else { return }
-        guard let repos = contents.first?.models as? [Repo], repos.isNotEmpty else { return }
-        let first = [Repo].init(repos.prefix(self.reactor?.pageSize ?? UIApplication.shared.pageSize))
-        Repo.storeArray(first, page: host)
-        log("repo缓存->\(host)【首页.收藏】")
-    }
+//    override func handleContents(contents: [HiContent]) {
+//        guard let host = self.reactor?.host, host.isNotEmpty else { return }
+//        guard let index = self.reactor?.pageIndex, index == self.reactor?.pageStart else { return }
+//        guard let repos = contents.first?.models as? [Repo], repos.isNotEmpty else { return }
+//        let first = [Repo].init(repos.prefix(self.reactor?.pageSize ?? UIApplication.shared.pageSize))
+//        Repo.storeArray(first, page: host)
+//        log("repo缓存->\(host)【首页.收藏】")
+//    }
 
 }
