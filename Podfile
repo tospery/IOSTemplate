@@ -1,71 +1,71 @@
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/aliyun/aliyun-specs.git'
 
-platform :ios, '13.0'
+platform :ios, '16.0'
 use_frameworks!
 inhibit_all_warnings!
 
 target 'IOSTemplate' do
-
-  # pod 'HiIOS', :path => '../HiIOS'
-  pod 'HiIOS', '1.2.9' # 第一位针对架构、第二位针对项目、第三位针对故障
-
-  # Base
-  pod 'SwiftLint', '0.54.0'
-  pod 'Umbrella/Core', '0.12.0'
-  pod 'IQKeyboardManagerSwift', '6.5.11'
-  pod 'RxGesture', '4.0.4'
-  pod 'ReusableKit-Hi/RxSwift', '3.0.0-v4'
-  pod 'R.swift', '6.1.0'
-  pod 'SnapKit', '5.6.0'
-  pod 'DefaultsKit', '0.2.0'
   
-  # Debug
-  pod 'FLEX', '5.22.10', :configurations => ['Debug']
+  # pod 'HiBase', :path => '../HiBase'
+  # pod 'HiCore', :path => '../HiCore'
+  # pod 'HiNav/Combine', :path => '../HiNav'
+  # pod 'HiNet/Combine', :path => '../HiNet'
+  # pod 'HiResource', :path => '../HiResource'
+  # pod 'HiSwiftUI', :path => '../HiSwiftUI'
+  # pod 'HiStats/Console', :path => '../HiStats'
+  # pod 'HiLog/SwiftyBeaver', :path => '../HiLog'
   
-  # Advanced
-  pod 'MXParallaxHeader', '1.1.0'
-  pod 'TTTAttributedLabel', '2.0.0'
-  pod 'Toast-Swift-Hi', '5.0.1-v3'
-  pod 'SwiftEntryKit', '2.0.0'
-  
-  # Platform
+  pod 'HiSwiftUI', '1.1.1'
+  pod 'HiLog/SwiftyBeaver', '~> 1.0'
+  pod 'HiStats/Console', '~> 1.0'
 
+  pod 'Domain', :path => './Domain'
+  pod 'RealmPlatform', :path => './RealmPlatform'
+  pod 'NetworkPlatform', :path => './NetworkPlatform'
+  
+  pod 'R.swift', '~> 7.0'
+  pod 'Parchment', '~> 4.0'
+  pod 'FancyScrollView-Hi', '0.1.4-v1'
+  pod 'AlertToast-Hi', '~> 1.3.9'
+  pod 'ExytePopupView', '~> 3.1'
+  pod 'SwiftUI-WebView-Hi', '~> 0.3.0'
+  # pod 'SwiftUIFlowLayout', '~> 1.0'
+  # pod 'DateToolsSwift-Hi', '5.0.0-v6'
+  # pod 'SVGView', '~> 1.0'
+  # pod 'CodeEditor-Hi', '~> 1.2.6'
+  # pod 'PDFViewer-Hi', '~> 1.0.2'
+  # pod 'SwiftSoup', '~> 2.0'
+  
+  # Test
+  pod 'FLEX', '~> 5.0'
+  pod 'GDPerformanceView-Swift', '~> 2.0'
+  pod 'FBRetainCycleDetector', :git => "https://github.com/facebook/FBRetainCycleDetector.git", :commit => 'd1951bf'
+  # 阿里云
+  # pod 'AlicloudAPM', '~> 1.1.0'
+  # pod 'AlicloudCrash', '~> 1.2.0'
+  # pod 'AlicloudTLog', '~> 1.0.0'
+  # pod 'AlicloudFeedback', '~> 3.0'
+  # pod 'AlicloudMANLight', '~> 1.0'
+  # pod 'AlicloudUT', '~> 5.2.0'
+  # pod 'AliyunOSSiOS', :source => 'https://github.com/aliyun/aliyun-specs.git'
+  # 友盟
+  pod 'UMCommon', '~> 7.5.0'
+  pod 'UMDevice', '~> 3.4.0'
+  # Mob
+  # pod 'MOBFoundation', '~> 20241207'
+  # pod 'mob_sharesdk', '~> 4.4.0'
+  # pod 'mob_sharesdk/ShareSDKExtension', '~> 4.4.0'
+  # pod 'mob_sharesdk/ShareSDKPlatforms/SMS', '~> 4.4.0'
+  # pod 'mob_sharesdk/ShareSDKPlatforms/Mail', '~> 4.4.0'
+  # pod 'mob_sharesdk/ShareSDKPlatforms/WeChat', '~> 4.4.0'
+  # pod 'mob_sharesdk/ShareSDKPlatforms/Twitter', '~> 4.4.0'
 end
 
 post_install do |installer|
-  installer.pods_project.build_configurations.each do |config|
-    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-  end
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
-	  if config.base_configuration_reference.is_a? Xcodeproj::Project::Object::PBXFileReference
-	    xcconfig_path = config.base_configuration_reference.real_path
-	    IO.write(xcconfig_path, IO.read(xcconfig_path).gsub("DT_TOOLCHAIN_DIR", "TOOLCHAIN_DIR"))
-	  end
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
     end
   end
-  installer.aggregate_targets.each do |target|
-    target.xcconfigs.each do |variant, xcconfig|
-      xcconfig_path = target.client_root + target.xcconfig_relative_path(variant)
-      IO.write(xcconfig_path, IO.read(xcconfig_path).gsub("DT_TOOLCHAIN_DIR", "TOOLCHAIN_DIR"))
-    end
-  end
-  find_and_replace("Pods/FBRetainCycleDetector/FBRetainCycleDetector/Layout/Classes/FBClassStrongLayout.mm",
-        "layoutCache[currentClass] = ivars;", "layoutCache[(id<NSCopying>)currentClass] = ivars;")
-end
-
-def find_and_replace(dir, findstr, replacestr)
-  Dir[dir].each do |name|
-      FileUtils.chmod("+w", name)
-      text = File.read(name)
-      replace = text.gsub(findstr,replacestr)
-      if text != replace
-          puts "Fix: " + name
-          File.open(name, "w") { |file| file.puts replace }
-          STDOUT.flush
-      end
-  end
-  Dir[dir + '*/'].each(&method(:find_and_replace))
 end

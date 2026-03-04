@@ -1,16 +1,15 @@
 //
 //  UIApplication+Ex.swift
-//  SWHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2020/11/28.
+//  Created by 杨建祥 on 2026/3/3.
 //
 
-import Foundation
-import HiIOS
+import UIKit
 import SwifterSwift
 
 extension UIApplication {
-
+    
     var channel: Int {
         switch self.inferredEnvironment {
         case .debug: return 1
@@ -21,14 +20,19 @@ extension UIApplication {
     
     var baseTrendingUrl: String { "https://gtrend.yapie.me" }
     var baseGithubUrl: String { "https://github.com" }
-    @objc var myBaseApiUrl: String { "https://api.github.com" }
-    @objc var myBaseWebUrl: String { "https://github.com" }
     
-    @objc var myPageSize: Int { 30 }
-
+    @objc var myPageStart: Int { 1 }
+    
+    static var currentWindow: UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .first { $0.isKeyWindow }
+    }
 }
 
-extension UIApplication.Environment: CustomStringConvertible {
+extension UIApplication.Environment: @retroactive CustomStringConvertible {
     public var description: String {
         switch self {
         case .debug: return "Debug"

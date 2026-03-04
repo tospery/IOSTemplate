@@ -1,37 +1,26 @@
 //
 //  Function.swift
-//  SWHub
+//  WillHub
 //
-//  Created by 杨建祥 on 2020/11/28.
+//  Created by 杨建祥 on 2024/10/15.
 //
 
-import Foundation
-import SwiftyBeaver
-import HiIOS
+import SwiftUI
+import HiLog
+import HiSwiftUI
 
-func log(
-    _ message: @autoclosure () -> Any,
-    module: Logger.Module = .common,
-    level: Logger.Level = .debug,
-    file: String = #file,
-    function: String = #function,
-    line: Int = #line,
-    context: Any? = nil
-) {
-    logger.print(message(), module: module, level: level, file: file, line: line, context: context)
-#if DEBUG
+func aliyunUnreadCountFeedback() async -> Int {
+    await withCheckedContinuation { continuation in
+#if ALIYUN_ENABLE
+        OCHelper.sharedInstance().feedbackKit.getUnreadCount { count, error in
+            if error != nil {
+                continuation.resume(returning: 0)
+            } else {
+                continuation.resume(returning: count)
+            }
+        }
 #else
-//    guard let message = message() as? String else { return }
-//    let aliyun = TLogFactory.createTLog(forModuleName: module)
-//    switch level {
-//    case .debug, .verbose:
-//        aliyun?.debug(message)
-//    case .info:
-//        aliyun?.info(message)
-//    case .warning:
-//        aliyun?.warn(message)
-//    case .error:
-//        aliyun?.error(message)
-//    }
+        continuation.resume(returning: 0)
 #endif
+    }
 }

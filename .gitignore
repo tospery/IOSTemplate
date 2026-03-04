@@ -1,3 +1,12 @@
 *.xcworkspace
 Pods/
 Podfile.lock
+Domain/Example/Pods/
+Domain/Example/Podfile.lock
+Domain/Example/*.xcworkspace
+NetworkPlatform/Example/Pods/
+NetworkPlatform/Example/Podfile.lock
+NetworkPlatform/Example/*.xcworkspace
+RealmPlatform/Example/Pods/
+RealmPlatform/Example/Podfile.lock
+RealmPlatform/Example/*.xcworkspace

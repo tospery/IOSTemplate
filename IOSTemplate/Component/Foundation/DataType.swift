@@ -1,133 +1,180 @@
 //
 //  DataType.swift
-//  SWHub
+//  WillHub
 //
-//  Created by liaoya on 2022/7/21.
+//  Created by 杨建祥 on 2024/7/2.
 //
 
 import Foundation
-import HiIOS
+import SwiftUI
+import ComposableArchitecture
+import SwifterSwift
+import HiBase
+import HiNav
+import HiSwiftUI
+import RswiftResources
+import HiCore
 
-struct Metric {
-    static let menuHeight   = 44.f
+enum TileId: String, Hashable, Identifiable, CustomStringConvertible, CaseIterable {
+    case space
+    case settings, about, feedback
+    case company, location, email, blog, nickname, bio
+    case author, qqGroup, urlSchemes, scoring, share
+    case language, issues, pulls, branches, readme
+    case colorTheme, localization, cache
+    case trendingSince, trendingLanguage
+    case searchType, searchLanguage, searchUserSort
+    case logo, text, editor
     
-    struct Personal {
-        static let parallaxTopHeight    = 244.0
-        static let parallaxAllHeight    = 290.0
+    static let unloginValues = [settings, about, feedback]
+    static let loginedValues = [company, location, email, blog, space, settings, about, feedback]
+    static let settingValues = [colorTheme, localization, cache]
+    static let aboutValues = [logo, author, qqGroup, space, urlSchemes, scoring, share]
+    static let profileValues = [nickname, bio, space, company, location, blog]
+    static let trendingOptionsValues = [trendingSince, trendingLanguage]
+    
+    var id: String {
+        if self == .space {
+            return "space-\(UUID().uuidString)"
+        }
+        return rawValue
     }
-}
-
-enum TabBarKey {
-    case trending
-    case event
-    case favorite
-    case personal
-}
-
-enum Platform {
-    case github
-    case umeng
-    case weixin
     
-    var appId: String {
+    var separated: Bool {
         switch self {
-        case .github: return "your github appid"
-        case .umeng: return "your umeng appid"
-        case .weixin: return UIApplication.shared.urlScheme(name: "weixin") ?? ""
+        case .feedback, .blog, .cache, .qqGroup, .share:
+            return false
+        default:
+            return true
         }
     }
     
-    var appKey: String {
-        switch self {
-        case .github: return "your github appkey"
-        case .umeng: return "your umeng appkey"
-        case .weixin: return "your weixin appkey"
-        }
+    var indicated: Bool {
+        true
     }
     
-    var appLink: String {
-        switch self {
-        case .weixin: return "https://tospery.com/iostemplate/"
-        default: return ""
-        }
-    }
-
-}
-
-enum CellId: Int {
-    case space          = 0, button
-    case settings       = 10, about, feedback
-    
-    var title: String? {
-        switch self {
-        case .settings: return R.string.localizable.settings(preferredLanguages: myLangs)
-        case .about: return R.string.localizable.about(preferredLanguages: myLangs)
-        case .feedback: return R.string.localizable.feedback(preferredLanguages: myLangs)
-        default: return nil
-        }
+    public var description: String {
+//        switch self {
+//        case .colorTheme: return R.string.localizable.theme.localizedKeyString
+//        case .localization: return R.string.localizable.language.localizedKeyString
+//        case .cache: return R.string.localizable.clearCache.localizedKeyString
+//        case .urlSchemes: return R.string.constant.urlSchemes()
+//        case .share: return R.string.localizable.shareWithFriend.localizedKeyString
+//        case .qqGroup: return R.string.localizable.qqGroup.localizedKeyString
+//        case .trendingSince: return R.string.localizable.since.localizedKeyString
+//        case .trendingLanguage, .searchLanguage: return R.string.localizable.language.localizedKeyString
+//        case .searchType: return R.string.localizable.type.localizedKeyString
+//        case .searchUserSort: return R.string.localizable.sort.localizedKeyString
+//        default: return self.rawValue.capitalizedFirstCharacter.localizedString
+//        }
+        ""
     }
     
-    var param: String? { nil }
-    
-    var icon: String? {
-        switch self {
-        case .settings: return R.image.ic_settings.name
-        case .about: return R.image.ic_about.name
-        case .feedback: return R.image.ic_feedback.name
-        default: return nil
-        }
+    var icon: String {
+//        switch self {
+//        case .settings: return R.image.settings_icon.name
+//        default: return "\(self.rawValue)_icon"
+//        }
+        R.image.brand_icon.name
     }
     
     var target: String? {
+//        switch self {
+//        case .cache, .logo, .author, .share: return nil
+//        case .scoring: return R.string.constant.appScoringLink()
+//        case .qqGroup: return R.string.constant.qqGroupLink()
+//        case .about, .settings, .feedback: return HiNav.shared.deepLink(host: self.rawValue.lowercased())
+//        case .trendingLanguage:
+//            return HiNav.shared.deepLink(host: .languageList, parameters: [
+//                Parameter.search: false.string
+//            ])
+//        case .searchLanguage:
+//            return HiNav.shared.deepLink(host: .languageList, parameters: [
+//                Parameter.search: true.string
+//            ])
+//        default:
+//            return HiNav.shared.deepLink(host: self.rawValue.lowercased())
+//        }
+        nil
+    }
+    
+    var param: String? {
         switch self {
-        case .settings: return Router.shared.urlString(host: .settings)
-        case .about: return Router.shared.urlString(host: .about)
-        case .feedback: return Router.shared.urlString(host: .feedback)
+        case .company: return Parameter.company
+        case .location: return Parameter.location
+        case .blog: return Parameter.blog
+        case .nickname: return Parameter.name
+        case .bio: return Parameter.bio
         default: return nil
         }
     }
-    
+
 }
 
-enum ITAlertAction: AlertActionType, Equatable {
+@CasePathable
+enum WHAlertAction: AlertActionType, Identifiable, Equatable {
     case destructive
     case `default`
     case cancel
-    case input
     case exit
     
+    var id: String { description }
+    
     init?(string: String) {
-        switch string {
-        case ITAlertAction.cancel.title: self = ITAlertAction.cancel
-        case ITAlertAction.exit.title: self = ITAlertAction.exit
-        default: return nil
+        if [
+            R.string.localizable.oK.key.description.englishLocalizedString.lowercased(),
+            R.string.localizable.oK.key.description.chineseLocalizedString.lowercased()
+        ].contains(string.lowercased()) {
+            self = .destructive
+        } else if [
+            R.string.localizable.sure.key.description.englishLocalizedString.lowercased(),
+            R.string.localizable.sure.key.description.chineseLocalizedString.lowercased()
+        ].contains(string.lowercased()) {
+            self = .default
+        } else if [
+            R.string.localizable.cancel.key.description.englishLocalizedString.lowercased(),
+            R.string.localizable.cancel.key.description.chineseLocalizedString.lowercased()
+        ].contains(string.lowercased()) {
+            self = .cancel
+        } else if [
+            R.string.localizable.exit.key.description.englishLocalizedString.lowercased(),
+            R.string.localizable.exit.key.description.chineseLocalizedString.lowercased()
+        ].contains(string.lowercased()) {
+            self = .exit
+        } else {
+            return nil
         }
     }
 
-    var title: String? {
+    var description: String {
         switch self {
-        case .destructive:  return R.string.localizable.sure(preferredLanguages: myLangs)
-        case .default:  return R.string.localizable.oK(preferredLanguages: myLangs)
-        case .cancel: return R.string.localizable.cancel(preferredLanguages: myLangs)
-        case .exit: return R.string.localizable.exit(preferredLanguages: myLangs)
-        default: return nil
+        case .destructive:  return R.string.localizable.oK.localizedString
+        case .default:  return R.string.localizable.sure.localizedString
+        case .cancel: return R.string.localizable.cancel.localizedString
+        case .exit: return R.string.localizable.exit.localizedString
         }
     }
 
     var style: UIAlertAction.Style {
         switch self {
         case .cancel:  return .cancel
-        case .destructive, .exit:  return .destructive
-        default: return .default
+        default: return .destructive
+        }
+    }
+    
+    var role: ButtonStateRole? {
+        switch self.style {
+        case .destructive: return .destructive
+        case .cancel: return .cancel
+        default: return nil
         }
     }
 
-    static func == (lhs: ITAlertAction, rhs: ITAlertAction) -> Bool {
+    static func == (lhs: WHAlertAction, rhs: WHAlertAction) -> Bool {
         switch (lhs, rhs) {
         case (.destructive, .destructive),
             (.default, .default),
             (.cancel, .cancel),
-            (.input, .input),
             (.exit, .exit):
             return true
         default:
@@ -136,23 +183,85 @@ enum ITAlertAction: AlertActionType, Equatable {
     }
 }
 
-enum Since: String, Codable {
-    case daily
-    case weekly
-    case montly
-
-    static let allValues = [daily, weekly, montly]
+enum PopupType: String, CaseIterable {
+    case branchList = "branchs"
+    case share
+    case clipboard
 }
 
-enum Page: String, Codable {
-    case none
-    // 趋势的
-    case trendingRepos
-    case trendingUsers
-    // 问题的/合并请求的
-    case open
-    case closed
+enum LogicType: String, CaseIterable {
+    case contact
+}
+
+enum ShareType: String, Identifiable, CaseIterable {
+    case wechatSession, wechatTimeline, twitter, sms, email, copy
     
-    static let trendingValues = [trendingRepos, trendingUsers]
-    static let stateValues = [open, closed]
+    var id: String { rawValue }
+    
+#if MOB_ENABLE
+    var platformType: SSDKPlatformType {
+        switch self {
+        case .copy: return .typeCopy
+        case .sms: return .typeSMS
+        case .email: return .typeMail
+        case .wechatSession: return .subTypeWechatSession
+        case .wechatTimeline: return .subTypeWechatTimeline
+        case .twitter: return .typeTwitter
+        }
+    }
+#endif
+    
+    var title: String {
+        switch self {
+        case .copy: return R.string.localizable.copyLink.localizedString
+        case .sms: return R.string.localizable.smS.localizedString
+        case .email: return R.string.localizable.eMail.localizedString
+        case .wechatSession: return R.string.localizable.weChat.localizedString
+        case .wechatTimeline: return R.string.localizable.friendZone.localizedString
+        case .twitter: return R.string.constant.x.localizedString
+        }
+    }
+    
+    var image: Image {
+//        switch self {
+//        case .copy: return R.image.share_link_icon.swiftUIImage
+//        case .sms: return R.image.share_sms_icon.swiftUIImage
+//        case .email: return R.image.share_email_icon.swiftUIImage
+//        case .wechatSession: return R.image.share_wcsession_icon.swiftUIImage
+//        case .wechatTimeline: return R.image.share_wctimeline_icon.swiftUIImage
+//        case .twitter: return R.image.share_twitter_icon.swiftUIImage
+//        }
+        R.image.brand_icon.swiftUIImage
+    }
+    
+}
+
+enum TabBarItemType: Int, CaseIterable, Identifiable {
+    case trending, event, favorite, personal
+    var id: Int { rawValue }
+    
+    var title: String {
+        switch self {
+        case .trending: return R.string.localizable.trending.localizedKeyString
+        case .event: return R.string.localizable.event.localizedKeyString
+        case .favorite: return R.string.localizable.favorite.localizedKeyString
+        case .personal: return R.string.localizable.personal.localizedKeyString
+        }
+    }
+    var normalImage: Image {
+        switch self {
+        case .trending: return R.image.trending_normal_icon.swiftUIImage
+        case .event: return R.image.event_normal_icon.swiftUIImage
+        case .favorite: return R.image.favorite_normal_icon.swiftUIImage
+        case .personal: return R.image.personal_normal_icon.swiftUIImage
+        }
+    }
+    var selectedImage: Image {
+        switch self {
+        case .trending: return R.image.trending_selected_icon.swiftUIImage
+        case .event: return R.image.event_selected_icon.swiftUIImage
+        case .favorite: return R.image.favorite_selected_icon.swiftUIImage
+        case .personal: return R.image.personal_selected_icon.swiftUIImage
+        }
+    }
 }

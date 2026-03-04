@@ -1,30 +1,22 @@
 //
-//  Type.swift
-//  SWHub
+//  Constant.swift
+//  WillHub
 //
-//  Created by 杨建祥 on 2020/11/28.
+//  Created by 杨建祥 on 2024/12/23.
 //
 
 import UIKit
-import QMUIKit
-import HiIOS
+import HiCore
+import HiBase
+import Domain
+import HiSwiftUI
 
-let envParameters: [String: Any] = [
+let environment: [String: Any] = [
     Parameter.osType: UIDevice.current.systemName,
     Parameter.osVersion: UIDevice.current.systemVersion,
     Parameter.deviceId: UIDevice.current.uuid,
-    Parameter.deviceModel: QMUIHelper.deviceModel,
+    Parameter.deviceModel: UIDevice.current.deviceModel,
     Parameter.appId: UIApplication.shared.bundleIdentifier,
-    Parameter.appVersion: UIApplication.shared.version!,
+    Parameter.appVersion: UIApplication.shared.version,
     Parameter.appChannel: UIApplication.shared.channel
 ]
-
-var userParameters: [String: Any] {
-    [
-        Parameter.userid: User.current?.id ?? "",
-        Parameter.username: User.current?.username ?? ""
-    ]
-}
-
-
-var myLangs: [String]? { Configuration.current?.localization.preferredLanguages }

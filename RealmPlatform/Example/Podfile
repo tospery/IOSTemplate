@@ -1,0 +1,18 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '16.0'
+use_frameworks!
+
+target 'RealmPlatform_Example' do
+  pod 'Domain', :path => '../../Domain'
+  pod 'RealmPlatform', :path => '../'
+
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+    end
+  end
+end

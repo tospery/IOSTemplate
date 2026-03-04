@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleAllowMixedLocalizations</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -16,47 +14,22 @@
 				<string>iostemplate</string>
 			</array>
 		</dict>
-		<dict/>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>twitterauth</string>
 		<string>wechat</string>
 		<string>weixin</string>
+		<string>weixinULAPI</string>
+		<string>weixinURLParamsAPI</string>
 		<string>sinaweibohd</string>
 		<string>sinaweibo</string>
 		<string>sinaweibosso</string>
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
-		<string>mqqapi</string>
-		<string>mqq</string>
-		<string>mqqOpensdkSSoLogin</string>
-		<string>mqqconnect</string>
-		<string>mqqopensdkdataline</string>
-		<string>mqqopensdkgrouptribeshare</string>
-		<string>mqqopensdkfriend</string>
-		<string>mqqopensdkapi</string>
-		<string>mqqopensdkapiV2</string>
-		<string>mqqopensdkapiV3</string>
-		<string>mqzoneopensdk</string>
 		<string>wtloginmqq</string>
 		<string>wtloginmqq2</string>
-		<string>mqqwpa</string>
-		<string>mqzone</string>
-		<string>mqzonev2</string>
-		<string>mqzoneshare</string>
 		<string>wtloginqzone</string>
-		<string>mqzonewx</string>
-		<string>mqzoneopensdkapiV2</string>
-		<string>mqzoneopensdkapi19</string>
-		<string>mqzoneopensdkapi</string>
-		<string>mqzoneopensdk</string>
-		<string>renrenios</string>
-		<string>renrenapi</string>
-		<string>renren</string>
-		<string>renreniphone</string>
-		<string>yixin</string>
 		<string>instagram</string>
 		<string>whatsapp</string>
 		<string>line</string>
@@ -66,8 +39,14 @@
 		<string>fbshareextension</string>
 		<string>tbopen</string>
 		<string>tmall</string>
-		<string>weixinULAPI</string>
+		<string>mqqapi</string>
 	</array>
+	<key>MOBAppKey</key>
+	<string>3ac1924d2e317</string>
+	<key>MOBAppSecret</key>
+	<string>95d068a0e48d670d82a407e6ee5f497b</string>
+	<key>MOBNetLater</key>
+	<string>2</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -172,16 +151,16 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict/>
-	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<key>appHosts</key>
+	<dict>
+		<key>api</key>
+		<string>https://api.github.com</string>
+		<key>univ</key>
+		<string>https://c36e1a63a625c5b0456fc6550099a35a.share2dlink.com/</string>
+		<key>web</key>
+		<string>https://github.com</string>
+	</dict>
 </dict>
 </plist>
