@@ -13,7 +13,7 @@ import Domain
 import ObjectMapper
 import HiSwiftUI
 
-extension Domain.Repo {
+//extension Domain.Repo {
     
 //    var updateAgo: String? {
 //        guard let string = self.updatedAt else { return nil }
@@ -63,4 +63,4 @@ extension Domain.Repo {
 //        return branch
 //    }
 
-}
+//}

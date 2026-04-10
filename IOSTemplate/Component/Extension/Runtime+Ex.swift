@@ -14,9 +14,9 @@ extension Runtime: @retroactive RuntimeCompatible {
     
     public func myWork() {
         self.basic()
-        ExchangeImplementations(UIApplication.self,
-                                #selector(getter: UIApplication.pageStart),
-                                #selector(getter: UIApplication.myPageStart))
+//        ExchangeImplementations(UIApplication.self,
+//                                #selector(getter: UIApplication.pageStart),
+//                                #selector(getter: UIApplication.myPageStart))
     }
     
 }

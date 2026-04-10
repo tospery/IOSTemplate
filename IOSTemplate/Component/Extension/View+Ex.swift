@@ -11,15 +11,16 @@ import HiSwiftUI
 import Combine
 import ComposableArchitecture
 import HiBase
+import ExytePopupView
 
 extension View {
     
     // swiftlint:disable function_parameter_count
     func withRouteHandling(
-        route: Store<RouteReducer.State, RouteReducer.Action>,
-        alert: Binding<Store<AlertState<WHAlertAction>, WHAlertAction>?>,
-        sheet: Binding<Store<ConfirmationDialogState<WHAlertAction>, WHAlertAction>?>,
-        login: Binding<Store<LoginReducer.State, LoginReducer.Action>?>,
+        route: Store<AppRouteReducer.State, AppRouteReducer.Action>,
+        alert: Binding<Store<AlertState<ITAlertAction>, ITAlertAction>?>,
+        sheet: Binding<Store<ConfirmationDialogState<ITAlertAction>, ITAlertAction>?>,
+        login: Binding<Store<LoginReducer.State, LoginReducer.Action>?>
 //        search: Binding<Store<SearchReducer.State, SearchReducer.Action>?>,
 //        trendingOptions: Binding<Store<TrendingOptionsReducer.State, TrendingOptionsReducer.Action>?>
     ) -> some View {
@@ -40,14 +41,14 @@ extension View {
                 ),
                 message: route.toastMessage
             )
-//            .popup(item: .init(
-//                get: { route.popup },
-//                set: { route.send(.popup($0)) }
-//            )) { state in
-//                PopupManager.shared.popupView(for: state)
-//            } customize: { param in
-//                PopupManager.shared.popupParameters(for: route.popup, with: param)
-//            }
+            .popup(item: .init(
+                get: { route.popup },
+                set: { route.send(.popup($0)) }
+            )) { state in
+                PopupManager.shared.popupView(for: state)
+            } customize: { param in
+                PopupManager.shared.popupParameters(for: route.popup, with: param)
+            }
     }
     // swiftlint:enable function_parameter_count
     

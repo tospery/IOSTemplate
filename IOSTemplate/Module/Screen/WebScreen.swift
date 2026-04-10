@@ -1,11 +1,12 @@
 //
 //  WebScreen.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/12/13.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import SwiftUI
+import WebKit
 import Combine
 import ComposableArchitecture
 import SFSafeSymbols
@@ -18,7 +19,7 @@ import Domain
 import NetworkPlatform
 import SwiftUI_WebView_Hi
 import HiLog
-import WebKit
+import HiBase
 
 struct WebScreen: View {
     @StateObject var webViewStore = WebViewStore()
@@ -43,7 +44,7 @@ struct WebScreen: View {
                     .onAppear {
                         stats(.beginPageView(name: self.className))
                         self.webViewStore.webView.load(
-                            URLRequest(url: store.url.url ?? UIApplication.shared.baseWebUrl.url!)
+                            URLRequest(url: store.url.url ?? Bundle.main.baseWebUrl.url!)
                         )
                     }
                     .onDisappear {

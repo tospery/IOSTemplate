@@ -17,54 +17,71 @@ import HiSwiftUI
 import HiLog
 import Domain
 
-@Reducer(state: .equatable)
-enum Push {
+extension HiNavHost {
+    
+//    /// 返回上一级（包括退回或者关闭）
+//    public static var back: HiNavHost { "back" }
+//    /// 弹窗分为两类（自动关闭的toast和手动关闭的）
+//    public static var toast: HiNavHost { "toast" }
+//    public static var alert: HiNavHost { "alert" }
+//    public static var sheet: HiNavHost { "sheet" }
+//    public static var popup: HiNavHost { "popup" }
+//    public static var logic: HiNavHost { "logic" }
+//    /// 常用host
+//    public static var web: HiNavHost { "web" }
+//    public static var user: HiNavHost { "user" }
+//    public static var home: HiNavHost { "home" }
+//    public static var login: HiNavHost { "login" }
+//    public static var personal: HiNavHost { "personal" }
+    
+    static var shop: HiNavHost { "shop" }
+    static var fave: HiNavHost { "fave" }
+    
+    static var about: HiNavHost { TileId.about.rawValue.lowercased() }
+    
+//    static var page: HiNavHost { "page" }
+//    static var userList: HiNavHost { "users" }
+//    static var repoList: HiNavHost { "repos" }
+//    static var languageList: HiNavHost { "languages" }
+//    
+//    static var about: HiNavHost { TileId.about.rawValue.lowercased() }
+//    static var settings: HiNavHost { TileId.settings.rawValue.lowercased() }
+//    static var urlSchemes: HiNavHost { TileId.urlSchemes.rawValue.lowercased() }
+//    static var colorTheme: HiNavHost { TileId.colorTheme.rawValue.lowercased() }
+//    static var localization: HiNavHost { TileId.localization.rawValue.lowercased() }
+//    
+//    static let webValues = [
+//        about, settings
+//    ]
+}
+
+@Reducer // (state: .equatable)
+enum Path {
     case about(AboutReducer)
-    case settings(SettingsReducer)
-    case colorThemeList(ColorThemeListReducer)
-    case localizationList(LocalizationListReducer)
-    case page(PageReducer)
-    case languageList(LanguageListReducer)
-    case user(UserReducer)
+//    case settings(SettingsReducer)
+//    case colorThemeList(ColorThemeListReducer)
+//    case localizationList(LocalizationListReducer)
+//    case page(PageReducer)
+//    case languageList(LanguageListReducer)
+//    case user(UserReducer)
     case web(WebReducer)
     
     @ViewBuilder
-    static func destination(_ store: Store<Push.State, Push.Action>) -> some View {
+    static func destination(_ store: Store<Path.State, Path.Action>) -> some View {
         switch store.case {
         case let .about(store): AboutScreen(store: store)
-        case let .settings(store): SettingsScreen(store: store)
-        case let .colorThemeList(store): ColorThemeListScreen(store: store)
-        case let .localizationList(store): LocalizationListScreen(store: store)
-        case let .page(store): PageScreen(store: store)
-        case let .languageList(store): LanguageListScreen(store: store)
-        case let .user(store): UserScreen(store: store)
+//        case let .settings(store): SettingsScreen(store: store)
+//        case let .colorThemeList(store): ColorThemeListScreen(store: store)
+//        case let .localizationList(store): LocalizationListScreen(store: store)
+//        case let .page(store): PageScreen(store: store)
+//        case let .languageList(store): LanguageListScreen(store: store)
+//        case let .user(store): UserScreen(store: store)
         case let .web(store): WebScreen(store: store)
         }
     }
 }
 
-extension HiNavHost {
-    
-    static var trending: HiNavHost { "trending" }
-    static var eventList: HiNavHost { "events" }
-    static var favorite: HiNavHost { "favorite" }
-    static var personal: HiNavHost { "personal" }
-    
-    static var page: HiNavHost { "page" }
-    static var userList: HiNavHost { "users" }
-    static var repoList: HiNavHost { "repos" }
-    static var languageList: HiNavHost { "languages" }
-    
-    static var about: HiNavHost { TileId.about.rawValue.lowercased() }
-    static var settings: HiNavHost { TileId.settings.rawValue.lowercased() }
-    static var urlSchemes: HiNavHost { TileId.urlSchemes.rawValue.lowercased() }
-    static var colorTheme: HiNavHost { TileId.colorTheme.rawValue.lowercased() }
-    static var localization: HiNavHost { TileId.localization.rawValue.lowercased() }
-    
-    static let webValues = [
-        about, settings
-    ]
-}
+extension Path.State: Equatable {}
 
 extension HiNavPath { }
 
@@ -85,7 +102,7 @@ extension HiNav: @retroactive HiNavCompatible {
     
     public func needLogin(host: HiNavHost, path: HiNavPath?) -> Bool {
         switch host {
-        case .eventList, .favorite, .page: return true
+        case .fave: return true
         default: return false
         }
     }
@@ -94,38 +111,45 @@ extension HiNav: @retroactive HiNavCompatible {
     public func resolution(_ target: String) -> Any? {
         log("target: \(target)")
         if target.isValidWebUrl {
-            if target.isValidUnivLink {
-                return nil
-            }
-            
-            let isFile = target.url?.queryParameters?.bool(for: Parameter.isFile)
-            var params = target.url?.queryParameters ?? [:]
-            params.removeValue(forKey: Parameter.isFile)
-            var url = target.url?.deletingAllQueryParameters()
-            if params.count != 0 {
-                url = url?.myAppendingQueryParameters(params)
-            }
-            let urlString = url?.absoluteString ?? ""
-            
-            guard urlString.isValidInternalWebUrl else {
-                return IOSTemplate.Push.State.web(.init(url: self.deepLink(host: .web, parameters: [
-                    Parameter.url: urlString
+            guard let deepLink = target.deepLink else {
+                return IOSTemplate.Path.State.web(.init(url: self.deepLink(host: .web, parameters: [
+                    Parameter.url: target
                 ])))
             }
-            var native = ""
-            var paths = urlString.url?.pathComponents ?? []
-            paths.removeAll("/")
+            return self.handleDeepLink(deepLink)
             
-            if paths.count == 1 {
-                native = self.deepLink(host: .user, parameters: [
-                    Parameter.owner: paths[0]
-                ])
-            } else if paths.count == 2 {
+//            if target.isValidUnivLink {
+//                return nil
+//            }
+            
+//            let isFile = target.url?.queryParameters?.bool(for: Parameter.isFile)
+//            var params = target.url?.queryParameters ?? [:]
+//            params.removeValue(forKey: Parameter.isFile)
+//            var url = target.url?.deletingAllQueryParameters()
+//            if params.count != 0 {
+//                url = url?.myAppendingQueryParameters(params)
+//            }
+//            let urlString = url?.absoluteString ?? ""
+//            
+//            guard urlString.isValidDeepWebUrl else {
+//                return IOSTemplate.Path.State.web(.init(url: self.deepLink(host: .web, parameters: [
+//                    Parameter.url: urlString
+//                ])))
+//            }
+//            var native = ""
+//            var paths = urlString.url?.pathComponents ?? []
+//            paths.removeAll("/")
+            
+//            if paths.count == 1 {
+//                native = self.deepLink(host: .user, parameters: [
+//                    Parameter.owner: paths[0]
+//                ])
+//            } else if paths.count == 2 {
 //                native = self.deepLink(host: .repo, parameters: [
 //                    Parameter.owner: paths[0],
 //                    Parameter.repo: paths[1]
 //                ])
-            } else if paths.count == 3 {
+//            } else if paths.count == 3 {
 //                if paths.last == HiNavHost.contentList {
 //                    native = self.deepLink(host: .contentList, parameters: [
 //                        Parameter.owner: paths[0],
@@ -140,7 +164,7 @@ extension HiNav: @retroactive HiNavCompatible {
 //                        Parameter.title: (paths.last ?? "").capitalizedFirstCharacter.localizedString
 //                    ])
 //                }
-            } else {
+//            } else {
 //                if paths[2].lowercased() == "blob" || paths[2].lowercased() == "tree" {
 //                    if target.isValidMarkdownUrl {
 //                        native = self.deepLink(host: .markdown, parameters: [
@@ -191,16 +215,16 @@ extension HiNav: @retroactive HiNavCompatible {
 //                        Parameter.repo: paths[1]
 //                    ].jsonString() ?? "")
 //                }
-            }
-            if native.isNotEmpty {
-                native = native.url?.myAppendingQueryParameters([Parameter.fromWeb: true.string]).absoluteString ?? ""
-                return self.handleDeepLink(native)
-            }
-            return IOSTemplate.Push.State.web(.init(url: self.deepLink(host: .web, parameters: [
-                Parameter.url: urlString
-            ])))
+//            }
+//            if native.isNotEmpty {
+//                native = native.url?.myAppendingQueryParameters([Parameter.fromWeb: true.string]).absoluteString ?? ""
+//                return self.handleDeepLink(native)
+//            }
+//            return IOSTemplate.Path.State.web(.init(url: self.deepLink(host: .web, parameters: [
+//                Parameter.url: urlString
+//            ])))
         } else {
-            guard target.isValidDeepLink else {
+            guard target.isValidDeepAppUrl else {
                 return target
             }
             return self.handleDeepLink(target)
@@ -210,7 +234,7 @@ extension HiNav: @retroactive HiNavCompatible {
     
     // swiftlint:disable function_body_length
     func handleDeepLink(_ target: String) -> Any? {
-        guard target.isValidDeepLink else { return nil }
+        guard target.isValidDeepAppUrl else { return nil }
         guard let url = target.url else { return nil }
         log("内部URL: \(url)")
         // let fromWeb = target.url?.queryParameters?.bool(for: Parameter.fromWeb) ?? false
@@ -220,8 +244,8 @@ extension HiNav: @retroactive HiNavCompatible {
         }
         
         guard let host = url.host()?.lowercased() else { return nil }
-        var forwardType = url.queryParameters?.enum(for: Parameter.forwardType, type: ForwardType.self)
-        if forwardType == nil {
+        var forwardType: ForwardType? = url.queryParameters?.enum(for: Parameter.forwardType, type: ForwardType.self)
+        if forwardType.isNil {
             if host == .login {
                 forwardType = .present
             } else if target.isValidOpenUrl {
@@ -230,82 +254,115 @@ extension HiNav: @retroactive HiNavCompatible {
                 forwardType = .push
             }
         }
-        switch forwardType! {
-        case .push:
-            switch host {
-            case HiNavHost.about: return IOSTemplate.Push.State.about(.init(url: target))
-            case HiNavHost.settings: return IOSTemplate.Push.State.settings(.init(url: target))
-            case HiNavHost.colorTheme: return IOSTemplate.Push.State.colorThemeList(.init(url: target))
-            case HiNavHost.localization: return IOSTemplate.Push.State.localizationList(.init(url: target))
-            case HiNavHost.page: return IOSTemplate.Push.State.page(.init(url: target))
-            case HiNavHost.languageList: return IOSTemplate.Push.State.languageList(.init(url: target))
-            case HiNavHost.user: return IOSTemplate.Push.State.user(.init(url: target))
-            case HiNavHost.web: return IOSTemplate.Push.State.web(.init(url: target))
-            default: break
-            }
-        case .present:
-            if host == .login { return LoginReducer.State.init() }
-        case .open:
-            if target.isValidToastUrl {
-                let message = url.queryParameters?.string(for: Parameter.message) ?? ""
-                let active = url.queryParameters?.bool(for: Parameter.active)
-                return ToastState.init(message: message, active: active)
-            } else if target.isValidAlertUrl {
-                let title = url.queryParameters?.string(for: Parameter.title) ?? ""
-                let message = url.queryParameters?.string(for: Parameter.message) ?? ""
-                var state = AlertState<WHAlertAction>.init {
-                    TextState(title)
-                } message: {
-                    TextState(message)
+//        if let forwardType = forwardType {
+            switch forwardType! {
+            case .push:
+                switch host {
+                case HiNavHost.about: return IOSTemplate.Path.State.about(.init(url: target))
+//                case HiNavHost.settings: return WillHub.Push.State.settings(.init(url: target))
+//                case HiNavHost.feedback: return WillHub.Push.State.feedback(.init(url: target))
+//                case HiNavHost.profile: return WillHub.Push.State.profile(.init(url: target))
+//                case HiNavHost.colorTheme: return WillHub.Push.State.colorThemeList(.init(url: target))
+//                case HiNavHost.localization: return WillHub.Push.State.localizationList(.init(url: target))
+//                case HiNavHost.urlSchemes: return WillHub.Push.State.urlSchemeList(.init(url: target))
+//                case HiNavHost.modification: return WillHub.Push.State.modification(.init(url: target))
+//                case HiNavHost.page: return WillHub.Push.State.page(.init(url: target))
+//                case HiNavHost.trendingSince: return WillHub.Push.State.trendingSinceList(.init(url: target))
+//                case HiNavHost.languageList: return WillHub.Push.State.languageList(.init(url: target))
+//                case HiNavHost.searchType: return WillHub.Push.State.searchTypeList(.init(url: target))
+//                case HiNavHost.searchOptions: return WillHub.Push.State.searchOptions(.init(url: target))
+//                case HiNavHost.user: return WillHub.Push.State.user(.init(url: target))
+//                case HiNavHost.repo: return WillHub.Push.State.repo(.init(url: target))
+//                case HiNavHost.markdown: return WillHub.Push.State.markdown(.init(url: target))
+//                case HiNavHost.code: return WillHub.Push.State.code(.init(url: target))
+//                case HiNavHost.pdf: return WillHub.Push.State.pdf(.init(url: target))
+                case HiNavHost.web: return IOSTemplate.Path.State.web(.init(url: target))
+                //case HiNavHost.contentList: return WillHub.Push.State.contentList(.init(url: target))
+                default: break
                 }
-                let jsonString = url.queryParameters?.string(for: Parameter.actions) ?? ""
-                let jsonObject = try? jsonString.data(using: .utf8)?.jsonObject()
-                let myActions = jsonObject as? [String] ?? []
-                state.buttons = myActions
-                    .compactMap { WHAlertAction(string: $0) }
-                    .map { action in
-                        ButtonState<WHAlertAction>.init(
-                            role: action.role,
-                            action: action,
-                            label: {
-                                TextState(action.description)
-                            }
-                        )
+            case .present:
+                if host == .login { return LoginReducer.State.init() }
+//                if host == .search { return SearchReducer.State.init(url: target) }
+//                if host == .trendingOptions { return TrendingOptionsReducer.State.init(url: target) }
+            case .open:
+                if target.isValidToastUrl {
+                    let message = url.queryParameters?.string(for: Parameter.message) ?? ""
+                    let active = url.queryParameters?.bool(for: Parameter.active)
+                    return ToastState.init(message: message, active: active)
+                } else if target.isValidAlertUrl {
+                    let title = url.queryParameters?.string(for: Parameter.title) ?? ""
+                    let message = url.queryParameters?.string(for: Parameter.message) ?? ""
+                    var state = AlertState<ITAlertAction>.init {
+                        TextState(title)
+                    } message: {
+                        TextState(message)
                     }
-                return state
-            } else if target.isValidSheetUrl {
-                let title = url.queryParameters?.string(for: Parameter.title) ?? ""
-                let message = url.queryParameters?.string(for: Parameter.message) ?? ""
-                var state = ConfirmationDialogState<WHAlertAction>.init {
-                    TextState(title)
-                } message: {
-                    TextState(message)
+                    let jsonString = url.queryParameters?.string(for: Parameter.actions) ?? ""
+                    let jsonObject = try? jsonString.data(using: .utf8)?.jsonObject()
+                    let myActions = jsonObject as? [String] ?? []
+                    state.buttons = myActions
+                        .compactMap { ITAlertAction(string: $0) }
+                        .map { action in
+                            ButtonState<ITAlertAction>.init(
+                                role: action.role,
+                                action: action,
+                                label: {
+                                    TextState(action.description)
+                                }
+                            )
+                        }
+                    return state
+                } else if target.isValidSheetUrl {
+                    let title = url.queryParameters?.string(for: Parameter.title) ?? ""
+                    let message = url.queryParameters?.string(for: Parameter.message) ?? ""
+                    var state = ConfirmationDialogState<ITAlertAction>.init {
+                        TextState(title)
+                    } message: {
+                        TextState(message)
+                    }
+                    let jsonString = url.queryParameters?.string(for: Parameter.actions) ?? ""
+                    let jsonObject = try? jsonString.data(using: .utf8)?.jsonObject()
+                    let myActions = jsonObject as? [String] ?? []
+                    state.buttons = myActions
+                        .compactMap { ITAlertAction(string: $0) }
+                        .map { action in
+                            ButtonState<ITAlertAction>.init(
+                                role: action.role,
+                                action: action,
+                                label: {
+                                    TextState(action.description)
+                                }
+                            )
+                        }
+                    return state
+                } else if target.isValidPopupUrl {
+                    let type = url.queryParameters?.string(for: Parameter.type) ?? ""
+                    let data = url.queryParameters?.string(for: Parameter.data)
+                    return PopupState.init(type: type, data: data)
+                } else if target.isValidLogicUrl {
+                    guard let value = url.queryParameters?.string(for: Parameter.type) else { return nil }
+                    guard let type = LogicType(rawValue: value) else { return nil }
+                    return handleLogic(type, url.queryParameters?.string(for: Parameter.data) ?? "")
                 }
-                let jsonString = url.queryParameters?.string(for: Parameter.actions) ?? ""
-                let jsonObject = try? jsonString.data(using: .utf8)?.jsonObject()
-                let myActions = jsonObject as? [String] ?? []
-                state.buttons = myActions
-                    .compactMap { WHAlertAction(string: $0) }
-                    .map { action in
-                        ButtonState<WHAlertAction>.init(
-                            role: action.role,
-                            action: action,
-                            label: {
-                                TextState(action.description)
-                            }
-                        )
-                    }
-                return state
-            } else if target.isValidPopupUrl {
-                let type = url.queryParameters?.string(for: Parameter.type) ?? ""
-                let data = url.queryParameters?.string(for: Parameter.data)
-                return PopupState.init(type: type, data: data)
-            } else if target.isValidLogicUrl {
-                guard let value = url.queryParameters?.string(for: Parameter.type) else { return nil }
-                guard let type = LogicType(rawValue: value) else { return nil }
-                return handleLogic(type, url.queryParameters?.string(for: Parameter.data) ?? "")
             }
-        }
+//        } else {
+//            if host == .login {
+//                forwardType = .present
+//            } else if target.isValidOpenUrl {
+//                forwardType = .open
+//            } else {
+//                forwardType = .push
+//            }
+//        }
+//        if forwardType == nil {
+//            if host == .login || host == .search || host == .trendingOptions {
+//                forwardType = .present
+//            } else if target.isValidOpenUrl {
+//                forwardType = .open
+//            } else {
+//                forwardType = .push
+//            }
+//        }
         return nil
     }
     // swiftlint:enable function_body_length
@@ -340,3 +397,4 @@ extension HiNav: @retroactive HiNavCompatible {
     }
 
 }
+

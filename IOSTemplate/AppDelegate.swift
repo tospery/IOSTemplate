@@ -2,10 +2,11 @@
 //  AppDelegate.swift
 //  IOSTemplate
 //
-//  Created by 杨建祥 on 2026/3/9.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import UIKit
+import ComposableArchitecture
 import HiLog
 import HiCore
 #if DEBUG
@@ -14,6 +15,8 @@ import GDPerformanceView_Swift
 #endif
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let store = Store(initialState: .init()) { AppReducer() }
 
     var window: UIWindow?
     
@@ -28,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.test(launchOptions: launchOptions)
         }
+        // store.send(.appDelegate(.onLaunchFinish))
         return true
     }
     
@@ -68,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func test(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
 #if DEBUG
-        self.performanceView.start()
+        // self.performanceView.start()
 #endif
     }
     

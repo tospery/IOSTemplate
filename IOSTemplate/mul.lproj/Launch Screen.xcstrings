@@ -1,8 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Bip-TN-nbb.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Produced by WillGoods\"; ObjectID = \"Bip-TN-nbb\";",
+    "E8U-tA-iU8.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Produced by WillGoods\"; ObjectID = \"E8U-tA-iU8\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
@@ -14,7 +14,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "唯尔优品"
+            "value" : "唯尔出品"
           }
         }
       }

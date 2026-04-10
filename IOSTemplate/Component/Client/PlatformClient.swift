@@ -1,8 +1,8 @@
 //
 //  PlatformClient.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/9/21.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import Foundation
@@ -10,24 +10,31 @@ import SwiftUI
 import ComposableArchitecture
 import Domain
 import NetworkPlatform
-import DatabasePlatform
+import PersistencePlatorm
 import RealmSwift
 
 @DependencyClient
 struct PlatformClient {
     
-    var network: @Sendable () async -> Domain.ServiceProvider = {
-        NetworkPlatform.ServiceProvider(environment: environment)
-    }
-    var database: @Sendable () async -> Domain.ServiceProvider = {
-        DatabasePlatform.ServiceProvider(configuration: .defaultConfiguration)
-    }
+//    var network: @Sendable () async -> Domain.ServiceProvider = {
+//        NetworkPlatform.ServiceProvider(environment: environment)
+//    }
+//    var persistence: @Sendable () async -> Domain.ServiceProvider = {
+//        PersistencePlatorm.ServiceProvider(configuration: .defaultConfiguration)
+//    }
+    
+    let network: @Sendable () async -> Domain.ServiceProvider
+    let persistence: @Sendable () async -> Domain.ServiceProvider
     
 }
 
 extension PlatformClient: DependencyKey {
     static var liveValue: Self {
-        .init()
+        .init(network: {
+            NetworkPlatform.ServiceProvider(environment: environment)
+        }, persistence: {
+            PersistencePlatorm.ServiceProvider(configuration: .defaultConfiguration)
+        })
     }
 }
 

@@ -1,8 +1,8 @@
 //
 //  UMengProvider.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/12/24.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import UIKit
@@ -19,7 +19,7 @@ class UMengProvider: HiStats.ProviderType {
     init() {
 #if UMENG_ENABLE
         UMConfigure.initWithAppkey(
-            Platform.umeng.appId,
+            Platform.umeng.appKey,
             channel: UIApplication.shared.inferredEnvironment.description
         )
 #endif

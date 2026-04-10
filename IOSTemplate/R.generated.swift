@@ -68,7 +68,7 @@ struct _R {
     }
 
 
-    /// This `_R.string.constant` struct is generated, and contains static references to 12 localization keys.
+    /// This `_R.string.constant` struct is generated, and contains static references to 14 localization keys.
     struct constant {
       let source: RswiftResources.StringResource.Source
 
@@ -114,12 +114,19 @@ struct _R {
       /// Locales: en
       var english: RswiftResources.StringResource { .init(key: "English", tableName: "Constant", source: source, developmentValue: "English", comment: nil) }
 
-      /// en translation: Based on SwiftUI framework
+      /// en translation: 头条
       ///
-      /// Key: Login.Slogan
+      /// Key: Headline
       ///
       /// Locales: en
-      var loginSlogan: RswiftResources.StringResource { .init(key: "Login.Slogan", tableName: "Constant", source: source, developmentValue: "Based on SwiftUI framework", comment: nil) }
+      var headline: RswiftResources.StringResource { .init(key: "Headline", tableName: "Constant", source: source, developmentValue: "头条", comment: nil) }
+
+      /// en translation: 新闻
+      ///
+      /// Key: News
+      ///
+      /// Locales: en
+      var news: RswiftResources.StringResource { .init(key: "News", tableName: "Constant", source: source, developmentValue: "新闻", comment: nil) }
 
       /// en translation: No hot repository
       ///
@@ -127,6 +134,13 @@ struct _R {
       ///
       /// Locales: en
       var noneHotRepo: RswiftResources.StringResource { .init(key: "None.Hot.Repo", tableName: "Constant", source: source, developmentValue: "No hot repository", comment: nil) }
+
+      /// en translation: tospery
+      ///
+      /// Key: Owner
+      ///
+      /// Locales: en
+      var owner: RswiftResources.StringResource { .init(key: "Owner", tableName: "Constant", source: source, developmentValue: "tospery", comment: nil) }
 
       /// en translation: https://apps.apple.com/cn/app/id444934666
       ///
@@ -142,62 +156,69 @@ struct _R {
       /// Locales: en
       var qqGroupLink: RswiftResources.StringResource { .init(key: "QQ.GroupLink", tableName: "Constant", source: source, developmentValue: "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=700671375&key=b994eba3669a2670f6bb423b675552ac812e22a1b32d7e7c3a647172fa3dd12a&card_type=group&source=external&jump_from=webapi", comment: nil) }
 
+      /// en translation: URL Schemes
+      ///
+      /// Key: URLSchemes
+      ///
+      /// Locales: en
+      var urlSchemes: RswiftResources.StringResource { .init(key: "URLSchemes", tableName: "Constant", source: source, developmentValue: "URL Schemes", comment: nil) }
+
       /// en translation: X
       ///
       /// Key: X
       ///
       /// Locales: en
       var x: RswiftResources.StringResource { .init(key: "X", tableName: "Constant", source: source, developmentValue: "X", comment: nil) }
-
-      /// en translation: URL Schemes
-      ///
-      /// Key: urlSchemes
-      ///
-      /// Locales: en
-      var urlSchemes: RswiftResources.StringResource { .init(key: "urlSchemes", tableName: "Constant", source: source, developmentValue: "URL Schemes", comment: nil) }
     }
 
-    /// This `_R.string.infoPlist` struct is generated, and contains static references to 5 localization keys.
+    /// This `_R.string.infoPlist` struct is generated, and contains static references to 6 localization keys.
     struct infoPlist {
       let source: RswiftResources.StringResource.Source
 
-      /// en translation: $(CFBundleDisplayName) needs access to your camera to take photos and communicate with customer service
+      /// en translation: IOSTemplate
+      ///
+      /// Key: CFBundleDisplayName
+      ///
+      /// Locales: en, zh-Hans
+      var cfBundleDisplayName: RswiftResources.StringResource { .init(key: "CFBundleDisplayName", tableName: "InfoPlist", source: source, developmentValue: "IOSTemplate", comment: nil) }
+
+      /// en translation: $(PRODUCT_NAME) needs camera access to take photos for support.
       ///
       /// Key: NSCameraUsageDescription
       ///
       /// Locales: en, zh-Hans
-      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(CFBundleDisplayName) needs access to your camera to take photos and communicate with customer service", comment: nil) }
+      var nsCameraUsageDescription: RswiftResources.StringResource { .init(key: "NSCameraUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(PRODUCT_NAME) needs camera access to take photos for support.", comment: nil) }
 
-      /// en translation: $(CFBundleDisplayName) needs access to your location to provide location-based services even when the app is in use
+      /// en translation: $(PRODUCT_NAME) needs continuous location access.
       ///
       /// Key: NSLocationAlwaysAndWhenInUseUsageDescription
       ///
       /// Locales: en, zh-Hans
-      var nsLocationAlwaysAndWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationAlwaysAndWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(CFBundleDisplayName) needs access to your location to provide location-based services even when the app is in use", comment: nil) }
+      var nsLocationAlwaysAndWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationAlwaysAndWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(PRODUCT_NAME) needs continuous location access.", comment: nil) }
 
-      /// en translation: $(CFBundleDisplayName) needs access to your location while you are using the app
+      /// en translation: $(PRODUCT_NAME) needs location access while in use.
       ///
       /// Key: NSLocationWhenInUseUsageDescription
       ///
       /// Locales: en, zh-Hans
-      var nsLocationWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(CFBundleDisplayName) needs access to your location while you are using the app", comment: nil) }
+      var nsLocationWhenInUseUsageDescription: RswiftResources.StringResource { .init(key: "NSLocationWhenInUseUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(PRODUCT_NAME) needs location access while in use.", comment: nil) }
 
-      /// en translation: $(CFBundleDisplayName) needs access to your photo library to save photos
+      /// en translation: $(PRODUCT_NAME) needs permission to save photos.
       ///
       /// Key: NSPhotoLibraryAddUsageDescription
       ///
       /// Locales: en, zh-Hans
-      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(CFBundleDisplayName) needs access to your photo library to save photos", comment: nil) }
+      var nsPhotoLibraryAddUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryAddUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(PRODUCT_NAME) needs permission to save photos.", comment: nil) }
 
-      /// en translation: $(CFBundleDisplayName) needs access to your photo library to share photos with customer service
+      /// en translation: $(PRODUCT_NAME) needs photo library access to share photos with support.
       ///
       /// Key: NSPhotoLibraryUsageDescription
       ///
       /// Locales: en, zh-Hans
-      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(CFBundleDisplayName) needs access to your photo library to share photos with customer service", comment: nil) }
+      var nsPhotoLibraryUsageDescription: RswiftResources.StringResource { .init(key: "NSPhotoLibraryUsageDescription", tableName: "InfoPlist", source: source, developmentValue: "$(PRODUCT_NAME) needs photo library access to share photos with support.", comment: nil) }
     }
 
-    /// This `_R.string.localizable` struct is generated, and contains static references to 194 localization keys.
+    /// This `_R.string.localizable` struct is generated, and contains static references to 208 localization keys.
     struct localizable {
       let source: RswiftResources.StringResource.Source
 
@@ -214,6 +235,13 @@ struct _R {
       ///
       /// Locales: en, zh-Hans
       var accessToken: RswiftResources.StringResource { .init(key: "AccessToken", tableName: "Localizable", source: source, developmentValue: "Access Token", comment: nil) }
+
+      /// en translation: Alert
+      ///
+      /// Key: Alert
+      ///
+      /// Locales: en, zh-Hans
+      var alert: RswiftResources.StringResource { .init(key: "Alert", tableName: "Localizable", source: source, developmentValue: "Alert", comment: nil) }
 
       /// en translation: Clear the search history?
       ///
@@ -277,6 +305,13 @@ struct _R {
       ///
       /// Locales: en, zh-Hans
       var author: RswiftResources.StringResource { .init(key: "Author", tableName: "Localizable", source: source, developmentValue: "Author", comment: nil) }
+
+      /// en translation: Back
+      ///
+      /// Key: Back
+      ///
+      /// Locales: en, zh-Hans
+      var back: RswiftResources.StringResource { .init(key: "Back", tableName: "Localizable", source: source, developmentValue: "Back", comment: nil) }
 
       /// en translation: Bio
       ///
@@ -693,10 +728,10 @@ struct _R {
 
       /// en translation: Favorite
       ///
-      /// Key: Favorite
+      /// Key: Fave
       ///
       /// Locales: en, zh-Hans
-      var favorite: RswiftResources.StringResource { .init(key: "Favorite", tableName: "Localizable", source: source, developmentValue: "Favorite", comment: nil) }
+      var fave: RswiftResources.StringResource { .init(key: "Fave", tableName: "Localizable", source: source, developmentValue: "Favorite", comment: nil) }
 
       /// en translation: Feedback
       ///
@@ -943,6 +978,13 @@ struct _R {
       /// Locales: en, zh-Hans
       var location: RswiftResources.StringResource { .init(key: "Location", tableName: "Localizable", source: source, developmentValue: "Location", comment: nil) }
 
+      /// en translation: Logic
+      ///
+      /// Key: Logic
+      ///
+      /// Locales: en, zh-Hans
+      var logic: RswiftResources.StringResource { .init(key: "Logic", tableName: "Localizable", source: source, developmentValue: "Logic", comment: nil) }
+
       /// en translation: Login
       ///
       /// Key: Login
@@ -964,12 +1006,33 @@ struct _R {
       /// Locales: en, zh-Hans
       var loginButtonTitle: RswiftResources.StringResource { .init(key: "Login.Button.Title", tableName: "Localizable", source: source, developmentValue: "Use GitHub to login", comment: nil) }
 
+      /// en translation: Recovery
+      ///
+      /// Key: Login.Forgot
+      ///
+      /// Locales: en, zh-Hans
+      var loginForgot: RswiftResources.StringResource { .init(key: "Login.Forgot", tableName: "Localizable", source: source, developmentValue: "Recovery", comment: nil) }
+
       /// en translation: Personal Access Token
       ///
       /// Key: Login.Personal.Token
       ///
       /// Locales: en, zh-Hans
       var loginPersonalToken: RswiftResources.StringResource { .init(key: "Login.Personal.Token", tableName: "Localizable", source: source, developmentValue: "Personal Access Token", comment: nil) }
+
+      /// en translation: Account/Phone/Email
+      ///
+      /// Key: Login.Placeholder.Account
+      ///
+      /// Locales: en, zh-Hans
+      var loginPlaceholderAccount: RswiftResources.StringResource { .init(key: "Login.Placeholder.Account", tableName: "Localizable", source: source, developmentValue: "Account/Phone/Email", comment: nil) }
+
+      /// en translation: Enter your password
+      ///
+      /// Key: Login.Placeholder.Password
+      ///
+      /// Locales: en, zh-Hans
+      var loginPlaceholderPassword: RswiftResources.StringResource { .init(key: "Login.Placeholder.Password", tableName: "Localizable", source: source, developmentValue: "Enter your password", comment: nil) }
 
       /// en translation: Personal Access Token
       ///
@@ -1013,12 +1076,33 @@ struct _R {
       /// Locales: en, zh-Hans
       var loginPrivilegeWithPrivate: RswiftResources.StringResource { .init(key: "Login.Privilege.WithPrivate", tableName: "Localizable", source: source, developmentValue: "Public library + private library", comment: nil) }
 
+      /// en translation: SMS Code?
+      ///
+      /// Key: Login.SMSCode
+      ///
+      /// Locales: en, zh-Hans
+      var loginSMSCode: RswiftResources.StringResource { .init(key: "Login.SMSCode", tableName: "Localizable", source: source, developmentValue: "SMS Code?", comment: nil) }
+
+      /// en translation: Unlock your smart life
+      ///
+      /// Key: Login.Slogan
+      ///
+      /// Locales: en, zh-Hans
+      var loginSlogan: RswiftResources.StringResource { .init(key: "Login.Slogan", tableName: "Localizable", source: source, developmentValue: "Unlock your smart life", comment: nil) }
+
       /// en translation: Member Event
       ///
       /// Key: MemberEvent
       ///
       /// Locales: en, zh-Hans
       var memberEvent: RswiftResources.StringResource { .init(key: "MemberEvent", tableName: "Localizable", source: source, developmentValue: "Member Event", comment: nil) }
+
+      /// en translation: Mine
+      ///
+      /// Key: Mine
+      ///
+      /// Locales: en, zh-Hans
+      var mine: RswiftResources.StringResource { .init(key: "Mine", tableName: "Localizable", source: source, developmentValue: "Mine", comment: nil) }
 
       /// en translation: Modify userinfo
       ///
@@ -1111,13 +1195,6 @@ struct _R {
       /// Locales: en, zh-Hans
       var organization: RswiftResources.StringResource { .init(key: "Organization", tableName: "Localizable", source: source, developmentValue: "Organization", comment: nil) }
 
-      /// en translation: Personal
-      ///
-      /// Key: Personal
-      ///
-      /// Locales: en, zh-Hans
-      var personal: RswiftResources.StringResource { .init(key: "Personal", tableName: "Localizable", source: source, developmentValue: "Personal", comment: nil) }
-
       /// en translation: Pink
       ///
       /// Key: Pink
@@ -1131,6 +1208,20 @@ struct _R {
       ///
       /// Locales: en, zh-Hans
       var pleaseInput: RswiftResources.StringResource1<String> { .init(key: "PleaseInput", tableName: "Localizable", source: source, developmentValue: "Please input %@", comment: nil) }
+
+      /// en translation: Popup
+      ///
+      /// Key: Popup
+      ///
+      /// Locales: en, zh-Hans
+      var popup: RswiftResources.StringResource { .init(key: "Popup", tableName: "Localizable", source: source, developmentValue: "Popup", comment: nil) }
+
+      /// en translation: Present
+      ///
+      /// Key: Present
+      ///
+      /// Locales: en, zh-Hans
+      var present: RswiftResources.StringResource { .init(key: "Present", tableName: "Localizable", source: source, developmentValue: "Present", comment: nil) }
 
       /// en translation: Prompt
       ///
@@ -1180,6 +1271,13 @@ struct _R {
       ///
       /// Locales: en, zh-Hans
       var purple: RswiftResources.StringResource { .init(key: "Purple", tableName: "Localizable", source: source, developmentValue: "Purple", comment: nil) }
+
+      /// en translation: Push
+      ///
+      /// Key: Push
+      ///
+      /// Locales: en, zh-Hans
+      var push: RswiftResources.StringResource { .init(key: "Push", tableName: "Localizable", source: source, developmentValue: "Push", comment: nil) }
 
       /// en translation: Push Event
       ///
@@ -1293,6 +1391,20 @@ struct _R {
       /// Locales: en, zh-Hans
       var shareWithFriend: RswiftResources.StringResource { .init(key: "ShareWithFriend", tableName: "Localizable", source: source, developmentValue: "Share with friends", comment: nil) }
 
+      /// en translation: Sheet
+      ///
+      /// Key: Sheet
+      ///
+      /// Locales: en, zh-Hans
+      var sheet: RswiftResources.StringResource { .init(key: "Sheet", tableName: "Localizable", source: source, developmentValue: "Sheet", comment: nil) }
+
+      /// en translation: eShop
+      ///
+      /// Key: Shop
+      ///
+      /// Locales: en, zh-Hans
+      var shop: RswiftResources.StringResource { .init(key: "Shop", tableName: "Localizable", source: source, developmentValue: "eShop", comment: nil) }
+
       /// en translation: Since
       ///
       /// Key: Since
@@ -1390,6 +1502,13 @@ struct _R {
       ///
       /// Locales: en, zh-Hans
       var to: RswiftResources.StringResource { .init(key: "To", tableName: "Localizable", source: source, developmentValue: "To", comment: nil) }
+
+      /// en translation: Toast
+      ///
+      /// Key: Toast
+      ///
+      /// Locales: en, zh-Hans
+      var toast: RswiftResources.StringResource { .init(key: "Toast", tableName: "Localizable", source: source, developmentValue: "Toast", comment: nil) }
 
       /// en translation: Clear cache successfully
       ///
@@ -1572,80 +1691,93 @@ struct _R {
     var brand_color: RswiftResources.ColorResource { .init(name: "brand_color", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 12 images.
+  /// This `_R.image` struct is generated, and contains static references to 20 images.
   struct image {
     let bundle: Foundation.Bundle
+
+    /// Image `about_icon`.
+    var about_icon: RswiftResources.ImageResource { .init(name: "about_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `alipay_icon`.
+    var alipay_icon: RswiftResources.ImageResource { .init(name: "alipay_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `brand_icon`.
     var brand_icon: RswiftResources.ImageResource { .init(name: "brand_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
+    /// Image `dark_theme_icon`.
+    var dark_theme_icon: RswiftResources.ImageResource { .init(name: "dark_theme_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
     /// Image `default_icon`.
     var default_icon: RswiftResources.ImageResource { .init(name: "default_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `event_normal_icon`.
-    var event_normal_icon: RswiftResources.ImageResource { .init(name: "event_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `fave_normal_icon`.
+    var fave_normal_icon: RswiftResources.ImageResource { .init(name: "fave_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `event_selected_icon`.
-    var event_selected_icon: RswiftResources.ImageResource { .init(name: "event_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `fave_selected_icon`.
+    var fave_selected_icon: RswiftResources.ImageResource { .init(name: "fave_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `favorite_normal_icon`.
-    var favorite_normal_icon: RswiftResources.ImageResource { .init(name: "favorite_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `feedback_icon`.
+    var feedback_icon: RswiftResources.ImageResource { .init(name: "feedback_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `favorite_selected_icon`.
-    var favorite_selected_icon: RswiftResources.ImageResource { .init(name: "favorite_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `home_normal_icon`.
+    var home_normal_icon: RswiftResources.ImageResource { .init(name: "home_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `home_selected_icon`.
+    var home_selected_icon: RswiftResources.ImageResource { .init(name: "home_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `loading_icon`.
     var loading_icon: RswiftResources.ImageResource { .init(name: "loading_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `personal_normal_icon`.
-    var personal_normal_icon: RswiftResources.ImageResource { .init(name: "personal_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `mine_normal_icon`.
+    var mine_normal_icon: RswiftResources.ImageResource { .init(name: "mine_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `personal_parallax_icon`.
-    var personal_parallax_icon: RswiftResources.ImageResource { .init(name: "personal_parallax_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `mine_parallax_icon`.
+    var mine_parallax_icon: RswiftResources.ImageResource { .init(name: "mine_parallax_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
-    /// Image `personal_selected_icon`.
-    var personal_selected_icon: RswiftResources.ImageResource { .init(name: "personal_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+    /// Image `mine_selected_icon`.
+    var mine_selected_icon: RswiftResources.ImageResource { .init(name: "mine_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `settings_icon`.
+    var settings_icon: RswiftResources.ImageResource { .init(name: "settings_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `shop_normal_icon`.
+    var shop_normal_icon: RswiftResources.ImageResource { .init(name: "shop_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `shop_selected_icon`.
+    var shop_selected_icon: RswiftResources.ImageResource { .init(name: "shop_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `trending_normal_icon`.
     var trending_normal_icon: RswiftResources.ImageResource { .init(name: "trending_normal_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `trending_selected_icon`.
     var trending_selected_icon: RswiftResources.ImageResource { .init(name: "trending_selected_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `weixin_icon`.
+    var weixin_icon: RswiftResources.ImageResource { .init(name: "weixin_icon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
   }
 
-  /// This `_R.entitlements` struct is generated, and contains static references to 3 properties.
+  /// This `_R.entitlements` struct is generated, and contains static references to 2 properties.
   struct entitlements {
-    let comAppleDeveloperAssociatedDomains = comAppleDeveloperAssociatedDomains()
     let comAppleSecurityApplicationGroups = comAppleSecurityApplicationGroups()
     let keychainAccessGroups = keychainAccessGroups()
-    struct comAppleDeveloperAssociatedDomains {
-      let applinksC36e1a63a625c5b0456fc6550099a35aShare2dlinkCom: String = "applinks:c36e1a63a625c5b0456fc6550099a35a.share2dlink.com"
-      let webcredentialsTosperyFun: String = "webcredentials:tospery.fun"
-    }
     struct comAppleSecurityApplicationGroups {
-      let groupFunTosperyShared: String = "group.fun.tospery.shared"
+      let groupComWillscuratedShared: String = "group.com.willscurated.shared"
     }
     struct keychainAccessGroups {
-      let appIdentifierPrefixFunTosperyIostemplate: String = "$(AppIdentifierPrefix)fun.tospery.iostemplate"
+      let appIdentifierPrefixComWillscuratedIostemplate: String = "$(AppIdentifierPrefix)com.willscurated.iostemplate"
       let appIdentifierPrefixShared: String = "$(AppIdentifierPrefix)shared"
     }
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 4 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 2 resource files.
   struct file {
     let bundle: Foundation.Bundle
-
-    /// Resource file `LanguageList.json`.
-    var languageListJson: RswiftResources.FileResource { .init(name: "LanguageList", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
 
     /// Resource file `Launch Screen.xcstrings`.
     var launchScreenXcstrings: RswiftResources.FileResource { .init(name: "Launch Screen", pathExtension: "xcstrings", bundle: bundle, locale: .language("mul")) }
 
-    /// Resource file `URLSchemeList.json`.
-    var urlSchemeListJson: RswiftResources.FileResource { .init(name: "URLSchemeList", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
-
-    /// Resource file `default-v0.realm`.
-    var defaultV0Realm: RswiftResources.FileResource { .init(name: "default-v0", pathExtension: "realm", bundle: bundle, locale: LocaleReference.none) }
+    /// Resource file `seed-v0.realm`.
+    var seedV0Realm: RswiftResources.FileResource { .init(name: "seed-v0", pathExtension: "realm", bundle: bundle, locale: LocaleReference.none) }
   }
 
   /// This `_R.storyboard` struct is generated, and contains static references to 1 storyboards.

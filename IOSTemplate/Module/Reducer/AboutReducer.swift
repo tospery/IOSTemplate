@@ -1,8 +1,8 @@
 //
 //  AboutReducer.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/11/26.
+//  Created by 杨建祥 on 2026/3/30.
 //
 
 import Foundation
@@ -12,6 +12,7 @@ import HiBase
 import HiCore
 import HiNav
 import HiSwiftUI
+import RswiftResources
 import Domain
 import HiLog
 
@@ -40,7 +41,8 @@ struct AboutReducer {
         case data(Any?)
     }
     
-    @Dependency(\.applicationClient) var application
+//    @Dependency(\.application) var application
+    @Dependency(\.clipboardClient) var clipboardClient
     private enum CancelID { case load, increment }
     
     var body: some Reducer<State, Action> {
@@ -59,9 +61,10 @@ struct AboutReducer {
                                 title: $0.description,
                                 separated: $0.separated,
                                 indicated: $0.indicated,
-                                target: $0 == .author ? HiNav.shared.deepLink(host: .user, parameters: [
-                                    Parameter.owner: Author.owner
-                                ]) : $0.target
+                                target: $0.target
+//                                target: $0 == .author ? HiNav.shared.deepLink(host: .user, parameters: [
+//                                    Parameter.owner: R.string.constant.owner()
+//                                ]) : $0.target
                             )
                         }
                     ))))
@@ -69,10 +72,10 @@ struct AboutReducer {
                 }.cancellable(id: CancelID.load)
             case .increment:
                 state.tappedCount += 1
-                if state.tappedCount == 10 {
+                if state.tappedCount == 3 {
                     state.tappedCount = 0
                     return .run { send in
-                        // await self.clipboardClient.saveText(UIDevice.current.uuid)
+                        await self.clipboardClient.saveText(UIDevice.current.uuid)
                         await send(.target(HiNav.shared.toastMessageDeepLink(
                             R.string.localizable.toastCopyMessage.localizedString
                         )))

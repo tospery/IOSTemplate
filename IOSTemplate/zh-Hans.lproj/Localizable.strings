@@ -8,11 +8,10 @@
 "Loading" = "正在加载";
 "Sort" = "排序";
 "Home" = "首页";
-"Personal" = "我的";
+"Shop" = "商城";
+"Fave" = "收藏";
+"Mine" = "我的";
 "Login" = "登录";
-"About" = "关于";
-"Settings" = "设置";
-"Feedback" = "反馈";
 "Nickname" = "昵称";
 "Bio" = "简介";
 "Company" = "团队";
@@ -31,7 +30,6 @@
 "Since" = "区间";
 "Hot" = "热门";
 "Event" = "事件";
-"Favorite" = "收藏";
 "Trending" = "趋势";
 "User" = "用户";
 "Organization" = "组织";
@@ -92,6 +90,17 @@
 "WeChat" = "微信";
 "SMS" = "短信";
 "EMail" = "邮件";
+"About" = "关于";
+"Settings" = "设置";
+"Feedback" = "反馈";
+"Back" = "返回";
+"Push" = "导航";
+"Present" = "展示";
+"Toast" = "信息";
+"Alert" = "警告";
+"Sheet" = "表单";
+"Popup" = "弹窗";
+"Logic" = "业务";
 // MARK: 词语
 "CopyLink" = "复制链接";
 "FriendZone" = "朋友圈";
@@ -145,6 +154,11 @@
 "PullRequestEvent" = "合并请求事件";
 "PullRequestReviewCommentEvent" = "合并请求审查评论事件";
 // MARK: 句子 - Login
+"Login.Slogan" = "登录开启智慧生活";
+"Login.Forgot" = "忘记密码";
+"Login.SMSCode" = "验证码登录";
+"Login.Placeholder.Account" = "账号/手机号码/邮箱";
+"Login.Placeholder.Password" = "请输入登录密码";
 "Login.Auth" = "-----使用GitHub登录-----";
 "Login.Button.Title" = "使用GitHub登录";
 "Login.Personal.Token" = "个人私钥";

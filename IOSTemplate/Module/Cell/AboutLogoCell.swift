@@ -1,8 +1,8 @@
 //
 //  AboutLogoCell.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/11/15.
+//  Created by 杨建祥 on 2026/4/6.
 //
 
 import SwiftUI
@@ -38,4 +38,5 @@ struct AboutLogoCell: View {
         .frame(height: (deviceWidth / 2.0).flat)
         .background(Color.clear)
     }
+
 }

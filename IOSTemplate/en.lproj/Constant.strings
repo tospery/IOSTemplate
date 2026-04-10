@@ -1,8 +1,10 @@
 "X" = "X";
 "Chinese" = "中文";
 "English" = "English";
-"urlSchemes" = "URL Schemes";
-"Login.Slogan" = "Based on SwiftUI framework";
+"Owner" = "tospery";
+"URLSchemes" = "URL Schemes";
+"Headline" = "头条";
+"News" = "新闻";
 "None.Hot.Repo" = "No hot repository";
 "App.OnlineLogo" = "https://raw.githubusercontent.com/tospery/share/refs/heads/main/logo.png";
 "App.DownloadLink" = "https://apps.apple.com/us/app/id6740135096";

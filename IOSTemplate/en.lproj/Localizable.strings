@@ -8,9 +8,10 @@
 "Loading" = "Loading";
 "Sort" = "Sort";
 "Home" = "Home";
-"Personal" = "Personal";
+"Shop" = "eShop";
+"Fave" = "Favorite";
+"Mine" = "Mine";
 "Login" = "Login";
-"Feedback" = "Feedback";
 "Nickname" = "Nickname";
 "Bio" = "Bio";
 "Company" = "Company";
@@ -29,7 +30,6 @@
 "Since" = "Since";
 "Hot" = "Hot";
 "Event" = "Event";
-"Favorite" = "Favorite";
 "Trending" = "Trending";
 "User" = "User";
 "Organization" = "Organization";
@@ -68,8 +68,6 @@
 "Repository" = "Repository";
 "Repositories" = "Repositories";
 "TrendingRepos" = "Repositories";
-"About" = "About";
-"Settings" = "Settings";
 "Red" = "Red";
 "Pink" = "Pink";
 "Purple" = "Purple";
@@ -92,6 +90,17 @@
 "WeChat" = "WeChat";
 "SMS" = "SMS";
 "EMail" = "EMail";
+"About" = "About";
+"Settings" = "Settings";
+"Feedback" = "Feedback";
+"Back" = "Back";
+"Push" = "Push";
+"Present" = "Present";
+"Toast" = "Toast";
+"Alert" = "Alert";
+"Sheet" = "Sheet";
+"Popup" = "Popup";
+"Logic" = "Logic";
 // MARK: 词语
 "CopyLink" = "Copy Link";
 "FriendZone" = "Friend Zone";
@@ -145,6 +154,11 @@
 "PullRequestEvent" = "Pull Request Event";
 "PullRequestReviewCommentEvent" = "Pull Request Review Comment Event";
 // MARK: 句子 - Login
+"Login.Slogan" = "Unlock your smart life";
+"Login.Forgot" = "Recovery";
+"Login.SMSCode" = "SMS Code?";
+"Login.Placeholder.Account" = "Account/Phone/Email";
+"Login.Placeholder.Password" = "Enter your password";
 "Login.Auth" = "-----Sign in with GitHub-----";
 "Login.Button.Title" = "Use GitHub to login";
 "Login.Personal.Token" = "Personal Access Token";

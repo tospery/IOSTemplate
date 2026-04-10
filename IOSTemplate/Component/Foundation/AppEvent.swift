@@ -1,8 +1,8 @@
 //
 //  AppEvent.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/12/23.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import Foundation
@@ -17,7 +17,10 @@ import ObjectMapper
 let analytics = Analytics<AppEvent>()
 
 func stats(_ event: AppEvent) {
+//#if DEBUG
+//#else
     analytics.stats(event)
+//#endif
 }
 
 enum AppEvent {

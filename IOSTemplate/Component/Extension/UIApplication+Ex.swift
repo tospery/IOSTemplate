@@ -21,7 +21,7 @@ extension UIApplication {
     var baseTrendingUrl: String { "https://gtrend.yapie.me" }
     var baseGithubUrl: String { "https://github.com" }
     
-    @objc var myPageStart: Int { 1 }
+    // @objc var myPageStart: Int { 1 }
     
     static var currentWindow: UIWindow? {
         return UIApplication.shared.connectedScenes

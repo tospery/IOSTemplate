@@ -1,19 +1,20 @@
 //
 //  ListReducer.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/11/24.
+//  Created by 杨建祥 on 2026/3/29.
 //
 
 import Foundation
 import ComposableArchitecture
-
 import SwifterSwift
 import HiBase
 import HiCore
 import HiSwiftUI
 import Domain
 import HiLog
+import HiNav
+import RswiftResources
 
 // swiftlint:disable type_body_length file_length
 @Reducer
@@ -56,7 +57,7 @@ struct ListReducer<Model: ModelType> {
             self.shouldRefresh = self.parameters.bool(for: Parameter.shouldRefresh) ?? false
             self.shouldLoadMore = self.parameters.bool(for: Parameter.shouldLoadMore) ?? false
             self.pageIndex = self.pageStart
-            // log("通用列表：host = \(self.host), page = \(self.page), owner = \(self.owner), repo = \(self.repo)")
+            log("通用列表：host = \(self.host), page = \(self.page), owner = \(self.owner), repo = \(self.repo)")
         }
     }
     
@@ -94,18 +95,18 @@ struct ListReducer<Model: ModelType> {
     
     func load(_ state: inout State, _ action: Action) -> Effect<Action> {
         state.isLoading = true
-//        if state.host == .eventList {
-//            return self.requestEventList(&state, action, .load)
+        if state.host == .home {
+            return self.requestNewsList(&state, action, .load)
+        }
+//        if state.host == .favorite {
+//            return self.requestFavorite(&state, action, .load)
 //        }
-        if state.host == .favorite {
-            return self.requestFavorite(&state, action, .load)
-        }
-        if state.host == .userList {
-            return self.requestUserList(&state, action, .load)
-        }
-        if state.host == .repoList {
-            return self.requestRepoList(&state, action, .load)
-        }
+//        if state.host == .userList {
+//            return self.requestUserList(&state, action, .load)
+//        }
+//        if state.host == .repoList {
+//            return self.requestRepoList(&state, action, .load)
+//        }
 //        if state.host == .issueList {
 //            return self.requestIssueList(&state, action, .load)
 //        }
@@ -120,18 +121,18 @@ struct ListReducer<Model: ModelType> {
     
     func refresh(_ state: inout State, _ action: Action) -> Effect<Action> {
         state.isRefreshing = true
-//        if state.host == .eventList {
-//            return self.requestEventList(&state, action, .refresh)
+        if state.host == .home {
+            return self.requestNewsList(&state, action, .refresh)
+        }
+//        if state.host == .favorite {
+//            return self.requestFavorite(&state, action, .refresh)
 //        }
-        if state.host == .favorite {
-            return self.requestFavorite(&state, action, .refresh)
-        }
-        if state.host == .userList {
-            return self.requestUserList(&state, action, .refresh)
-        }
-        if state.host == .repoList {
-            return self.requestRepoList(&state, action, .refresh)
-        }
+//        if state.host == .userList {
+//            return self.requestUserList(&state, action, .refresh)
+//        }
+//        if state.host == .repoList {
+//            return self.requestRepoList(&state, action, .refresh)
+//        }
 //        if state.host == .issueList {
 //            return self.requestIssueList(&state, action, .refresh)
 //        }
@@ -152,15 +153,15 @@ struct ListReducer<Model: ModelType> {
 //        if state.host == .eventList {
 //            return self.requestEventList(&state, action, .loadMore)
 //        }
-        if state.host == .favorite {
-            return self.requestFavorite(&state, action, .loadMore)
-        }
-        if state.host == .userList {
-            return self.requestUserList(&state, action, .loadMore)
-        }
-        if state.host == .repoList {
-            return self.requestRepoList(&state, action, .loadMore)
-        }
+//        if state.host == .favorite {
+//            return self.requestFavorite(&state, action, .loadMore)
+//        }
+//        if state.host == .userList {
+//            return self.requestUserList(&state, action, .loadMore)
+//        }
+//        if state.host == .repoList {
+//            return self.requestRepoList(&state, action, .loadMore)
+//        }
 //        if state.host == .issueList {
 //            return self.requestIssueList(&state, action, .loadMore)
 //        }
@@ -184,15 +185,17 @@ struct ListReducer<Model: ModelType> {
             state.models = models
         }
         state.error = nil
-        if state.fromDatabase {
-            if models.isEmpty {
-                return .none
-            } else {
-                log("加载数据库数据完成---\(state.host)")
-                state.isLoading = false
-            }
-        } else {
-            if !state.isLoadingMore && !models.isEmpty {
+        return .none
+    }
+//        if state.fromDatabase {
+//            if models.isEmpty {
+//                return .none
+//            } else {
+//                log("加载数据库数据完成---\(state.host)")
+//                state.isLoading = false
+//            }
+//        } else {
+//            if !state.isLoadingMore && !models.isEmpty {
 //                if state.host == .eventList {
 //                    log("开始保存到数据库---事件")
 //                    return .run { _ in
@@ -229,10 +232,10 @@ struct ListReducer<Model: ModelType> {
 //                        }
 //                    }
 //                }
-            }
-        }
-        return .none
-    }
+//            }
+//        }
+//        return .none
+//    }
     // swiftlint:enable function_body_length
     
     func error(_ state: inout State, _ action: Action, _ error: Error) -> Effect<Action> {
@@ -243,13 +246,13 @@ struct ListReducer<Model: ModelType> {
         return .none
     }
     
-    func requestEventList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
+    func requestNewsList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
+        // let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
         let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
         let pageSize = state.pageSize
         return .run { send in
-            if mode == .load {
-                await send(.binding(.set(\.fromDatabase, true)))
+//            if mode == .load {
+//                await send(.binding(.set(\.fromDatabase, true)))
 //                await send(.models(
 //                    unsafeBitCast(
 //                        await self.platformClient.database().eventService()
@@ -258,48 +261,12 @@ struct ListReducer<Model: ModelType> {
 //                        to: Result<[Model], Error>.self
 //                    )
 //                ))
-                await send(.binding(.set(\.fromDatabase, false)))
-            }
-//            await send(.models(
-//                unsafeBitCast(
-//                    await self.platformClient.network().eventService()
-//                        .events(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-//                        .asResult(),
-//                    to: Result<[Model], Error>.self
-//                )
-//            ))
-            if mode == .refresh {
-                await send(.binding(.set(\.isRefreshing, false)))
-            } else if mode == .loadMore {
-                await send(.binding(.set(\.isLoadingMore, false)))
-            } else {
-                await send(.binding(.set(\.isLoading, false)))
-            }
-            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-        }
-    }
-    
-    func requestFavorite(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        let pageSize = state.pageSize
-        return .run { send in
-            if mode == .load {
-                await send(.binding(.set(\.fromDatabase, true)))
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.database().repoService()
-                            .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                await send(.binding(.set(\.fromDatabase, false)))
-            }
+//                await send(.binding(.set(\.fromDatabase, false)))
+//            }
             await send(.models(
                 unsafeBitCast(
-                    await self.platformClient.network().repoService()
-                        .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+                    await self.platformClient.network().newsService()
+                        .news(channel: R.string.constant.news(), pageIndex: pageIndex, pageSize: pageSize)
                         .asResult(),
                     to: Result<[Model], Error>.self
                 )
@@ -315,272 +282,309 @@ struct ListReducer<Model: ModelType> {
         }
     }
     
+    func requestFavorite(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        let pageSize = state.pageSize
+//        return .run { send in
+//            if mode == .load {
+//                await send(.binding(.set(\.fromDatabase, true)))
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.database().repoService()
+//                            .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                await send(.binding(.set(\.fromDatabase, false)))
+//            }
+//            await send(.models(
+//                unsafeBitCast(
+//                    await self.platformClient.network().repoService()
+//                        .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                        .asResult(),
+//                    to: Result<[Model], Error>.self
+//                )
+//            ))
+//            if mode == .refresh {
+//                await send(.binding(.set(\.isRefreshing, false)))
+//            } else if mode == .loadMore {
+//                await send(.binding(.set(\.isLoadingMore, false)))
+//            } else {
+//                await send(.binding(.set(\.isLoading, false)))
+//            }
+//            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//        }
+        return .none
+    }
+    
     // swiftlint:disable function_body_length
     func requestUserList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let repo = state.repo
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        let pageSize = state.pageSize
-        if state.page == .trendingUsers {
-            let language = state.preference.trendingLanguage
-            let since = state.preference.trendingSince
-            return .run { [language, since] send in
-                if mode == .load {
-                    await send(.binding(.set(\.fromDatabase, true)))
-                    await send(.models(
-                        unsafeBitCast(
-                            await self.platformClient.database().userService()
-                                .trending(language: language, since: since)
-                                .asResult(),
-                            to: Result<[Model], Error>.self
-                        )
-                    ))
-                    await send(.binding(.set(\.fromDatabase, false)))
-                }
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .trending(language: language, since: since)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .followers {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .followers(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .following {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .following(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .subscribers {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .subscribers(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .stargazers {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .stargazers(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .contributors {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().userService()
-                            .contributors(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        }
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let repo = state.repo
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        let pageSize = state.pageSize
+//        if state.page == .trendingUsers {
+//            let language = state.profile.trendingLanguage
+//            let since = state.profile.trendingSince
+//            return .run { [language, since] send in
+//                if mode == .load {
+//                    await send(.binding(.set(\.fromDatabase, true)))
+//                    await send(.models(
+//                        unsafeBitCast(
+//                            await self.platformClient.database().userService()
+//                                .trending(language: language, since: since)
+//                                .asResult(),
+//                            to: Result<[Model], Error>.self
+//                        )
+//                    ))
+//                    await send(.binding(.set(\.fromDatabase, false)))
+//                }
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .trending(language: language, since: since)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .followers {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .followers(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .following {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .following(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .subscribers {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .subscribers(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .stargazers {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .stargazers(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .contributors {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().userService()
+//                            .contributors(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        }
         return .none
     }
     // swiftlint:enable function_body_length
     
     // swiftlint:disable function_body_length
     func requestRepoList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let repo = state.repo
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        let pageSize = state.pageSize
-        if state.page == .trendingRepos {
-            let language = state.preference.trendingLanguage
-            let since = state.preference.trendingSince
-            return .run { [language, since] send in
-                if mode == .load {
-                    await send(.binding(.set(\.fromDatabase, true)))
-                    await send(.models(
-                        unsafeBitCast(
-                            await self.platformClient.database().repoService()
-                                .trending(language: language, since: since)
-                                .asResult(),
-                            to: Result<[Model], Error>.self
-                        )
-                    ))
-                    await send(.binding(.set(\.fromDatabase, false)))
-                }
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().repoService()
-                            .trending(language: language, since: since)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .repositories {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().repoService()
-                            .repos(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .stars {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().repoService()
-                            .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .subscriptions {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().repoService()
-                            .subscriptions(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        } else if state.page == .forks {
-            return .run { send in
-                await send(.models(
-                    unsafeBitCast(
-                        await self.platformClient.network().repoService()
-                            .forks(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
-                            .asResult(),
-                        to: Result<[Model], Error>.self
-                    )
-                ))
-                if mode == .refresh {
-                    await send(.binding(.set(\.isRefreshing, false)))
-                } else if mode == .loadMore {
-                    await send(.binding(.set(\.isLoadingMore, false)))
-                } else {
-                    await send(.binding(.set(\.isLoading, false)))
-                }
-                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-            }
-        }
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let repo = state.repo
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        let pageSize = state.pageSize
+//        if state.page == .trendingRepos {
+//            let language = state.profile.trendingLanguage
+//            let since = state.profile.trendingSince
+//            return .run { [language, since] send in
+//                if mode == .load {
+//                    await send(.binding(.set(\.fromDatabase, true)))
+//                    await send(.models(
+//                        unsafeBitCast(
+//                            await self.platformClient.database().repoService()
+//                                .trending(language: language, since: since)
+//                                .asResult(),
+//                            to: Result<[Model], Error>.self
+//                        )
+//                    ))
+//                    await send(.binding(.set(\.fromDatabase, false)))
+//                }
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().repoService()
+//                            .trending(language: language, since: since)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .repositories {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().repoService()
+//                            .repos(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .stars {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().repoService()
+//                            .starred(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .subscriptions {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().repoService()
+//                            .subscriptions(owner: owner, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        } else if state.page == .forks {
+//            return .run { send in
+//                await send(.models(
+//                    unsafeBitCast(
+//                        await self.platformClient.network().repoService()
+//                            .forks(owner: owner, repo: repo, pageIndex: pageIndex, pageSize: pageSize)
+//                            .asResult(),
+//                        to: Result<[Model], Error>.self
+//                    )
+//                ))
+//                if mode == .refresh {
+//                    await send(.binding(.set(\.isRefreshing, false)))
+//                } else if mode == .loadMore {
+//                    await send(.binding(.set(\.isLoadingMore, false)))
+//                } else {
+//                    await send(.binding(.set(\.isLoading, false)))
+//                }
+//                await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//            }
+//        }
         return .none
     }
     // swiftlint:enable function_body_length
     
     func requestIssueList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let repo = state.repo
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        let pageSize = state.pageSize
-        let page = state.page
-        return .run { send in
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let repo = state.repo
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        let pageSize = state.pageSize
+//        let page = state.page
+//        return .run { send in
 //            await send(.models(
 //                unsafeBitCast(
 //                    await self.platformClient.network().issueService()
@@ -591,24 +595,25 @@ struct ListReducer<Model: ModelType> {
 //                    to: Result<[Model], Error>.self
 //                )
 //            ))
-            if mode == .refresh {
-                await send(.binding(.set(\.isRefreshing, false)))
-            } else if mode == .loadMore {
-                await send(.binding(.set(\.isLoadingMore, false)))
-            } else {
-                await send(.binding(.set(\.isLoading, false)))
-            }
-            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-        }
+//            if mode == .refresh {
+//                await send(.binding(.set(\.isRefreshing, false)))
+//            } else if mode == .loadMore {
+//                await send(.binding(.set(\.isLoadingMore, false)))
+//            } else {
+//                await send(.binding(.set(\.isLoading, false)))
+//            }
+//            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//        }
+        return .none
     }
     
     func requestPullList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let repo = state.repo
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        let pageSize = state.pageSize
-        let page = state.page
-        return .run { send in
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let repo = state.repo
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        let pageSize = state.pageSize
+//        let page = state.page
+//        return .run { send in
 //            await send(.models(
 //                unsafeBitCast(
 //                    await self.platformClient.network().pullService()
@@ -619,22 +624,23 @@ struct ListReducer<Model: ModelType> {
 //                    to: Result<[Model], Error>.self
 //                )
 //            ))
-            if mode == .refresh {
-                await send(.binding(.set(\.isRefreshing, false)))
-            } else if mode == .loadMore {
-                await send(.binding(.set(\.isLoadingMore, false)))
-            } else {
-                await send(.binding(.set(\.isLoading, false)))
-            }
-            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-        }
+//            if mode == .refresh {
+//                await send(.binding(.set(\.isRefreshing, false)))
+//            } else if mode == .loadMore {
+//                await send(.binding(.set(\.isLoadingMore, false)))
+//            } else {
+//                await send(.binding(.set(\.isLoading, false)))
+//            }
+//            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//        }
+        return .none
     }
     
     func requestBranchList(_ state: inout State, _ action: Action, _ mode: HiRequestMode) -> Effect<Action> {
-        let owner = state.owner.isEmpty ? (state.preference.user?.username ?? "") : state.owner
-        let repo = state.repo
-        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
-        return .run { send in
+//        let owner = state.owner.isEmpty ? (state.profile.user?.username ?? "") : state.owner
+//        let repo = state.repo
+//        let pageIndex = mode == .loadMore ? state.pageIndex : state.pageStart
+//        return .run { send in
 //            await send(.models(
 //                unsafeBitCast(
 //                    await self.platformClient.network().branchService()
@@ -645,15 +651,16 @@ struct ListReducer<Model: ModelType> {
 //                    to: Result<[Model], Error>.self
 //                )
 //            ))
-            if mode == .refresh {
-                await send(.binding(.set(\.isRefreshing, false)))
-            } else if mode == .loadMore {
-                await send(.binding(.set(\.isLoadingMore, false)))
-            } else {
-                await send(.binding(.set(\.isLoading, false)))
-            }
-            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
-        }
+//            if mode == .refresh {
+//                await send(.binding(.set(\.isRefreshing, false)))
+//            } else if mode == .loadMore {
+//                await send(.binding(.set(\.isLoadingMore, false)))
+//            } else {
+//                await send(.binding(.set(\.isLoading, false)))
+//            }
+//            await send(.binding(.set(\.pageIndex, pageIndex + 1)))
+//        }
+        return .none
     }
     
 }

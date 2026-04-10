@@ -12,20 +12,21 @@ import ObjectMapper
 
 extension List: @retroactive ListCompatible {
     public func hasNext(map: Map) -> Bool {
-        var hasNext: Bool?
-        hasNext   <- map["incomplete_results"]
-        return !(hasNext ?? false)
+//        var hasNext: Bool?
+//        hasNext   <- map["incomplete_results"]
+//        return !(hasNext ?? false)
+        return self.count(map: map) >= 20  // YJX_TODO
     }
     
     public func count(map: Map) -> Int {
         var count: Int?
-        count   <- map["total_count"]
+        count   <- map["num"]
         return count ?? 0
     }
     
     public func items<ListItem>(map: Map) -> [ListItem] where ListItem: Mappable {
         var items: [ListItem]?
-        items    <- map["items"]
+        items    <- map["list"]
         return items ?? []
     }
 }

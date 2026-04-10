@@ -18,28 +18,32 @@ public final class ServiceProvider: Domain.ServiceProvider {
         NetworkPlatform.environment = environment
     }
     
-    public func accessTokenService() -> Domain.AccessTokenService {
-        AccessTokenService(environment: environment)
+    public func dynamicService() -> Domain.DynamicService {
+        NetworkPlatform.DynamicService(environment: environment)
     }
     
     public func preferenceService() -> Domain.PreferenceService {
-        PreferenceService(environment: environment)
+        NetworkPlatform.PreferenceService(environment: environment)
     }
     
-    public func dynamicService() -> Domain.DynamicService {
-        DynamicService(environment: environment)
+    public func languageService() -> any Domain.LanguageService {
+        NetworkPlatform.LanguageService(environment: environment)
     }
     
-    public func languageService() -> Domain.LanguageService {
-        LanguageService(environment: environment)
-    }
-    
-    public func repoService() -> Domain.RepoService {
-        RepoService(environment: environment)
+    public func loginService() -> Domain.LoginService {
+        NetworkPlatform.LoginService(environment: environment)
     }
     
     public func userService() -> Domain.UserService {
-        UserService(environment: environment)
+        NetworkPlatform.UserService(environment: environment)
     }
+    
+    public func newsService() -> Domain.NewsService {
+        NetworkPlatform.NewsService(environment: environment)
+    }
+
+//    public func databaseMigrationService() -> any Domain.DatabaseMigrationService {
+//        fatalError("databaseMigrationService() 仅由 PersistencePlatorm 提供，请勿在 Network 上调用。")
+//    }
 
 }

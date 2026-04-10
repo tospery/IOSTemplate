@@ -54,14 +54,14 @@ struct MultiNetworking: NetworkPublishType {
     }
     
     static func output(target: TargetType, items: [String]) {
-        if let multiTarget = target as? MultiTarget {
-            if let githubBaseAPI = multiTarget.target as? GithubBaseAPI {
-                switch githubBaseAPI {
-                case .readme, .markdown: return
-                default: break
-                }
-            }
-        }
+//        if let multiTarget = target as? MultiTarget {
+//            if let githubBaseAPI = multiTarget.target as? GithubBaseAPI {
+//                switch githubBaseAPI {
+//                case .readme, .markdown: return
+//                default: break
+//                }
+//            }
+//        }
         for item in items {
             // logger.print(item, module: .restful)
             log(item, module: Module.network)

@@ -25,11 +25,16 @@ extension Library: @retroactive @preconcurrency LibraryCompatible {
     
     func logAndStats() {
         logger.register(provider: SwiftyBeaverProvider())
-        analytics.register(provider: UMengProvider.init())
         
-        let aliyun = AliyunProvider.init()
-        logger.register(provider: aliyun)
-        analytics.register(provider: aliyun)
+        #if DEBUG
+        analytics.register(provider: ConsoleProvider.init())
+        #else
+        analytics.register(provider: UMengProvider.init())
+        #endif
+//        
+//        let aliyun = AliyunProvider.init()
+//        logger.register(provider: aliyun)
+//        analytics.register(provider: aliyun)
     }
     
     func mobShare() {

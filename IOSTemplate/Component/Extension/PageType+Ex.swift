@@ -15,22 +15,22 @@ import HiSwiftUI
 
 extension PageType {
     
-    var forRepo: Bool {
-        [
-            PageType.trendingRepos,
-            PageType.repositories,
-            PageType.stars,
-            PageType.subscriptions,
-            PageType.forks
-        ].contains(self)
-    }
-    
-    var forState: Bool {
-        [
-            PageType.open,
-            PageType.closed
-        ].contains(self)
-    }
+//    var forRepo: Bool {
+//        [
+//            PageType.trendingRepos,
+//            PageType.repositories,
+//            PageType.stars,
+//            PageType.subscriptions,
+//            PageType.forks
+//        ].contains(self)
+//    }
+//    
+//    var forState: Bool {
+//        [
+//            PageType.open,
+//            PageType.closed
+//        ].contains(self)
+//    }
     
 }
 

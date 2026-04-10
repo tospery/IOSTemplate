@@ -1,8 +1,8 @@
 //
 //  ShareManager.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/12/26.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import SwiftUI
@@ -24,7 +24,7 @@ class ShareManager {
 ////            to: type,
 ////            messageObject: messageObject,
 ////            currentViewController: nil) { data, error in
-////                
+////
 ////            }
 //    }
     

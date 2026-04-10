@@ -11,7 +11,7 @@
 			<string>app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>willhub</string>
+				<string>iostemplate</string>
 			</array>
 		</dict>
 		<dict>
@@ -183,14 +183,7 @@
 	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>appHosts</key>
-	<dict>
-		<key>api</key>
-		<string>https://api.github.com</string>
-		<key>univ</key>
-		<string>https://c36e1a63a625c5b0456fc6550099a35a.share2dlink.com/</string>
-		<key>web</key>
-		<string>https://github.com</string>
-	</dict>
+	<key>UIDesignRequiresCompatibility</key>
+	<true/>
 </dict>
 </plist>

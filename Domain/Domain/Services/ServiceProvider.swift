@@ -10,11 +10,12 @@ import HiBase
 
 public protocol ServiceProvider: HiBase.ServiceProvider {
     
-    func accessTokenService() -> AccessTokenService
-    func preferenceService() -> PreferenceService
     func dynamicService() -> DynamicService
+    func preferenceService() -> PreferenceService
     func languageService() -> LanguageService
-    func repoService() -> RepoService
+    func loginService() -> LoginService
     func userService() -> UserService
+    func newsService() -> NewsService
+    //func databaseMigrationService() -> DatabaseMigrationService
 
 }

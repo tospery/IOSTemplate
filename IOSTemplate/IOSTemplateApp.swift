@@ -2,70 +2,120 @@
 //  IOSTemplateApp.swift
 //  IOSTemplate
 //
-//  Created by 杨建祥 on 2026/3/8.
+//  Created by 杨建祥 on 2026/3/27.
 //
 
 import SwiftUI
 import ComposableArchitecture
-import SFSafeSymbols
-import AlertToast_Hi
-import HiSwiftUI
-import HiBase
-import HiNav
-import HiLog
 import Domain
+import PersistencePlatorm
 
 @main
-struct WillHubApp: App {
+struct IOSTemplateApp: App {
     
-    @Shared(.preference) var preference = .default
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+//
+//    var body: some Scene {
+//        WindowGroup {
+//            ZStack {
+//                let databaseState = appDelegate.store.appDelegateState.migrationState.databaseState
+//
+//                if databaseState == .idle {
+//                    TabBarView(store: appDelegate.store).onAppear(perform: addTouchHandler).accentColor(.primary)
+//                }
+//                MigrationView(
+//                    store: appDelegate.store.scope(
+//                        state: \.appDelegateState.migrationState,
+//                        action: \.appDelegate.migration
+//                    )
+//                )
+//                .opacity(databaseState != .idle ? 1 : 0)
+//                .animation(.linear(duration: 0.5), value: databaseState)
+//            }
+//            .navigationViewStyle(.stack)
+//        }
+//    }
+    
+//    WindowGroup {
+//        TabBarScreen(store: Store(initialState: TabBarReducer.State.init(), reducer: {
+//            TabBarReducer()
+//        }))
+//        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+//            logEnvironment()
+//            handleClipboard()
+//        }
+//    }
+    
+    // @Shared(.preference) var preference = .default
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
-        Appdata.shared.inject(preference)
-        Runtime.shared.work()
-        Library.shared.setup()
-        Appearance.shared.config()
-        logEnvironment()
+        print("沙盒路径:", NSHomeDirectory())
+        // createSeedRealmFile
+//        RealmBootstrap.createSeedRealmFile()
+//        RealmBootstrap.prepareSeedFileIfNeed()
+//        RealmBootstrap.installDefaultRealmConfiguration()
     }
-
+    
+//    WindowGroup {
+//        Group {
+//            if appDelegate.store.appDelegateState.migrationState.databaseState == .success {
+//                TabBarView(store: appDelegate.store)
+//                    .onAppear(perform: addTouchHandler)
+//                    .accentColor(.primary)
+//            } else {
+//                MigrationView(
+//                    store: appDelegate.store.scope(
+//                        state: \.appDelegateState.migrationState,
+//                        action: \.appDelegate.migration
+//                    )
+//                )
+//            }
+//        }
+//        .animation(.linear(duration: 0.5), value: appDelegate.store.appDelegateState.migrationState.databaseState)
+//    }
+    
     var body: some Scene {
+//        WindowGroup {
+//            TabBarScreen.init(store: appDelegate.store)
+//            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+//            }
+//        }
         WindowGroup {
-            RootScreen(store: Store(initialState: RootReducer.State.init(), reducer: {
-                RootReducer()
-            }))
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-                logEnvironment()
-                handleClipboard()
+//            WithPerceptionTracking {
+//                Group {
+//                    if appDelegate.store.appDelegate.migration.status == .success {
+//                        TabBarScreen.init(store: appDelegate.store)
+//                    } else {
+//                        MigrationScreen.init(
+//                            store: appDelegate.store.scope(
+//                                state: \.appDelegate.migration,
+//                                action: \.appDelegate.migration
+//                            )
+//                        )
+//                    }
+//                }
+//                .animation(.linear(duration: 0.5), value: appDelegate.store.appDelegate.migration.status)
+//            }
+            
+            WithPerceptionTracking {
+                Group {
+                    if appDelegate.store.appDelegate.migration.status == .success {
+                        TabBarScreen(store: Store(initialState: TabBarReducer.State.init(), reducer: {
+                            TabBarReducer()
+                        }))
+                    } else {
+                        MigrationScreen.init(
+                            store: appDelegate.store.scope(
+                                state: \.appDelegate.migration,
+                                action: \.appDelegate.migration
+                            )
+                        )
+                    }
+                }
+                .animation(.linear(duration: 0.5), value: appDelegate.store.appDelegate.migration.status)
             }
         }
     }
     
-    func handleClipboard() {
-//        guard let text = UIPasteboard.general.string, text.isNotEmpty else { return }
-//        guard text.isValidInternalWebUrl else { return }
-//        guard let url = text.url else { return }
-//        var paths = url.pathComponents
-//        paths.removeAll("/")
-//        var owner = ""
-//        var repo = ""
-//        if paths.count == 1 {
-//            owner = paths.first!
-//        } else if paths.count == 2 {
-//            owner = paths.first!
-//            repo = paths.last!
-//        } else {
-//            return
-//        }
-//        if owner.isEmpty {
-//            return
-//        }
-//        let string = HiNav.shared.popupDeepLink(PopupType.clipboard.rawValue, [
-//            Parameter.owner: owner,
-//            Parameter.repo: repo
-//        ].jsonString() ?? "")
-//        guard let link = string.url else { return }
-//        UIApplication.shared.open(link, options: [:])
-    }
-
 }

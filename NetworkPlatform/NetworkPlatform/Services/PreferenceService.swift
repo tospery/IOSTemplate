@@ -19,7 +19,7 @@ final class PreferenceService: Domain.PreferenceService {
         self.environment = environment
     }
 
-    func preference() -> AnyPublisher<Domain.Preference?, any Error> {
+    func preference() -> AnyPublisher<Domain.Preference, any Error> {
         fatalError()
     }
     

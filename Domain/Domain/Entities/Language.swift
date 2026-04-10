@@ -11,7 +11,6 @@ import HiBase
 
 public struct Language: ModelType {
     
-    
     public var id: String = ""
     public var name: String?
 

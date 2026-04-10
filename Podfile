@@ -7,22 +7,22 @@ inhibit_all_warnings!
 
 target 'IOSTemplate' do
   
-  # pod 'HiBase', :path => '../HiBase'
-  # pod 'HiCore', :path => '../HiCore'
-  # pod 'HiNav/Combine', :path => '../HiNav'
-  # pod 'HiNet/Combine', :path => '../HiNet'
-  # pod 'HiResource', :path => '../HiResource'
-  # pod 'HiSwiftUI', :path => '../HiSwiftUI'
+  pod 'HiBase', :path => '../../../HiBase'
+  pod 'HiCore', :path => '../../../HiCore'
+  pod 'HiNav/Combine', :path => '../../../HiNav'
+  pod 'HiNet/Combine', :path => '../../../HiNet'
+  pod 'HiResource', :path => '../../../HiResource'
+  pod 'HiSwiftUI', :path => '../../../HiSwiftUI'
   # pod 'HiStats/Console', :path => '../HiStats'
   # pod 'HiLog/SwiftyBeaver', :path => '../HiLog'
   
-  pod 'HiSwiftUI', '1.2.0'
+  # pod 'HiSwiftUI', '1.2.0'
   pod 'HiLog/SwiftyBeaver', '~> 1.0'
   pod 'HiStats/Console', '~> 1.0'
 
   pod 'Domain', :path => './Domain'
   pod 'NetworkPlatform', :path => './NetworkPlatform'
-  pod 'DatabasePlatform', :path => './DatabasePlatform'
+  pod 'PersistencePlatorm', :path => './PersistencePlatorm'
   
   pod 'R.swift', '~> 7.0'
   pod 'AlertToast-Hi', '~> 1.3.9'
@@ -31,8 +31,7 @@ target 'IOSTemplate' do
   pod 'SwiftUIFlowLayout', '~> 1.0'
   pod 'SVGView', '~> 1.0'
   pod 'SwiftUI-WebView-Hi', '~> 0.3.0'
-  
-  # pod 'FancyScrollView-Hi', '0.1.4-v1'
+  pod 'FancyScrollView-Hi', '0.1.4-v1'
   # pod 'DateToolsSwift-Hi', '5.0.0-v6'
   # pod 'CodeEditor-Hi', '~> 1.2.6'
   # pod 'PDFViewer-Hi', '~> 1.0.2'

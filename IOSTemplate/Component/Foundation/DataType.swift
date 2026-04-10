@@ -1,8 +1,8 @@
 //
 //  DataType.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/7/2.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import Foundation
@@ -19,19 +19,14 @@ enum TileId: String, Hashable, Identifiable, CustomStringConvertible, CaseIterab
     case space
     case settings, about, feedback
     case company, location, email, blog, nickname, bio
-    case author, qqGroup, urlSchemes, scoring, share
-    case language, issues, pulls, branches, readme
-    case colorTheme, localization, cache
-    case trendingSince, trendingLanguage
-    case searchType, searchLanguage, searchUserSort
+    case back, push, present, toast, alert, sheet, popup, logic
     case logo, text, editor
     
     static let unloginValues = [settings, about, feedback]
-    static let loginedValues = [company, location, email, blog, space, settings, about, feedback]
-    static let settingValues = [colorTheme, localization, cache]
-    static let aboutValues = [logo, author, qqGroup, space, urlSchemes, scoring, share]
-    static let profileValues = [nickname, bio, space, company, location, blog]
-    static let trendingOptionsValues = [trendingSince, trendingLanguage]
+//    static let loginedValues = [company, location, email, blog, space, settings, about, feedback]
+//    static let settingValues = [colorTheme, localization, cache]
+    static let aboutValues = [logo, back, space, push, present, space, toast, alert, sheet, popup, logic]
+//    static let profileValues = [nickname, bio, space, company, location, blog]
     
     var id: String {
         if self == .space {
@@ -42,7 +37,7 @@ enum TileId: String, Hashable, Identifiable, CustomStringConvertible, CaseIterab
     
     var separated: Bool {
         switch self {
-        case .feedback, .blog, .cache, .qqGroup, .share:
+        case .feedback, .blog:
             return false
         default:
             return true
@@ -55,44 +50,53 @@ enum TileId: String, Hashable, Identifiable, CustomStringConvertible, CaseIterab
     
     public var description: String {
         switch self {
-        case .colorTheme: return R.string.localizable.theme.localizedKeyString
-        case .localization: return R.string.localizable.language.localizedKeyString
-        case .cache: return R.string.localizable.clearCache.localizedKeyString
-        case .urlSchemes: return R.string.constant.urlSchemes()
-        case .share: return R.string.localizable.shareWithFriend.localizedKeyString
-        case .qqGroup: return R.string.localizable.qqGroup.localizedKeyString
-        case .trendingSince: return R.string.localizable.since.localizedKeyString
-        case .trendingLanguage, .searchLanguage: return R.string.localizable.language.localizedKeyString
-        case .searchType: return R.string.localizable.type.localizedKeyString
-        case .searchUserSort: return R.string.localizable.sort.localizedKeyString
+        case .back: return R.string.localizable.back.localizedKeyString
+        case .push: return R.string.localizable.push.localizedKeyString
+        case .present: return R.string.localizable.present.localizedKeyString
+        case .toast: return R.string.localizable.toast.localizedKeyString
+        case .alert: return R.string.localizable.alert.localizedKeyString
+        case .sheet: return R.string.localizable.sheet.localizedKeyString
+        case .popup: return R.string.localizable.popup.localizedKeyString
+        case .logic: return R.string.localizable.logic.localizedKeyString
         default: return self.rawValue.capitalizedFirstCharacter.localizedString
         }
     }
     
     var icon: String {
         switch self {
-        case .settings: return R.image.brand_icon.name
+        case .settings: return R.image.settings_icon.name
         default: return "\(self.rawValue)_icon"
         }
     }
     
     var target: String? {
         switch self {
-        case .cache, .logo, .author, .share: return nil
-        case .scoring: return R.string.constant.appScoringLink()
-        case .qqGroup: return R.string.constant.qqGroupLink()
-        case .about, .settings, .feedback: return HiNav.shared.deepLink(host: self.rawValue.lowercased())
-        case .trendingLanguage:
-            return HiNav.shared.deepLink(host: .languageList, parameters: [
-                Parameter.search: false.string
-            ])
-        case .searchLanguage:
-            return HiNav.shared.deepLink(host: .languageList, parameters: [
-                Parameter.search: true.string
-            ])
-        default:
-            return HiNav.shared.deepLink(host: self.rawValue.lowercased())
+        case .back: return "iostemplate://back"
+        case .push: return "iostemplate://profile"
+        case .present: return "iostemplate://profile?forwardType=1"
+        case .toast: return "iostemplate://toast?message=\"这是一条消息\""
+        case .alert: return R.string.localizable.alert.localizedKeyString
+        case .sheet: return R.string.localizable.sheet.localizedKeyString
+        case .popup: return R.string.localizable.popup.localizedKeyString
+        case .logic: return R.string.localizable.logic.localizedKeyString
+        default: return HiNav.shared.deepLink(host: self.rawValue.lowercased())
         }
+//        switch self {
+//        case .cache, .logo, .author, .share: return nil
+////        case .scoring: return R.string.constant.appScoringLink()
+////        case .qqGroup: return R.string.constant.qqGroupLink()
+//        case .about, .settings, .feedback: return HiNav.shared.deepLink(host: self.rawValue.lowercased())
+////        case .trendingLanguage:
+////            return HiNav.shared.deepLink(host: .languageList, parameters: [
+////                Parameter.search: false.string
+////            ])
+////        case .searchLanguage:
+////            return HiNav.shared.deepLink(host: .languageList, parameters: [
+////                Parameter.search: true.string
+////            ])
+//        default:
+//            return HiNav.shared.deepLink(host: self.rawValue.lowercased())
+//        }
     }
     
     var param: String? {
@@ -109,7 +113,7 @@ enum TileId: String, Hashable, Identifiable, CustomStringConvertible, CaseIterab
 }
 
 @CasePathable
-enum WHAlertAction: AlertActionType, Identifiable, Equatable {
+enum ITAlertAction: AlertActionType, Identifiable, Equatable {
     case destructive
     case `default`
     case cancel
@@ -167,7 +171,7 @@ enum WHAlertAction: AlertActionType, Identifiable, Equatable {
         }
     }
 
-    static func == (lhs: WHAlertAction, rhs: WHAlertAction) -> Bool {
+    static func == (lhs: ITAlertAction, rhs: ITAlertAction) -> Bool {
         switch (lhs, rhs) {
         case (.destructive, .destructive),
             (.default, .default),
@@ -233,29 +237,48 @@ enum ShareType: String, Identifiable, CaseIterable {
     
 }
 
-enum TabBarItemType: Int, CaseIterable, Identifiable {
-    case trending, favorite, personal
+enum TabBarItemType: Int, Identifiable, CaseIterable {
+    case home, shop, fave, mine
     var id: Int { rawValue }
     
     var title: String {
         switch self {
-        case .trending: return R.string.localizable.trending.localizedKeyString
-        case .favorite: return R.string.localizable.favorite.localizedKeyString
-        case .personal: return R.string.localizable.personal.localizedKeyString
+        case .home: return R.string.localizable.home.localizedKeyString
+        case .shop: return R.string.localizable.shop.localizedKeyString
+        case .fave: return R.string.localizable.fave.localizedKeyString
+        case .mine: return R.string.localizable.mine.localizedKeyString
         }
     }
+    
     var normalImage: Image {
         switch self {
-        case .trending: return R.image.trending_normal_icon.swiftUIImage
-        case .favorite: return R.image.favorite_normal_icon.swiftUIImage
-        case .personal: return R.image.personal_normal_icon.swiftUIImage
+        case .home: return R.image.home_normal_icon.swiftUIImage
+        case .shop: return R.image.shop_normal_icon.swiftUIImage
+        case .fave: return R.image.fave_normal_icon.swiftUIImage
+        case .mine: return R.image.mine_normal_icon.swiftUIImage
         }
     }
     var selectedImage: Image {
         switch self {
-        case .trending: return R.image.trending_selected_icon.swiftUIImage
-        case .favorite: return R.image.favorite_selected_icon.swiftUIImage
-        case .personal: return R.image.personal_selected_icon.swiftUIImage
+        case .home: return R.image.home_selected_icon.swiftUIImage
+        case .shop: return R.image.shop_selected_icon.swiftUIImage
+        case .fave: return R.image.fave_selected_icon.swiftUIImage
+        case .mine: return R.image.mine_selected_icon.swiftUIImage
         }
     }
+    
+}
+
+//@dynamicMemberLookup @CasePathable
+//enum LoadingState: Equatable, Hashable {
+//    case idle
+//    case loading
+//    case failed(APPError)
+//}
+// Preparation
+
+enum ProcessingStatus: Equatable, Sendable {
+    case loading
+    case success
+    case failure(APPError)
 }

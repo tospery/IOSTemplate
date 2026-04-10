@@ -15,14 +15,14 @@ extension Preference {
     
     var hasLoginedUser: Bool { self.user?.isValid ?? false }
     
-    var isSearchRepos: Bool {
-        ((self.searchType ?? .repositories) == .repositories)
-    }
-    
-    var searchIdentifier: String {
-        var id = (self.searchType ?? .repositories).rawValue
-        id += (self.searchLanguage ?? .any).id
-        return id
-    }
+//    var isSearchRepos: Bool {
+//        ((self.searchType ?? .repositories) == .repositories)
+//    }
+//    
+//    var searchIdentifier: String {
+//        var id = (self.searchType ?? .repositories).rawValue
+//        id += (self.searchLanguage ?? .any).id
+//        return id
+//    }
 
 }

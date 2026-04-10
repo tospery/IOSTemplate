@@ -18,8 +18,8 @@ public extension Parameter {
     static var appChannel: String { "app_channel" }
     static var clientId: String { "client_id" }
     static var clientSecret: String { "client_secret" }
-    static var pageIndex: String { "page" }
-    static var pageSize: String { "per_page" }
+    static var pageIndex: String { "start" }
+    static var pageSize: String { "num" }
     static var pagingElement: String { "pagingElement" }
     static var language: String { "language" }
     static var since: String { "since" }
@@ -37,7 +37,6 @@ public extension Parameter {
     static var documentationUrl: String { "documentation_url" }
     static var pages: String { "pages" }
     static var subpath: String { "subpath" }
-    static var authorization: String { "Authorization" }
     static var branches: String { "branches" }
     static var text: String { "text" }
     static var inpage: String { "inpage" }
@@ -49,4 +48,11 @@ public extension Parameter {
     static var repo: String { "repo" }
     static var rawHost: String { "host" }
     static var rawPath: String { "path" }
+    static var account: String { "account" }
+    static var appkey: String { "appkey" }
+    static var authingAppId: String { "x-authing-app-id" }
+    static var authorization: String { "authorization" }
+    static var withCustomData: String { "withCustomData" }
+    static var withIdentities: String { "withIdentities" }
+    static var withDepartmentIds: String { "withDepartmentIds" }
 }

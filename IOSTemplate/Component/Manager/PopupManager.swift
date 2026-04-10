@@ -1,8 +1,8 @@
 //
 //  PopupManager.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/12/22.
+//  Created by 杨建祥 on 2026/3/28.
 //
 
 import SwiftUI
@@ -102,7 +102,7 @@ class PopupManager {
 //        self.branchListScreen = screen
 //        return screen
 //    }
-//    
+//
 //    private func createShareScreen(for state: PopupState) -> ShareScreen {
 //        self.type = state.type
 //        let screen = ShareScreen(
@@ -117,7 +117,7 @@ class PopupManager {
 //        self.shareScreen = screen
 //        return screen
 //    }
-//    
+//
 //    private func createClipboardScreen(for state: PopupState) -> ClipboardScreen {
 //        self.type = state.type
 //        let screen = ClipboardScreen(

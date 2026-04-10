@@ -10,7 +10,7 @@ import Combine
 
 public protocol PreferenceService {
 
-    func preference() -> AnyPublisher<Preference?, Error>
+    func preference() -> AnyPublisher<Preference, Error>
     func save(preference: Preference) -> AnyPublisher<Void, Error>
 
 }

@@ -1,5 +1,6 @@
-NSCameraUsageDescription = "$(CFBundleDisplayName)需要您的同意，才能访问相机来通过拍照和客服交流";
-NSPhotoLibraryAddUsageDescription = "$(CFBundleDisplayName)需要您的同意，才能保存照片到相册";
-NSLocationAlwaysAndWhenInUseUsageDescription = "$(CFBundleDisplayName)需要您的同意，才能在使用期间始终访问位置";
-NSPhotoLibraryUsageDescription = "$(CFBundleDisplayName)需要您的同意，才能访问相册来通过照片和客服交流";
-NSLocationWhenInUseUsageDescription = "$(CFBundleDisplayName)需要您的同意，才能在使用期间访问位置";
+"CFBundleDisplayName" = "iOS工程模板";
+"NSCameraUsageDescription" = "$(PRODUCT_NAME)需要您的同意，才能访问相机来通过拍照和客服交流";
+"NSPhotoLibraryUsageDescription" = "$(PRODUCT_NAME)需要您的同意，才能访问相册来通过照片和客服交流";
+"NSPhotoLibraryAddUsageDescription" = "$(PRODUCT_NAME)需要您的同意，才能保存照片到相册";
+"NSLocationWhenInUseUsageDescription" = "$(PRODUCT_NAME)需要您的同意，才能在使用期间访问位置";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "$(PRODUCT_NAME)需要您的同意，才能在使用期间始终访问位置";

@@ -1,8 +1,8 @@
 //
 //  AboutScreen.swift
-//  WillHub
+//  IOSTemplate
 //
-//  Created by 杨建祥 on 2024/11/26.
+//  Created by 杨建祥 on 2026/3/30.
 //
 
 import SwiftUI
@@ -18,7 +18,6 @@ import HiNav
 import HiSwiftUI
 import Domain
 import NetworkPlatform
-import RswiftResources
 import HiLog
 
 struct AboutScreen: View {
@@ -57,32 +56,27 @@ struct AboutScreen: View {
             TileCell(model) {
                 if let target = model.target {
                     store.send(.target(target))
-                } else {
-                    let id = TileId(rawValue: model.id) ?? .space
-                    if id == .share {
-                        share()
-                    }
                 }
             }
         }
     }
     
     func share() {
-        let title = UIApplication.shared.name
-        let content = R.string.localizable.appMessage.localizedString
-        let url = R.string.constant.appDownloadLink()
-        let avatar = R.string.constant.appOnlineLogo()
-        store.send(.target(
-            HiNav.shared.popupDeepLink(
-                PopupType.share.rawValue,
-                [
-                    Parameter.title: title,
-                    Parameter.content: content,
-                    Parameter.avatar: avatar,
-                    Parameter.url: url
-                ].jsonString() ?? ""
-            )
-        ))
+//        let title = UIApplication.shared.name
+//        let content = R.string.localizable.appMessage.localizedString
+//        let url = R.string.constant.appDownloadLink()
+//        let avatar = R.string.constant.appOnlineLogo()
+//        store.send(.target(
+//            HiNav.shared.popupDeepLink(
+//                PopupType.share.rawValue,
+//                [
+//                    Parameter.title: title,
+//                    Parameter.content: content,
+//                    Parameter.avatar: avatar,
+//                    Parameter.url: url
+//                ].jsonString() ?? ""
+//            )
+//        ))
     }
     
 }

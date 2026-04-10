@@ -29,9 +29,9 @@ extension DynamicAPI: TargetType {
     var method: Moya.Method { .get }
 
     var headers: [String: String]? {
-        if let accessToken = NetworkPlatform.preference?.accessToken?.id, accessToken.isNotEmpty {
-            return [Parameter.authorization: "token \(accessToken)"]
-        }
+//        if let accessToken = NetworkPlatform.preference?.accessToken?.id, accessToken.isNotEmpty {
+//            return [Parameter.authorization: "token \(accessToken)"]
+//        }
         return nil
     }
 

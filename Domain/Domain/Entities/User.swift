@@ -12,52 +12,35 @@ import HiBase
 public struct User: UserType {
     
     public var id = ""
-    public var userid: String?
-    public var href: String?
-    public var sponsorUrl: String?
-    public var url: String?
-    public var bio: String?
-    public var blog: String?
-    public var company: String?
-    public var createdAt: String?
+    public var phoneVerified: Bool?
+    public var emailVerified: Bool?
+    public var resetPasswordOnNextLogin: Bool?
+    public var loginsCount: Int?
+    public var passwordSecurityLevel: Int?
+    public var name: String?
+    public var username: String?
+    public var nickname: String?
+    public var phone: String?
     public var email: String?
-    public var eventsUrl: String?
-    public var followersUrl: String?
-    public var followingUrl: String?
-    public var gistsUrl: String?
-    public var gravatarId: String?
-    public var htmlUrl: String?
-    public var location: String?
-    public var nodeId: String?
-    public var organizationsUrl: String?
-    public var receivedEventsUrl: String?
-    public var reposUrl: String?
-    public var starredUrl: String?
-    public var subscriptionsUrl: String?
-    public var type: String?
+    public var avatar: String?
+    public var country: String?
+    public var province: String?
+    public var city: String?
+    public var address: String?
+    public var streetAddress: String?
+    public var postalCode: String?
+    public var company: String?
+    public var identityNumber: String?
+    public var lastLoginApp: String?
+    public var birthdate: String?
+    public var createdAt: String?
     public var updatedAt: String?
-    public var hireable: String?
-    public var password: String?
-    public var twitterUsername: String?
-    public var siteAdmin: Bool?
-    public var twoFactorAuthentication: Bool?
-    public var followers: Int?
-    public var following: Int?
-    public var diskUsage: Int?
-    public var privateGists: Int?
-    public var publicGists: Int?
-    public var publicRepos: Int?
-    public var collaborators: Int?
-    public var ownedPrivateRepos: Int?
-    public var totalPrivateRepos: Int?
-    public var repo: BaseRepo?
-    public var ranking: Int?
-    public var username: String?       // username|login
-    public var nickname: String?       // name
-    public var avatar: String?         // avatar|avatar_url
-    // 扩展字段
-    public var sortNumber: Int?
-    public var pageType: PageType?
+    public var signedUp: String?
+    public var lastLogin: String?
+    public var gender: UserGender?
+    public var status: UserStatus?
+    public var source: UserSource?
+    public var registerSource = [String].init()
 
     public var isValid: Bool { (!id.isEmpty) && !(username?.isEmpty ?? true) }
 
@@ -67,81 +50,56 @@ public struct User: UserType {
     public init?(map: ObjectMapper.Map) { }
     
     public mutating func mapping(map: ObjectMapper.Map) {
-        id                      <- (map["id"], StringTransform.shared)
-        siteAdmin               <- (map["site_admin"], BoolTransform.shared)
-        twoFactorAuthentication <- (map["two_factor_authentication"], BoolTransform.shared)
-        followers               <- (map["followers"], IntTransform.shared)
-        following               <- (map["following"], IntTransform.shared)
-        diskUsage               <- (map["disk_usage"], IntTransform.shared)
-        privateGists            <- (map["private_gists"], IntTransform.shared)
-        publicRepos             <- (map["public_repos"], IntTransform.shared)
-        collaborators           <- (map["collaborators"], IntTransform.shared)
-        ownedPrivateRepos       <- (map["owned_private_repos"], IntTransform.shared)
-        totalPrivateRepos       <- (map["total_private_repos"], IntTransform.shared)
-        ranking                 <- (map["ranking"], IntTransform.shared)
-        publicGists             <- (map["public_gists"], IntTransform.shared)
-        sortNumber              <- (map["sortNumber"], IntTransform.shared)
-        pageType                <- (map["pageType"], EnumTypeCastTransform<PageType>())
-        password                <- (map["password"], StringTransform.shared)
-        href                    <- (map["href"], StringTransform.shared)
-        nickname                <- (map["name"], StringTransform.shared)
-        sponsorUrl              <- (map["sponsorUrl"], StringTransform.shared)
-        url                     <- (map["url"], StringTransform.shared)
-        bio                     <- (map["bio"], StringTransform.shared)
-        blog                    <- (map["blog"], StringTransform.shared)
-        company                 <- (map["company"], StringTransform.shared)
-        createdAt               <- (map["created_at"], StringTransform.shared)
-        email                   <- (map["email"], StringTransform.shared)
-        eventsUrl               <- (map["events_url"], StringTransform.shared)
-        followersUrl            <- (map["followers_url"], StringTransform.shared)
-        followingUrl            <- (map["following_url"], StringTransform.shared)
-        gistsUrl                <- (map["gists_url"], StringTransform.shared)
-        gravatarId              <- (map["gravatar_id"], StringTransform.shared)
-        hireable                <- (map["hireable"], StringTransform.shared)
-        htmlUrl                 <- (map["html_url"], StringTransform.shared)
-        location                <- (map["location"], StringTransform.shared)
-        nodeId                  <- (map["node_id"], StringTransform.shared)
-        organizationsUrl        <- (map["organizations_url"], StringTransform.shared)
-        receivedEventsUrl       <- (map["received_events_url"], StringTransform.shared)
-        reposUrl                <- (map["repos_url"], StringTransform.shared)
-        starredUrl              <- (map["starred_url"], StringTransform.shared)
-        subscriptionsUrl        <- (map["subscriptions_url"], StringTransform.shared)
-        twitterUsername         <- (map["twitter_username"], StringTransform.shared)
-        type                    <- (map["type"], StringTransform.shared)
-        updatedAt               <- (map["updated_at"], StringTransform.shared)
-        username                <- (map["username"], StringTransform.shared)
-        if username == nil {
-            username            <- (map["login"], StringTransform.shared)
-        }
-        avatar                  <- (map["avatar"], StringTransform.shared)
-        if avatar == nil {
-            avatar              <- (map["avatar_url"], StringTransform.shared)
-        }
-        repo                    <- map["repo"]
-        if id.isEmpty {
-            id                  = username ?? email ?? nickname ?? ""
-        }
+        id                          <- (map["userId"], StringTransform.shared)
+        phoneVerified               <- (map["phoneVerified"], BoolTransform.shared)
+        emailVerified               <- (map["emailVerified"], BoolTransform.shared)
+        resetPasswordOnNextLogin    <- (map["resetPasswordOnNextLogin"], BoolTransform.shared)
+        loginsCount                 <- (map["loginsCount"], IntTransform.shared)
+        passwordSecurityLevel       <- (map["passwordSecurityLevel"], IntTransform.shared)
+        name                        <- (map["name"], StringTransform.shared)
+        username                    <- (map["username"], StringTransform.shared)
+        nickname                    <- (map["nickname"], StringTransform.shared)
+        phone                       <- (map["phone"], StringTransform.shared)
+        email                       <- (map["email"], StringTransform.shared)
+        avatar                      <- (map["photo"], StringTransform.shared)
+        country                     <- (map["country"], StringTransform.shared)
+        province                    <- (map["province"], StringTransform.shared)
+        city                        <- (map["city"], StringTransform.shared)
+        address                     <- (map["address"], StringTransform.shared)
+        streetAddress               <- (map["streetAddress"], StringTransform.shared)
+        postalCode                  <- (map["postalCode"], StringTransform.shared)
+        company                     <- (map["company"], StringTransform.shared)
+        identityNumber              <- (map["identityNumber"], StringTransform.shared)
+        lastLoginApp                <- (map["lastLoginApp"], StringTransform.shared)
+        birthdate                   <- (map["birthdate"], StringTransform.shared)
+        createdAt                   <- (map["createdAt"], StringTransform.shared)
+        updatedAt                   <- (map["updatedAt"], StringTransform.shared)
+        signedUp                    <- (map["signedUp"], StringTransform.shared)
+        lastLogin                   <- (map["lastLogin"], StringTransform.shared)
+        gender                      <- (map["gender"], EnumTypeCastTransform<UserGender>())
+        status                      <- (map["status"], EnumTypeCastTransform<UserStatus>())
+        source                      <- (map["userSourceType"], EnumTypeCastTransform<UserSource>())
+        registerSource              <- (map["registerSource"], StringTransform.shared)
     }
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
-        lhs.avatar == rhs.avatar &&
+        lhs.name == rhs.name &&
         lhs.username == rhs.username &&
         lhs.nickname == rhs.nickname &&
-        lhs.bio == rhs.bio &&
-        lhs.publicRepos == rhs.publicRepos &&
-        lhs.followers == rhs.followers &&
-        lhs.following == rhs.following &&
-        lhs.company == rhs.company &&
-        lhs.location == rhs.location &&
+        lhs.avatar == rhs.avatar &&
+        lhs.identityNumber == rhs.identityNumber &&
+        lhs.phone == rhs.phone &&
         lhs.email == rhs.email &&
-        lhs.blog == rhs.blog &&
-        lhs.ranking == rhs.ranking &&
-        lhs.sortNumber == rhs.sortNumber &&
+        lhs.company == rhs.company &&
+        lhs.country == rhs.country &&
+        lhs.province == rhs.province &&
+        lhs.city == rhs.city &&
+        lhs.address == rhs.address &&
+        lhs.streetAddress == rhs.streetAddress &&
         lhs.updatedAt == rhs.updatedAt &&
-        lhs.repo == rhs.repo &&
-        lhs.createdAt == rhs.createdAt
-        // hasher.combine(joinedOn) // YJX_TODO
+        lhs.birthdate == rhs.birthdate &&
+        lhs.status == rhs.status
     }
     
     public func copyWith(id: String) -> User {
@@ -149,38 +107,5 @@ public struct User: UserType {
         myUser.id = id
         return myUser
     }
-    
-    public func copyWith(pageType: PageType?) -> User {
-        var myUser = self
-        myUser.pageType = pageType
-        return myUser
-    }
-    
-    public func copyWith(sortNumber: Int?) -> User {
-        var myUser = self
-        myUser.sortNumber = sortNumber
-        return myUser
-    }
-    
-//    public static func update(_ user: User?, reactive: Bool) {
-////        let old = Self.current
-////        let new = user
-////        if old == new {
-////            log("相同用户，不需要处理！！！")
-////            return
-////        }
-////        let oldLogined = old?.isValid ?? false
-////        let newLogined = new?.isValid ?? false
-////        if !oldLogined && newLogined {
-////            log("用户登录: \(String(describing: new))")
-////            // User.event.onNext(.login)
-////        } else if oldLogined && !newLogined {
-////            log("用户退出")
-////            // User.event.onNext(.logout)
-////        } else {
-////            log("用户更新: \(String(describing: new))")
-////        }
-////        Subjection.update(self, new, reactive)
-//    }
     
 }
