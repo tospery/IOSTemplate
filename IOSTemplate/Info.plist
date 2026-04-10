@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleAllowMixedLocalizations</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -13,49 +11,55 @@
 			<string>app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>iostemplate</string>
+				<string>willhub</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx6dd917ddbbd49e78</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>twitter</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twitterkit-QkxOY3Q3VHg5Z2hqSjVTdjdYTVI6MTpjaQ</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>umeng</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>um.676a76d58f232a05f1e0121b</string>
 			</array>
 		</dict>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>twitterauth</string>
 		<string>wechat</string>
 		<string>weixin</string>
+		<string>weixinULAPI</string>
+		<string>weixinURLParamsAPI</string>
 		<string>sinaweibohd</string>
 		<string>sinaweibo</string>
 		<string>sinaweibosso</string>
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
-		<string>mqqapi</string>
-		<string>mqq</string>
-		<string>mqqOpensdkSSoLogin</string>
-		<string>mqqconnect</string>
-		<string>mqqopensdkdataline</string>
-		<string>mqqopensdkgrouptribeshare</string>
-		<string>mqqopensdkfriend</string>
-		<string>mqqopensdkapi</string>
-		<string>mqqopensdkapiV2</string>
-		<string>mqqopensdkapiV3</string>
-		<string>mqzoneopensdk</string>
 		<string>wtloginmqq</string>
 		<string>wtloginmqq2</string>
-		<string>mqqwpa</string>
-		<string>mqzone</string>
-		<string>mqzonev2</string>
-		<string>mqzoneshare</string>
 		<string>wtloginqzone</string>
-		<string>mqzonewx</string>
-		<string>mqzoneopensdkapiV2</string>
-		<string>mqzoneopensdkapi19</string>
-		<string>mqzoneopensdkapi</string>
-		<string>mqzoneopensdk</string>
-		<string>renrenios</string>
-		<string>renrenapi</string>
-		<string>renren</string>
-		<string>renreniphone</string>
-		<string>yixin</string>
 		<string>instagram</string>
 		<string>whatsapp</string>
 		<string>line</string>
@@ -65,8 +69,14 @@
 		<string>fbshareextension</string>
 		<string>tbopen</string>
 		<string>tmall</string>
-		<string>weixinULAPI</string>
+		<string>mqqapi</string>
 	</array>
+	<key>MOBAppKey</key>
+	<string>3ac1924d2e317</string>
+	<key>MOBAppSecret</key>
+	<string>95d068a0e48d670d82a407e6ee5f497b</string>
+	<key>MOBNetLater</key>
+	<string>2</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -173,9 +183,14 @@
 	</dict>
 	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<key>appHosts</key>
+	<dict>
+		<key>api</key>
+		<string>https://api.github.com</string>
+		<key>univ</key>
+		<string>https://c36e1a63a625c5b0456fc6550099a35a.share2dlink.com/</string>
+		<key>web</key>
+		<string>https://github.com</string>
+	</dict>
 </dict>
 </plist>

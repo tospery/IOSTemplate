@@ -1,29 +1,17 @@
 //
 //  Appearance+Ex.swift
-//  IOSTemplate
+//  WillHub
 //
-//  Created by liaoya on 2022/2/15.
+//  Created by 杨建祥 on 2024/12/8.
 //
 
-import Foundation
-import HiIOS
+import UIKit
+import HiSwiftUI
 
-extension Appearance: AppearanceCompatible {
+extension Appearance: @retroactive AppearanceCompatible {
     
     public func myConfig() {
-        // 导航栏
-//        let navBar = NavigationBar.appearance()
-//        themeService.rx
-//            .bind({ $0.primaryColor }, to: navBar.rx.itemColor)
-//            .bind({ $0.lightColor }, to: navBar.rx.barColor)
-//            .bind({ $0.borderColor }, to: navBar.rx.lineColor)
-//            .bind({ $0.titleColor }, to: navBar.rx.titleColor)
-//            .disposed(by: self.disposeBag)
-        // 导航项
-//        let barItem = UIBarButtonItem.appearance()
-//        themeService.rx
-//            .bind({ $0.primaryColor }, to: barItem.rx.tintColor)
-//            .disposed(by: self.disposeBag)
+        self.basic()
     }
     
 }

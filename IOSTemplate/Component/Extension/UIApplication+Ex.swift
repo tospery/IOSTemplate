@@ -1,15 +1,15 @@
 //
 //  UIApplication+Ex.swift
-//  IOSTemplate
+//  WillHub
 //
-//  Created by 杨建祥 on 2020/11/28.
+//  Created by 杨建祥 on 2024/6/26.
 //
 
-import Foundation
-import HiIOS
+import UIKit
+import SwifterSwift
 
 extension UIApplication {
-
+    
     var channel: Int {
         switch self.inferredEnvironment {
         case .debug: return 1
@@ -18,17 +18,21 @@ extension UIApplication {
         }
     }
     
-    @objc var myBaseApiUrl: String {
-        return "https://api.iostemplate.com"
+    var baseTrendingUrl: String { "https://gtrend.yapie.me" }
+    var baseGithubUrl: String { "https://github.com" }
+    
+    @objc var myPageStart: Int { 1 }
+    
+    static var currentWindow: UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .first { $0.isKeyWindow }
     }
-
-    @objc var myBaseWebUrl: String {
-        return "https://m.iostemplate.com"
-    }
-
 }
 
-extension UIApplication.Environment: CustomStringConvertible {
+extension UIApplication.Environment: @retroactive CustomStringConvertible {
     public var description: String {
         switch self {
         case .debug: return "Debug"

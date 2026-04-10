@@ -1,29 +1,22 @@
 //
 //  Runtime+Ex.swift
-//  IOSTemplate
+//  WillHub
 //
-//  Created by liaoya on 2022/2/15.
+//  Created by 杨建祥 on 2024/11/24.
 //
 
 import UIKit
-import QMUIKit
-import HiIOS
+import HiBase
+import HiCore
+import HiSwiftUI
 
-extension Runtime: RuntimeCompatible {
+extension Runtime: @retroactive RuntimeCompatible {
     
     public func myWork() {
+        self.basic()
         ExchangeImplementations(UIApplication.self,
-                                #selector(getter: UIApplication.baseApiUrl),
-                                #selector(getter: UIApplication.myBaseApiUrl))
-        ExchangeImplementations(UIApplication.self,
-                                #selector(getter: UIApplication.baseWebUrl),
-                                #selector(getter: UIApplication.myBaseWebUrl))
-        ExchangeImplementations(ScrollViewController.self,
-                                #selector(ScrollViewController.setupRefresh(should:)),
-                                #selector(ScrollViewController.mySetupRefresh(should:)))
-        ExchangeImplementations(ScrollViewController.self,
-                                #selector(ScrollViewController.setupLoadMore(should:)),
-                                #selector(ScrollViewController.mySetupLoadMore(should:)))
+                                #selector(getter: UIApplication.pageStart),
+                                #selector(getter: UIApplication.myPageStart))
     }
     
 }

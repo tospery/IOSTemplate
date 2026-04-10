@@ -1,33 +1,81 @@
 //
 //  Library+Ex.swift
-//  IOSTemplate
+//  WillHub
 //
-//  Created by liaoya on 2022/2/15.
+//  Created by 杨建祥 on 2024/12/23.
 //
 
-import Foundation
-import IQKeyboardManagerSwift
-import Toast_Swift
-import HiIOS
+import UIKit
+import HiLog
+import HiStats
+import HiSwiftUI
+import Domain
 
-extension Library: LibraryCompatible {
+extension Library: @retroactive @preconcurrency LibraryCompatible {
     
+    @MainActor
     public func mySetup() {
-        self.setupUmbrella()
-        self.setupKeyboardManager()
-        self.setupToast()
+        self.basic()
+        self.logAndStats()
+        self.mobShare()
+        self.aliyunFeedback()
+        self.aliyunPerformance()
+        self.aliyunCrash()
     }
     
-    func setupUmbrella() {
+    func logAndStats() {
+        logger.register(provider: SwiftyBeaverProvider())
+        analytics.register(provider: UMengProvider.init())
+        
+        let aliyun = AliyunProvider.init()
+        logger.register(provider: aliyun)
+        analytics.register(provider: aliyun)
     }
     
-    func setupKeyboardManager() {
-        IQKeyboardManager.shared.enable = true
+    func mobShare() {
+#if MOB_ENABLE
+        MobSDK.uploadPrivacyPermissionStatus(true, privacyDataDelegate: PrivacyService.shared)
+        ShareSDK.registPlatforms { register in
+            register?.setupWeChat(
+                withAppId: Platform.weixin.appId,
+                appSecret: Platform.weixin.appKey,
+                universalLink: Platform.weixin.appLink
+            )
+            register?.setupTwitter(
+                withKey: Platform.twitter.appId,
+                secret: Platform.twitter.appKey,
+                redirectUrl: Platform.twitter.appLink
+            )
+        }
+#endif
+    }
+    
+    func aliyunFeedback() {
+#if ALIYUN_ENABLE
+        OCHelper.sharedInstance().feedbackKit.setUserNick(UIDevice.current.uuid)
+#endif
+    }
+    
+    func aliyunCrash() {
+#if ALIYUN_ENABLE
+        AlicloudCrashProvider.init().autoInit(
+            withAppVersion: UIApplication.shared.version,
+            channel: UIApplication.shared.inferredEnvironment.description,
+            nick: UIDevice.current.uuid
+        )
+        AlicloudHAProvider.start()
+#endif
+    }
+    
+    func aliyunPerformance() {
+#if ALIYUN_ENABLE
+        AlicloudAPMProvider.init().autoInit(
+            withAppVersion: UIApplication.shared.version,
+            channel: UIApplication.shared.inferredEnvironment.description,
+            nick: UIDevice.current.uuid
+        )
+        AlicloudHAProvider.start()
+#endif
     }
 
-    func setupToast() {
-        ToastManager.shared.position = .center
-        ToastManager.shared.isQueueEnabled = true
-    }
-    
 }

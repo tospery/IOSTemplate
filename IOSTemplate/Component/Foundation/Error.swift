@@ -1,52 +1,53 @@
 //
-//  Error.swift
-//  IOSTemplate
+//  Untitled.swift
+//  WillHub
 //
-//  Created by 杨建祥 on 2020/11/28.
+//  Created by 杨建祥 on 2024/10/15.
 //
 
 import Foundation
-import HiIOS
-import ReusableKit_Hi
-import ObjectMapper_Hi
-import RxOptional
-import RxSwiftExt
-import NSObject_Rx
-import RxDataSources
-import RxViewController
-import RxTheme
+import HiCore
 
 enum APPError: Error {
+    case oauth
     case login(String?)
+    case pdf
+    case seedSchemesFailed
+    case seedLanguagesFailed
+    case seedDefaultCurrentFailed
+    case searchRecordIsEmpty
+    case locateRefused
+    case locateFailure
+    
+    var domain: String {
+        "\(UIApplication.shared.bundleName)Domain"
+    }
 }
 
 extension APPError: CustomNSError {
     var errorCode: Int {
         switch self {
-        case .login: return 1
-        }
-    }
-}
-
-extension APPError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case let .login(message): return message ?? R.string.localizable.errorLogin()
+        case .oauth: return 1
+        case .login: return 2
+        case .pdf: return 3
+        case .seedSchemesFailed: return 4
+        case .seedLanguagesFailed: return 5
+        case .seedDefaultCurrentFailed: return 6
+        case .searchRecordIsEmpty: return 6
+        case .locateRefused: return 7
+        case .locateFailure: return 8
         }
     }
 }
 
 extension APPError: HiErrorCompatible {
-    public var hiError: HiError {
-        .app(self.errorCode, self.errorDescription, nil)
-    }
-}
-
-extension RxOptionalError: HiErrorCompatible {
-    public var hiError: HiError {
+    var hiError: HiError {
         switch self {
-        case .emptyOccupiable: return .dataIsEmpty
-        case .foundNilWhileUnwrappingOptional: return .dataInvalid
+        case let .login(message): return .app(self.domain, self.errorCode, message, nil)
+        case .searchRecordIsEmpty: return .app(
+            self.domain, self.errorCode, R.string.localizable.searchHistoryEmpty.localizedString, nil
+        )
+        default: return .app(self.domain, self.errorCode, nil, nil)
         }
     }
 }

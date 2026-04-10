@@ -1,0 +1,5 @@
+NSCameraUsageDescription = "$(CFBundleDisplayName) needs access to your camera to take photos and communicate with customer service";
+NSPhotoLibraryAddUsageDescription = "$(CFBundleDisplayName) needs access to your photo library to save photos";
+NSLocationAlwaysAndWhenInUseUsageDescription = "$(CFBundleDisplayName) needs access to your location to provide location-based services even when the app is in use";
+NSPhotoLibraryUsageDescription = "$(CFBundleDisplayName) needs access to your photo library to share photos with customer service";
+NSLocationWhenInUseUsageDescription = "$(CFBundleDisplayName) needs access to your location while you are using the app";

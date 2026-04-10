@@ -1,3 +1,6 @@
 *.xcworkspace
 Pods/
 Podfile.lock
+**/Podfile.lock
+**/*.xcworkspace
+**/Pods/

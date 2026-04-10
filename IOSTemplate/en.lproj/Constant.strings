@@ -1,0 +1,12 @@
+"X" = "X";
+"Chinese" = "中文";
+"English" = "English";
+"urlSchemes" = "URL Schemes";
+"Login.Slogan" = "Based on SwiftUI framework";
+"None.Hot.Repo" = "No hot repository";
+"App.OnlineLogo" = "https://raw.githubusercontent.com/tospery/share/refs/heads/main/logo.png";
+"App.DownloadLink" = "https://apps.apple.com/us/app/id6740135096";
+"App.ScoringLink" = "itms-apps://itunes.apple.com/app/id6740135096?mt=8&action=write-review";
+"App.AuthorizeLink" = "http://github.com/login/oauth/authorize?client_id=%@&scope=user+repo+notifications+read:org";
+"QQ.DownloadLink" = "https://apps.apple.com/cn/app/id444934666";
+"QQ.GroupLink" = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=700671375&key=b994eba3669a2670f6bb423b675552ac812e22a1b32d7e7c3a647172fa3dd12a&card_type=group&source=external&jump_from=webapi";
